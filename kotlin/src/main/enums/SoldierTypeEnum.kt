@@ -1,6 +1,6 @@
 package main.enums
 
-enum class SoldierType {
+enum class SoldierTypeEnum {
     MELEE,
     RANGED
 }

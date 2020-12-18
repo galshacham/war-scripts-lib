@@ -2,8 +2,8 @@ package tests
 
 import io.mockk.every
 import io.mockk.mockk
+import main.enums.SoldierTypeEnum
 import main.objects.Castle
-import main.enums.SoldierType
 import main.objects.Location
 import org.junit.Before
 import org.junit.Test
@@ -24,13 +24,13 @@ class CastleObjectTests {
 
     @Test
     fun whenCreatingACastle_defaultSoldierTypeIsMelee() {
-        assertEquals(SoldierType.MELEE, castle.soldierType)
+        assertEquals(SoldierTypeEnum.MELEE, castle.soldierType)
     }
 
     @Test
     fun whenCastleChangesCreationToggle_shouldChangeCreationToggle() {
-        castle.changeSoldierType(SoldierType.RANGED);
-        assertEquals(SoldierType.RANGED, castle.soldierType)
+        castle.changeSoldierType(SoldierTypeEnum.RANGED);
+        assertEquals(SoldierTypeEnum.RANGED, castle.soldierType)
     }
 }
 

@@ -1,0 +1,44 @@
+{
+  "mapData": {
+    "rows": 20,
+    "cols": 20
+  },
+  "castles": [
+    {
+      "side": "red",
+      "id": 0,
+      "soldierType": "MELEE",
+      "loc": {
+        "row": 1,
+        "col": 1
+      }
+    },
+    {
+      "side": "blue",
+      "id": 1,
+      "soldierType": "MELEE",
+      "loc": {
+        "row": 19,
+        "col": 19
+      }
+    },
+    {
+      "side": "natural",
+      "id": 2,
+      "soldierType": "MELEE",
+      "loc": {
+        "row": 1,
+        "col": 19
+      }
+    },
+    {
+      "side": "natural",
+      "id": 3,
+      "soldierType": "MELEE",
+      "loc": {
+        "row": 19,
+        "col": 1
+      }
+    }
+  ]
+}

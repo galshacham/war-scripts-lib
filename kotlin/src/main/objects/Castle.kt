@@ -1,14 +1,11 @@
 package main.objects
 
-import com.google.gson.Gson
-import main.enums.SoldierType
+import main.enums.SoldierTypeEnum
 
 data class Castle(val id: Int, val side: String, val loc: Location) {
-    fun changeSoldierType(newType: SoldierType) {
+    fun changeSoldierType(newType: SoldierTypeEnum) {
         soldierType = newType
     }
 
-    fun parseToJson(): String = Gson().toJson(this)
-
-    var soldierType = SoldierType.MELEE
+    var soldierType = SoldierTypeEnum.MELEE
 }
