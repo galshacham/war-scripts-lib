@@ -1,4 +1,4 @@
-package tests
+package tests.objects
 
 import io.mockk.every
 import io.mockk.mockk

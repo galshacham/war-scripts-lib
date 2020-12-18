@@ -8,7 +8,7 @@ import main.objects.actions.Action
 import main.objects.actions.ActionDeserializer
 import java.io.File
 
-val DEFAULT_SETTING_PATH = "src/tests/resources/default.json"
+val DEFAULT_SETTING_PATH = "src/main/resources/default.json"
 val JSON_SUFFIX = "json"
 
 class GameJsonParser {

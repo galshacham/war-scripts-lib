@@ -1,4 +1,4 @@
-package tests.Parsers
+package tests
 
 import main.exceptions.NoSuchActionException
 import main.exceptions.WrongFileFormatException
@@ -26,7 +26,7 @@ class GameJsonParserTests {
 
     @Test
     fun givenGameJsonParser_whenGettingMapData_shouldReturnMapData() {
-        val parser = GameJsonParser("src/tests/resources/default.json")
+        val parser = GameJsonParser("src/main/resources/default.json")
 
         val game = parser.getGameData()
         assertEquals(20, game.mapData.cols)
@@ -35,7 +35,7 @@ class GameJsonParserTests {
 
     @Test
     fun givenGameSettingsFile_whenCastlesData_shouldReturnCastlesData() {
-        val parser = GameJsonParser("src/tests/resources/default.json")
+        val parser = GameJsonParser("src/main/resources/default.json")
 
         val game = parser.getGameData()
 
