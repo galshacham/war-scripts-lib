@@ -6,11 +6,9 @@
   "castles": [],
   "actions": [
     {
-      "actionType": "CHANGE_SOLDIER_TYPE",
+      "actionType": "NOT_A_REAL_ACTION",
       "actionId": 0,
-      "side": "red",
-      "affectedId": 0,
-      "soldierType": "RANGE"
+      "side": "red"
     }
   ]
 }

@@ -1,6 +1,7 @@
 package tests.Parsers
 
-import exceptions.WrongFileFormatException
+import main.exceptions.NoSuchActionException
+import main.exceptions.WrongFileFormatException
 import main.objects.Castle
 import main.objects.Location
 import main.GameJsonParser
@@ -14,6 +15,13 @@ class GameJsonParserTests {
     @Test(expected = WrongFileFormatException::class)
     fun whenGameSettingsFileIsntJson_shouldThrowException() {
         GameJsonParser("src/tests/resources/notJsonGameSettings.xml")
+    }
+
+    @Test
+    fun whenGameCreatedWithoutFile_shouldCreateWithDefaultPath() {
+        val game = GameJsonParser().getGameData()
+        assertEquals(20, game.mapData.cols)
+        assertEquals(20, game.mapData.rows)
     }
 
     @Test
@@ -49,7 +57,11 @@ class GameJsonParserTests {
         val expectedActions = listOf<Action>(
                 ChangeSoldierTypeAction(0, "red", 0, "RANGE")
         )
-
         assertEquals(expectedActions, game.actions)
+    }
+
+    @Test(expected = NoSuchActionException::class)
+    fun givenGameStateFile_whenActionDataDoesNotExist_shouldThrowException() {
+        GameJsonParser("src/tests/resources/notARealActionTests.json").getGameData().actions
     }
 }

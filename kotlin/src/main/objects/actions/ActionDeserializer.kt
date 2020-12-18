@@ -4,8 +4,9 @@ import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import exceptions.NoSuchActionException
+import main.exceptions.NoSuchActionException
 import main.enums.ActionTypeEnum
+import java.lang.IllegalArgumentException
 import java.lang.reflect.Type
 
 val ACTION_ID = "actionId"
@@ -16,7 +17,8 @@ val SOLDIER_TYPE = "soldierType"
 class ActionDeserializer : JsonDeserializer<Action> {
     override fun deserialize(element: JsonElement, action: Type, gson: JsonDeserializationContext): Action {
         val jsonObject = (element as JsonObject)
-        val actionType = ActionTypeEnum.valueOf(jsonObject["actionType"].asString)
+        val actionType: ActionTypeEnum = getActionType(jsonObject)
+
         val actionId = jsonObject[ACTION_ID].asInt
         val side = jsonObject[SIDE].asString
 
@@ -27,10 +29,20 @@ class ActionDeserializer : JsonDeserializer<Action> {
 
                 return ChangeSoldierTypeAction(actionId, side, affectedId, soldierType)
             }
-            else ->
-                throw NoSuchActionException("The action you are trying to create is of enum type $actionType which does not exist in ActionTypeEnum")
         }
 
 
+    }
+
+    private fun getActionType(jsonObject: JsonObject): ActionTypeEnum {
+        var actionType: ActionTypeEnum
+        try {
+            actionType = ActionTypeEnum.valueOf(jsonObject["actionType"].asString)
+
+        } catch (e: IllegalArgumentException) {
+            throw NoSuchActionException("The action you are trying to create is of enum type ${jsonObject["actionType"]} which does not exist in ActionTypeEnum")
+        }
+
+        return actionType
     }
 }

@@ -2,34 +2,33 @@ package main
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import exceptions.WrongFileFormatException
+import main.exceptions.WrongFileFormatException
 import main.objects.Game
 import main.objects.actions.Action
 import main.objects.actions.ActionDeserializer
 import java.io.File
 
+val DEFAULT_SETTING_PATH = "src/tests/resources/default.json"
+val JSON_SUFFIX = "json"
+
 class GameJsonParser {
-    private val jsonSuffix = "json"
-    private val gson = Gson()
-    private val SETTINGS_PATH = "src/tests/resources/default.json"
+    private val gsonBuilder = GsonBuilder()
     private var jsonString: String
+    private val gsonParser: Gson
+
+    constructor() : this(DEFAULT_SETTING_PATH)
 
     constructor (filePath: String) {
-        if (!filePath.endsWith(jsonSuffix)) {
+        if (!filePath.endsWith(JSON_SUFFIX)) {
             throw WrongFileFormatException("The settings file must be in json format!")
         }
 
+        gsonBuilder.registerTypeAdapter(Action::class.java, ActionDeserializer())
+        gsonParser = gsonBuilder.create()
         jsonString = File(filePath).readText()
     }
 
-    constructor() {
-        jsonString = File(SETTINGS_PATH).readText()
-    }
-
     fun getGameData(): Game {
-        val gb = GsonBuilder()
-        gb.registerTypeAdapter(Action::class.java, ActionDeserializer())
-        val g = gb.create()
-        return g.fromJson(jsonString, Game::class.java)
+        return gsonParser.fromJson(jsonString, Game::class.java)
     }
 }
