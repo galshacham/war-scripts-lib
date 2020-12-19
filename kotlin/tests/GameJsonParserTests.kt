@@ -14,7 +14,7 @@ class GameJsonParserTests {
 
     @Test(expected = WrongFileFormatException::class)
     fun whenGameSettingsFileIsntJson_shouldThrowException() {
-        GameJsonParser("src/tests/resources/notJsonGameSettings.xml")
+        GameJsonParser("notJsonGameSettings.xml")
     }
 
     @Test
@@ -26,7 +26,7 @@ class GameJsonParserTests {
 
     @Test
     fun givenGameJsonParser_whenGettingMapData_shouldReturnMapData() {
-        val parser = GameJsonParser("src/main/resources/default.json")
+        val parser = GameJsonParser("default.json")
 
         val game = parser.getGameData()
         assertEquals(20, game.mapData.cols)
@@ -35,7 +35,7 @@ class GameJsonParserTests {
 
     @Test
     fun givenGameSettingsFile_whenCastlesData_shouldReturnCastlesData() {
-        val parser = GameJsonParser("src/main/resources/default.json")
+        val parser = GameJsonParser("default.json")
 
         val game = parser.getGameData()
 
@@ -50,7 +50,7 @@ class GameJsonParserTests {
 
     @Test
     fun givenGameStateFile_whenActionData_shouldReturnActionData() {
-        val parser = GameJsonParser("src/tests/resources/actionTests.json")
+        val parser = GameJsonParser("/actionTests.json")
 
         val game = parser.getGameData()
 
@@ -62,6 +62,6 @@ class GameJsonParserTests {
 
     @Test(expected = NoSuchActionException::class)
     fun givenGameStateFile_whenActionDataDoesNotExist_shouldThrowException() {
-        GameJsonParser("src/tests/resources/notARealActionTests.json").getGameData().actions
+        GameJsonParser("notARealActionTests.json").getGameData().actions
     }
 }

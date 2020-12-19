@@ -8,7 +8,7 @@ import main.objects.actions.Action
 import main.objects.actions.ActionDeserializer
 import java.io.File
 
-val DEFAULT_SETTING_PATH = "src/main/resources/default.json"
+val DEFAULT_SETTING_PATH = "/default.json"
 val JSON_SUFFIX = "json"
 
 class GameJsonParser {
@@ -17,7 +17,6 @@ class GameJsonParser {
     private val gsonParser: Gson
 
     constructor() : this(DEFAULT_SETTING_PATH)
-
     constructor (filePath: String) {
         if (!filePath.endsWith(JSON_SUFFIX)) {
             throw WrongFileFormatException("The settings file must be in json format!")
@@ -25,7 +24,9 @@ class GameJsonParser {
 
         gsonBuilder.registerTypeAdapter(Action::class.java, ActionDeserializer())
         gsonParser = gsonBuilder.create()
-        jsonString = File(filePath).readText()
+
+        println(File("").absolutePath)
+        jsonString = this::class.java.getResource(filePath).readText()
     }
 
     fun getGameData(): Game {
