@@ -1,5 +1,5 @@
 package main.exceptions
 
-class WrongFileFormatException(message: String?) : Throwable(message) {
+class WrongFileFormatException(message: String?) : WarScriptsException(message) {
 
 }

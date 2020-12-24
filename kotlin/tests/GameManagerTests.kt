@@ -2,6 +2,7 @@ package tests
 
 import junit.framework.Assert.assertEquals
 import main.GameJsonParser
+import main.exceptions.ArgumentsException
 import main.exceptions.WrongFileFormatException
 import main.main.GameManager
 import org.junit.Test
@@ -18,5 +19,12 @@ class GameManagerTests {
         val gameManager = GameManager()
 
         assertEquals(this::class.java.classLoader.getResource("default.json").readText(), gameManager.gameState)
+
+
+    }
+
+    @Test (expected = ArgumentsException::class)
+    fun whenInitializingGameManagerWithWrongArguments_shouldThrowArgumentsException() {
+        val gameManager = GameManager()
     }
 }

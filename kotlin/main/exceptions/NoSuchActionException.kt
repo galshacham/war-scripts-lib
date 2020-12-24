@@ -1,5 +1,5 @@
 package main.exceptions
 
-class NoSuchActionException(message: String) : Throwable(message) {
+class NoSuchActionException(message: String) : WarScriptsException(message) {
 
 }
