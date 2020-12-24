@@ -50,7 +50,7 @@ class GameJsonParserTests {
 
     @Test
     fun givenGameStateFile_whenActionData_shouldReturnActionData() {
-        val parser = GameJsonParser("/actionTests.json")
+        val parser = GameJsonParser("actionTests.json")
 
         val game = parser.getGameData()
 
@@ -62,6 +62,6 @@ class GameJsonParserTests {
 
     @Test(expected = NoSuchActionException::class)
     fun givenGameStateFile_whenActionDataDoesNotExist_shouldThrowException() {
-        GameJsonParser("notARealActionTests.json").getGameData().actions
+        GameJsonParser("testResources/notARealActionTests.json").getGameData().actions
     }
 }

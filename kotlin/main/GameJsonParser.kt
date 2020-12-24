@@ -8,7 +8,7 @@ import main.objects.actions.Action
 import main.objects.actions.ActionDeserializer
 import java.io.File
 
-val DEFAULT_SETTING_PATH = "/default.json"
+val DEFAULT_SETTING_PATH = "default.json"
 val JSON_SUFFIX = "json"
 
 class GameJsonParser {
@@ -25,8 +25,7 @@ class GameJsonParser {
         gsonBuilder.registerTypeAdapter(Action::class.java, ActionDeserializer())
         gsonParser = gsonBuilder.create()
 
-        println(File("").absolutePath)
-        jsonString = this::class.java.getResource(filePath).readText()
+        jsonString = this::class.java.classLoader.getResource(filePath).readText()
     }
 
     fun getGameData(): Game {
