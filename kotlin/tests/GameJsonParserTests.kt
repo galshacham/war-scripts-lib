@@ -11,33 +11,22 @@ import org.junit.Test
 import kotlin.test.assertEquals
 
 class GameJsonParserTests {
-
-    @Test(expected = WrongFileFormatException::class)
-    fun whenGameSettingsFileIsntJson_shouldThrowException() {
-        GameJsonParser("notJsonGameSettings.xml")
-    }
-
-    @Test
-    fun whenGameCreatedWithoutFile_shouldCreateWithDefaultPath() {
-        val game = GameJsonParser().getGameData()
-        assertEquals(20, game.mapData.cols)
-        assertEquals(20, game.mapData.rows)
-    }
-
     @Test
     fun givenGameJsonParser_whenGettingMapData_shouldReturnMapData() {
-        val parser = GameJsonParser("default.json")
+        val parser = GameJsonParser()
+        val jsonString = this::class.java.classLoader.getResource("default.json").readText()
 
-        val game = parser.getGameData()
+        val game = parser.parseToGameData(jsonString)
         assertEquals(20, game.mapData.cols)
         assertEquals(20, game.mapData.rows)
     }
 
     @Test
     fun givenGameSettingsFile_whenCastlesData_shouldReturnCastlesData() {
-        val parser = GameJsonParser("default.json")
+        val jsonString = this::class.java.classLoader.getResource("default.json").readText()
+        val parser = GameJsonParser()
 
-        val game = parser.getGameData()
+        val game = parser.parseToGameData(jsonString)
 
         val expectedCastles = listOf(
                 Castle(0, "red", Location(1, 1)),
@@ -50,9 +39,10 @@ class GameJsonParserTests {
 
     @Test
     fun givenGameStateFile_whenActionData_shouldReturnActionData() {
-        val parser = GameJsonParser("actionTests.json")
+        val jsonString = this::class.java.classLoader.getResource("actionTests.json").readText()
+        val parser = GameJsonParser()
 
-        val game = parser.getGameData()
+        val game = parser.parseToGameData(jsonString)
 
         val expectedActions = listOf<Action>(
                 ChangeSoldierTypeAction(0, "red", 0, "RANGE")
@@ -62,6 +52,8 @@ class GameJsonParserTests {
 
     @Test(expected = NoSuchActionException::class)
     fun givenGameStateFile_whenActionDataDoesNotExist_shouldThrowException() {
-        GameJsonParser("testResources/notARealActionTests.json").getGameData().actions
+        val jsonString = this::class.java.classLoader.getResource("testResources/notARealActionTests.json").readText()
+
+        GameJsonParser().parseToGameData(jsonString).actions
     }
 }
