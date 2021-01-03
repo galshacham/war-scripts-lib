@@ -1,4 +1,4 @@
-package main.main.main
+package objects
 
 class Results {
 

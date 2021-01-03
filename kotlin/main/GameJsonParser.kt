@@ -2,7 +2,6 @@ package main
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import main.objects.Game
 import main.objects.actions.Action
 import main.objects.actions.ActionDeserializer
 
