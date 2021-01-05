@@ -37,23 +37,23 @@ class GameJsonParserTests {
         assertEquals(expectedCastles, game.castles)
     }
 
-    @Test
-    fun givenGameStateFile_whenActionData_shouldReturnActionData() {
-        val jsonString = this::class.java.classLoader.getResource("actionTests.json").readText()
-        val parser = GameJsonParser()
-
-        val game = parser.parseToGameData(jsonString)
-
-        val expectedActions = listOf<Action>(
-                ChangeSoldierTypeAction(0, "red", 0, "RANGE")
-        )
-        assertEquals(expectedActions, game.actions)
-    }
-
-    @Test(expected = NoSuchActionException::class)
-    fun givenGameStateFile_whenActionDataDoesNotExist_shouldThrowException() {
-        val jsonString = this::class.java.classLoader.getResource("testResources/notARealActionTests.json").readText()
-
-        GameJsonParser().parseToGameData(jsonString).actions
-    }
+//    @Test
+//    fun givenGameStateFile_whenActionData_shouldReturnActionData() {
+//        val jsonString = this::class.java.classLoader.getResource("actionTests.json").readText()
+//        val parser = GameJsonParser()
+//
+//        val game = parser.parseToGameData(jsonString)
+//
+//        val expectedActions = listOf<Action>(
+//                ChangeSoldierTypeAction(0, "red", 0, "RANGE")
+//        )
+//        assertEquals(expectedActions, game.actions)
+//    }
+//
+//    @Test(expected = NoSuchActionException::class)
+//    fun givenGameStateFile_whenActionDataDoesNotExist_shouldThrowException() {
+//        val jsonString = this::class.java.classLoader.getResource("testResources/notARealActionTests.json").readText()
+//
+//        GameJsonParser().parseToGameData(jsonString).actions
+//    }
 }

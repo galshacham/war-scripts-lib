@@ -1,0 +1,17 @@
+{
+  "mapData": {
+    "rows": 20,
+    "cols": 20
+  },
+  "castles": [
+    {
+      "side": "red",
+      "id": 0,
+      "soldierType": "MELEE",
+      "loc": {
+        "row": 1,
+        "col": 1
+      }
+    }
+  ]
+}

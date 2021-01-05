@@ -1,3 +1,8 @@
 package main.objects.actions
 
-abstract class Action(actionId: Int, side: String)
+import main.Engine
+
+abstract class Action(actionId: Int, side: String) {
+    abstract fun apply(engine: Engine)
+    abstract fun validate(engine: Engine)
+}

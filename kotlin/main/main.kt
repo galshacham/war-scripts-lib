@@ -1,10 +1,12 @@
 package main
 
+import EngineManager
+import executors.GameExecutorFactory
+
 fun main(args: Array<String>) {
-//    val manager = GameManager()
-//
-//    val parser = GameJsonParser()
+    val parser = GameJsonParser()
+    val executorsFactory = GameExecutorFactory()
+    val manager = EngineManager(args, executorsFactory, parser)
 
-
-//    print(parser.parseToGameData().mapData)
+    manager.runGame()
 }

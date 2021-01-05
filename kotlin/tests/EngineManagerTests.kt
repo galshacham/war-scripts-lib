@@ -1,30 +1,35 @@
 package tests
 
 import EngineManager
-import exceptions.NoExecutorException
-import exceutors.GameExecutorFactory
-import exceutors.GameExecutorInterface
+import executors.GameExecutorFactory
+import executors.GameExecutorInterface
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import junit.framework.Assert.assertEquals
+import main.GameJsonParser
 import main.exceptions.ArgumentsException
 import org.junit.Before
 import org.junit.Test
 
 class EngineManagerTests {
+    private val defaultGameState = EngineManager::class.java.classLoader.getResource(("default.json")).readText()
     lateinit var mockFactory: GameExecutorFactory
-    lateinit var mockExecuter: GameExecutorInterface
+    lateinit var mockExecutor: GameExecutorInterface
+    lateinit var mockParser: GameJsonParser
+
     @Before
     fun init() {
         mockFactory = mockk()
-        mockExecuter = mockk()
+        mockExecutor = mockk()
+        mockParser = mockk()
 
-        every {mockFactory.createExecutor("mock")}.returns(mockExecuter)
+        every { mockFactory.createExecutor("mock") }.returns(mockExecutor)
     }
 
     @Test
     fun whenEngineManagerCreatedWithoutFile_shouldCreateWithDefaultPath() {
-        val engineManager = EngineManager(arrayOf("oneArgument.mock"), mockFactory)
+        val engineManager = EngineManager(arrayOf("oneArgument.mock"), mockFactory, mockParser)
 
         assertEquals(this::class.java.classLoader.getResource("default.json").readText(), engineManager.gameState)
     }
@@ -32,23 +37,39 @@ class EngineManagerTests {
     @Test(expected = ArgumentsException::class)
     fun whenInitializingEngineManagerWithWrongArguments_shouldThrowArgumentsException() {
         val emptyArgs = arrayOf<String>()
-        val engineManager = EngineManager(emptyArgs, mockFactory)
+        val engineManager = EngineManager(emptyArgs, mockFactory, mockParser)
     }
-
 
 //    @Test
 //    fun whenInitializingEngineManagerWithBotsPaths_shouldAddToPlayers() {
-//        val demoBotPath = "testResources/DemoBot.kt"
-//        val engineManager = EngineManager(arrayOf(demoBotPath, demoBotPath))
+//        val demoBotPath = "testResources/DemoBot.mock"
+//        val engineManager = EngineManager.kt(arrayOf(demoBotPath, demoBotPath), mockFactory)
 //
-//        assertEquals(arrayOf(demoBotPath, demoBotPath), engineManager.botPaths)
+//        assertEquals(listOf(demoBotPath, demoBotPath), engineManager.bots)
 //    }
 
-//    @Test
-//    fun whenInitializingEngineManagerWithRightArguments_shouldStartGame() {
 
-///        val results = engineManager.runGame()
+    // This is a shitty test. these tests should be integration and mocking is just pointless here
+//    @Test
+//    fun whenRunningGame_shouldCallEachBotWithItsExecutor() {
+//        val demoBotPath1 = "/DemoBot1.mock1"
+//        val demoBotPath2 = "/DemoBot2.mock2"
+//        val mockExecutor1 = mockk<GameExecutorInterface>()
+//        val mockExecutor2 = mockk<GameExecutorInterface>()
+//        val jsonParser = GameJsonParser()
 //
-//        assertEquals(listOf<String>(), results.winner)
+//        every { mockExecutor1.callExecutor(defaultGameState, jsonParser) } returns listOf()
+//        every { mockExecutor2.callExecutor(defaultGameState, jsonParser) } returns listOf()
+//
+//        every { mockFactory.createExecutor("mock1") }.returns(mockExecutor1)
+//        every { mockFactory.createExecutor("mock2") }.returns(mockExecutor2)
+//
+//
+//        val engineManager = EngineManager(arrayOf(demoBotPath1, demoBotPath2), mockFactory, mockParser)
+//
+//        engineManager.runGame()
+//
+//        verify(atLeast = 1) { mockExecutor1.callExecutor(defaultGameState, jsonParser) }
+//        verify(atLeast = 1) { mockExecutor2.callExecutor(defaultGameState, jsonParser) }
 //    }
 }

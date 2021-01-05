@@ -1,13 +1,12 @@
 package tests.exectuers
 
 import exceptions.NoExecutorException
-import exceutors.GameExecutorFactory
-import exceutors.GameExecutorInterface
-import exceutors.PYTHON_EXECUTOR_PATH
+import executors.GameExecutorFactory
+import executors.PYTHON_EXECUTOR_PATH
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class GameExecutorFactoryTests {
+class EngineExecutorFactoryTests {
 
     @Test(expected = NoExecutorException::class)
     fun whenGameExecutorFactoryCreatesNoneExistingExecutor_shouldThrowNoExecutorException() {
@@ -20,7 +19,7 @@ class GameExecutorFactoryTests {
     fun whenGameExecutorCreatesARealExecutor_shouldCreateTheExecutor() {
         val fact = GameExecutorFactory()
 
-        val demoBotPath = "testResources/demoPythonCode.py"
+        val demoBotPath = "/demoPythonCode.py"
         val pyExec = fact.createExecutor(demoBotPath)
 
         assertEquals(demoBotPath, pyExec.codeToExecutePath)
