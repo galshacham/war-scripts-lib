@@ -13,8 +13,8 @@ class EngineExecutorInterfaceTests {
     fun whenParsingJavascriptExecutorCallResult_shouldReturnActionsList() {
         val gameState = File("testResources/simpleGameState.json").readText()
         val executor = JavascriptExecutor("testResources/demoJsCode.js")
-        val actions = executor.callExecutor(gameState, GameJsonParser())
-        val expectedActions = listOf(ChangeSoldierTypeAction(1, "red", 1, "RANGED"))
+        val actions = executor.callExecutor(gameState, GameJsonParser(), 1)
+        val expectedActions = listOf(ChangeSoldierTypeAction(1, 1, 1, "RANGED"))
 
         assertEquals(expectedActions, actions)
     }
@@ -23,6 +23,6 @@ class EngineExecutorInterfaceTests {
     fun whenParsingJavascriptExecutorCallResultAndHavingErrors_shouldPrintThrowRunTimeException() {
         val gameState = File("testResources/simpleGameState.json").readText()
         val executor = JavascriptExecutor("testResources/demoJsFailCode.js")
-        executor.callExecutor(gameState, GameJsonParser())
+        executor.callExecutor(gameState, GameJsonParser(), 1)
     }
 }

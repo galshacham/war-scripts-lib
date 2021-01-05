@@ -5,7 +5,7 @@
   },
   "castles": [
     {
-      "side": "red",
+      "side": 1,
       "id": 0,
       "soldierType": "MELEE",
       "loc": {
@@ -14,7 +14,7 @@
       }
     },
     {
-      "side": "blue",
+      "side": 2,
       "id": 1,
       "soldierType": "MELEE",
       "loc": {
@@ -23,7 +23,7 @@
       }
     },
     {
-      "side": "natural",
+      "side": 0,
       "id": 2,
       "soldierType": "MELEE",
       "loc": {
@@ -32,7 +32,7 @@
       }
     },
     {
-      "side": "natural",
+      "side": 0,
       "id": 3,
       "soldierType": "MELEE",
       "loc": {

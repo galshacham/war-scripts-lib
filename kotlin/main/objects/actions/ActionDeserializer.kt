@@ -4,9 +4,8 @@ import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import main.exceptions.NoSuchActionException
 import main.enums.ActionTypeEnum
-import java.lang.IllegalArgumentException
+import main.exceptions.NoSuchActionException
 import java.lang.reflect.Type
 
 val ACTION_ID = "actionId"
@@ -20,7 +19,7 @@ class ActionDeserializer : JsonDeserializer<Action> {
         val actionType: ActionTypeEnum = getActionType(jsonObject)
 
         val actionId = jsonObject[ACTION_ID].asInt
-        val side = jsonObject[SIDE].asString
+        val side = jsonObject[SIDE].asInt
 
         when (actionType) {
             ActionTypeEnum.CHANGE_SOLDIER_TYPE -> {

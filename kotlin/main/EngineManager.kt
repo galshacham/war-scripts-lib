@@ -48,7 +48,7 @@ class EngineManager {
 
 
     fun runGame(): Results {
-        for (executor in executors) {
+        executors.forEachIndexed { side, executor ->
             // TODO: validations should be implemented on the executors
 
 //  Each executor returns actions?
@@ -56,7 +56,8 @@ class EngineManager {
 //  Then we change the gameState according to the actions
 //  Then we repeat?
 
-            executor.callExecutor(gameState, parser)
+            executor.callExecutor(gameState, parser, side)
+
         }
 
         return Results()

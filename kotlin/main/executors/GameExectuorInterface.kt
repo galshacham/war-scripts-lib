@@ -12,10 +12,10 @@ interface GameExecutorInterface {
     val executorPath: String
     val codeToExecutePath: String
 
-    fun callExecutor(gameState: String, jsonParser: GameJsonParser): List<Action> {
+    fun callExecutor(gameState: String, jsonParser: GameJsonParser, side: Int): List<Action> {
         val gameJsonWithoutSpaces = gameState.removeWhitespaces()
 
-        val command = "$executorPath ${File(codeToExecutePath).absolutePath} \"$gameJsonWithoutSpaces\""
+        val command = "$executorPath ${File(codeToExecutePath).absolutePath} $gameJsonWithoutSpaces $side"
         val process = Runtime.getRuntime().exec(command)
 
         val wholeOutput = process.inputStream.readBytes().toString(Charsets.UTF_8).removeWhitespaces()

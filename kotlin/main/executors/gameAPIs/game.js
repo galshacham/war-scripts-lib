@@ -1,5 +1,5 @@
 class Game {
-    side = ""
+    side = -1
     mapData = {}
     castles = {}
 

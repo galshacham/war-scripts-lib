@@ -8,7 +8,7 @@
     {
       "actionType": "CHANGE_SOLDIER_TYPE",
       "actionId": 0,
-      "side": "red",
+      "side": 1,
       "affectedId": 0,
       "soldierType": "RANGE"
     }

@@ -1,12 +1,8 @@
 package tests
 
-import main.exceptions.NoSuchActionException
-import main.exceptions.WrongFileFormatException
+import main.GameJsonParser
 import main.objects.Castle
 import main.objects.Location
-import main.GameJsonParser
-import main.objects.actions.Action
-import main.objects.actions.ChangeSoldierTypeAction
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -29,10 +25,10 @@ class GameJsonParserTests {
         val game = parser.parseToGameData(jsonString)
 
         val expectedCastles = listOf(
-                Castle(0, "red", Location(1, 1)),
-                Castle(1, "blue", Location(19, 19)),
-                Castle(2, "natural", Location(1, 19)),
-                Castle(3, "natural", Location(19, 1)))
+                Castle(0, 1, Location(1, 1)),
+                Castle(1, 2, Location(19, 19)),
+                Castle(2, 0, Location(1, 19)),
+                Castle(3, 0, Location(19, 1)))
 
         assertEquals(expectedCastles, game.castles)
     }

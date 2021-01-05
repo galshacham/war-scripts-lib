@@ -14,7 +14,7 @@ class CastleObjectTests {
 
     @Before
     fun init() {
-        val side = "first"
+        val side = 1
         val loc = mockk<Location>()
         every { loc.toString() } returns "AAAAAA"
 

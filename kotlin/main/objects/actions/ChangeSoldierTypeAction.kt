@@ -2,7 +2,7 @@ package main.objects.actions
 
 import main.Engine
 
-data class ChangeSoldierTypeAction(val actionId: Int, val side: String, val affectedId: Int, val soldierType: String) :
+data class ChangeSoldierTypeAction(val actionId: Int, val side: Int, val affectedId: Int, val soldierType: String) :
         Action(actionId, side) {
 
     override fun apply(engine: Engine) {
