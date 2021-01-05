@@ -8,7 +8,7 @@ import objects.actions.ActionsObject
 
 class GameJsonParser {
     private val gsonBuilder = GsonBuilder()
-    private val gsonParser: Gson
+    val gsonParser: Gson
 
     init {
         gsonBuilder.registerTypeAdapter(Action::class.java, ActionDeserializer())

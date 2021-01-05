@@ -1,8 +1,9 @@
 package main.objects.actions
 
+import exceptions.ActionValidationException
 import main.Engine
 
-data class ChangeSoldierTypeAction(val actionId: Int, val side: Int, val affectedId: Int, val soldierType: String) :
+data class ChangeSoldierTypeAction(override val actionId: Int, override val side: Int, val affectedId: Int, val soldierType: String) :
         Action(actionId, side) {
 
     override fun apply(engine: Engine) {
@@ -15,6 +16,11 @@ data class ChangeSoldierTypeAction(val actionId: Int, val side: Int, val affecte
     }
 
     override fun validate(engine: Engine) {
-        TODO("Not yet implemented")
+        super.validate(engine)
+        val affectedCastle = engine.castles.find { it.id == affectedId }!!
+
+        if (affectedCastle.side != side) {
+            throw ActionValidationException("Invalid action! Trying to change soldier type of castle which does not belong to user (castleId: ${affectedCastle.id})")
+        }
     }
 }

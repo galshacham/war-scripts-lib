@@ -48,16 +48,19 @@ class EngineManager {
 
 
     fun runGame(): Results {
-        executors.forEachIndexed { side, executor ->
-            // TODO: validations should be implemented on the executors
+        val game = parser.parseToGameData(gameState)
 
+// TODO: validations should be implemented on the executors
 //  Each executor returns actions?
 //  Then we must validate the actions according to the game
 //  Then we change the gameState according to the actions
 //  Then we repeat?
-
-            executor.callExecutor(gameState, parser, side)
-
+        while (game.isUp()) {
+            executors.forEachIndexed { side, executor ->
+                val actions = executor.callExecutor(gameState, parser, side)
+                game.updateData(actions)
+                gameState = parser.gsonParser.toJson(game)
+            }
         }
 
         return Results()
