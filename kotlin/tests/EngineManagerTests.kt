@@ -5,7 +5,6 @@ import executors.GameExecutorFactory
 import executors.GameExecutorInterface
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
 import junit.framework.Assert.assertEquals
 import main.GameJsonParser
 import main.exceptions.ArgumentsException
@@ -13,7 +12,7 @@ import org.junit.Before
 import org.junit.Test
 
 class EngineManagerTests {
-    private val defaultGameState = EngineManager::class.java.classLoader.getResource(("default.json")).readText()
+    private val defaultGameState = EngineManager::class.java.classLoader.getResource("default.json").readText()
     lateinit var mockFactory: GameExecutorFactory
     lateinit var mockExecutor: GameExecutorInterface
     lateinit var mockParser: GameJsonParser
@@ -24,7 +23,7 @@ class EngineManagerTests {
         mockExecutor = mockk()
         mockParser = mockk()
 
-        every { mockFactory.createExecutor("mock") }.returns(mockExecutor)
+        every { mockFactory.createExecutor("oneArgument.mock") }.returns(mockExecutor)
     }
 
     @Test

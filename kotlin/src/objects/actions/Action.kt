@@ -1,7 +1,7 @@
 package main.objects.actions
 
+import Engine
 import exceptions.ActionValidationException
-import main.Engine
 
 abstract class Action(open val actionId: Int, open val side: Int) {
 

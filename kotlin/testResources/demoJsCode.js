@@ -1,8 +1,8 @@
-const {Game} = require("../main/executors/gameAPIs/game")
+const {Game} = require("../resources/gameAPIs/game")
 
 function doTurn(game) {
     if (game instanceof Game) {
-        game.changeSoldierType(1, "RANGED")        
+        game.changeSoldierType(0, "RANGED")
     } 
 }
 

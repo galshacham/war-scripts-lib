@@ -25,10 +25,10 @@ class GameJsonParserTests {
         val game = parser.parseToGameData(jsonString)
 
         val expectedCastles = listOf(
-                Castle(0, 1, Location(1, 1)),
-                Castle(1, 2, Location(19, 19)),
-                Castle(2, 0, Location(1, 19)),
-                Castle(3, 0, Location(19, 1)))
+                Castle(0, 0, Location(1, 1)),
+                Castle(1, 1, Location(19, 19)),
+                Castle(2, -1, Location(1, 19)),
+                Castle(3, -1, Location(19, 1)))
 
         assertEquals(expectedCastles, game.castles)
     }

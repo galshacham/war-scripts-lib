@@ -1,9 +1,9 @@
 package tests.actions
 
+import Engine
 import exceptions.ActionValidationException
 import io.mockk.every
 import io.mockk.mockk
-import main.Engine
 import main.objects.Castle
 import main.objects.actions.ChangeSoldierTypeAction
 import org.junit.Test

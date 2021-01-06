@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Main-Class: MainKt
+Class-Path: gson-2.8.5.jar mockk-1.10.2.jar mockk-common-1.10.2.jar mock
+ k-dsl-1.10.2.jar mockk-dsl-jvm-1.10.2.jar mockk-agent-jvm-1.10.2.jar mo
+ ckk-agent-api-1.10.2.jar mockk-agent-common-1.10.2.jar objenesis-3.1.ja
+ r byte-buddy-1.10.14.jar byte-buddy-agent-1.10.14.jar kotlin-reflect-1.
+ 3.61.jar kotlin-stdlib-1.3.61.jar kotlin-stdlib-common-1.3.61.jar annot
+ ations-13.0.jar kotlin-stdlib.jar kotlin-reflect.jar kotlin-test.jar ko
+ tlin-stdlib-jdk7.jar kotlin-stdlib-jdk8.jar junit-4.12.jar hamcrest-cor
+ e-1.3.jar json-path-2.4.0.jar json-smart-2.3.jar accessors-smart-1.2.ja
+ r asm-5.0.4.jar slf4j-api-1.7.25.jar
+

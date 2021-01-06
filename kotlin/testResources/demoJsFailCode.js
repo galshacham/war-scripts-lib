@@ -1,4 +1,4 @@
-const {Game} = require("../main/executors/gameAPIs/game")
+const {Game} = require("../src/executors/gameAPIs/game")
 
 function doTurn(game) {
     if (game instanceof Game) {

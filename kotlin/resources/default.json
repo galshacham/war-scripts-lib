@@ -1,11 +1,15 @@
 {
   "mapData": {
     "rows": 20,
-    "cols": 20
+    "cols": 20,
+    "players": [
+      0,
+      1
+    ]
   },
   "castles": [
     {
-      "side": 1,
+      "side": 0,
       "id": 0,
       "soldierType": "MELEE",
       "loc": {
@@ -14,7 +18,7 @@
       }
     },
     {
-      "side": 2,
+      "side": 1,
       "id": 1,
       "soldierType": "MELEE",
       "loc": {
@@ -23,7 +27,7 @@
       }
     },
     {
-      "side": 0,
+      "side": -1,
       "id": 2,
       "soldierType": "MELEE",
       "loc": {
@@ -32,7 +36,7 @@
       }
     },
     {
-      "side": 0,
+      "side": -1,
       "id": 3,
       "soldierType": "MELEE",
       "loc": {

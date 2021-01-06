@@ -5,7 +5,7 @@
   },
   "castles": [
     {
-      "side": "red",
+      "side": 0,
       "id": 0,
       "soldierType": "MELEE",
       "loc": {

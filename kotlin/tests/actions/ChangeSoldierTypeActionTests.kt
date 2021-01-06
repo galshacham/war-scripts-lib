@@ -1,7 +1,7 @@
 package tests.actions
 
+import Engine
 import io.mockk.mockk
-import main.Engine
 import main.enums.SoldierTypeEnum
 import main.objects.Castle
 import main.objects.Location

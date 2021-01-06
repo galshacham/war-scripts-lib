@@ -1,7 +1,5 @@
-package main
-
-import EngineManager
 import executors.GameExecutorFactory
+import main.GameJsonParser
 
 fun main(args: Array<String>) {
     val parser = GameJsonParser()
