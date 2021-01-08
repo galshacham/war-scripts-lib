@@ -5,6 +5,7 @@ import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import main.enums.ActionTypeEnum
+import main.enums.SoldierTypeEnum
 import main.exceptions.NoSuchActionException
 import java.lang.reflect.Type
 
@@ -26,7 +27,7 @@ class ActionDeserializer : JsonDeserializer<Action> {
                 val affectedId = jsonObject[AFFECTED_ID].asInt
                 val soldierType = jsonObject[SOLDIER_TYPE].asString
 
-                return ChangeSoldierTypeAction(actionId, side, affectedId, soldierType)
+                return ChangeSoldierTypeAction(actionId, side, affectedId, SoldierTypeEnum.valueOf(soldierType))
             }
         }
 

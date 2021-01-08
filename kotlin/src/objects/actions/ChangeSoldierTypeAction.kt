@@ -2,8 +2,9 @@ package main.objects.actions
 
 import Engine
 import exceptions.ActionValidationException
+import main.enums.SoldierTypeEnum
 
-data class ChangeSoldierTypeAction(override val actionId: Int, override val side: Int, val affectedId: Int, val soldierType: String) :
+data class ChangeSoldierTypeAction(override val actionId: Int, override val side: Int, val affectedId: Int, val soldierType: SoldierTypeEnum) :
         Action(actionId, side) {
 
     override fun apply(engine: Engine) {

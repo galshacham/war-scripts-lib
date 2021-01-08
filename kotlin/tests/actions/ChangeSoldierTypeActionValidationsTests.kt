@@ -4,6 +4,7 @@ import Engine
 import exceptions.ActionValidationException
 import io.mockk.every
 import io.mockk.mockk
+import main.enums.SoldierTypeEnum
 import main.objects.Castle
 import main.objects.actions.ChangeSoldierTypeAction
 import org.junit.Test
@@ -14,7 +15,7 @@ class ChangeSoldierTypeActionValidationsTests {
         val engine = mockk<Engine>()
         every { engine.mapData.players } returns (listOf(1, 2))
         every { engine.castles } returns (listOf(Castle(1, 1, mockk()), Castle(2, 2, mockk())))
-        val action = ChangeSoldierTypeAction(1, 2, 1, "MELEE")
+        val action = ChangeSoldierTypeAction(1, 2, 1, SoldierTypeEnum.MELEE)
 
         action.validate(engine)
     }

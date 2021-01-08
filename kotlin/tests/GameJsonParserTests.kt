@@ -1,9 +1,12 @@
 package tests
 
 import main.GameJsonParser
+import main.enums.SoldierTypeEnum
 import main.objects.Castle
-import main.objects.Location
+import objects.Location
+import objects.Soldier
 import org.junit.Test
+import java.io.File
 import kotlin.test.assertEquals
 
 class GameJsonParserTests {
@@ -52,4 +55,14 @@ class GameJsonParserTests {
 //
 //        GameJsonParser().parseToGameData(jsonString).actions
 //    }
+
+    @Test
+    fun givenSoldierDataAsJson_whenParsingToSoldierObject_shouldParseTheEnum() {
+        val jsonString = File("testResources/soldier.json").readText()
+        val parser = GameJsonParser()
+
+        val expectedSoldier = Soldier(1, 1, Location(5, 6), SoldierTypeEnum.MELEE, 4, 2, 2, 1)
+
+        assertEquals(expectedSoldier, parser.gsonParser.fromJson(jsonString, Soldier::class.java))
+    }
 }

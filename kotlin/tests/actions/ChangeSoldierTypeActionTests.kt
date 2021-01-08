@@ -4,8 +4,8 @@ import Engine
 import io.mockk.mockk
 import main.enums.SoldierTypeEnum
 import main.objects.Castle
-import main.objects.Location
 import main.objects.actions.ChangeSoldierTypeAction
+import objects.Location
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -16,9 +16,9 @@ class ChangeSoldierTypeActionTests {
         val expectedCastle = Castle(1, 1, Location(1, 1))
         expectedCastle.changeSoldierType(SoldierTypeEnum.RANGED)
 
-        val engine = Engine(mockk(), listOf(initialCastle))
+        val engine = Engine(mockk(), listOf(initialCastle), mockk())
 
-        val action = ChangeSoldierTypeAction(1, 1, 1, SoldierTypeEnum.RANGED.toString())
+        val action = ChangeSoldierTypeAction(1, 1, 1, SoldierTypeEnum.RANGED)
 
         action.apply(engine)
 

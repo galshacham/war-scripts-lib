@@ -3,6 +3,7 @@ package tests.exectuers
 import exceptions.RuntimeException
 import executors.JavascriptExecutor
 import main.GameJsonParser
+import main.enums.SoldierTypeEnum
 import main.objects.actions.ChangeSoldierTypeAction
 import org.junit.Test
 import java.io.File
@@ -14,7 +15,7 @@ class EngineExecutorInterfaceTests {
         val gameState = File("testResources/simpleGameState.json").readText()
         val executor = JavascriptExecutor("testResources/demoJsCode.js")
         val actions = executor.callExecutor(gameState, GameJsonParser(), 0)
-        val expectedActions = listOf(ChangeSoldierTypeAction(1, 0, 0, "RANGED"))
+        val expectedActions = listOf(ChangeSoldierTypeAction(1, 0, 0, SoldierTypeEnum.RANGED))
 
         assertEquals(expectedActions, actions)
     }
