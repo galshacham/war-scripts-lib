@@ -1,16 +1,30 @@
-package main.objects
+package objects
 
-import SoldierFactory
+import Engine
 import main.enums.SoldierTypeEnum
-import objects.Location
-import objects.Soldier
+import java.util.*
 
-data class Castle(val id: Int, val side: Int, val loc: Location) {
+const val TURNS_TO_CREATE_SOLDIER = 5
+
+data class Castle(override val id: String, override val side: Int, override val loc: Location) : GameObject {
     var soldierType = SoldierTypeEnum.MELEE
 
     fun changeSoldierType(newType: SoldierTypeEnum) {
         soldierType = newType
     }
 
-    fun createSoldier(factory: SoldierFactory): Soldier = factory.createSoldier(side, loc, soldierType)
+    override fun updateState(game: Engine) {
+        if (isTimeToCreateSoldier(game)) {
+            val newSoldier = Soldier(
+                    UUID.randomUUID().toString(),
+                    this.side,
+                    this.loc,
+                    this.soldierType
+            )
+
+            game.gameObjects.add(newSoldier)
+        }
+    }
+
+    private fun isTimeToCreateSoldier(game: Engine) = game.mapData.turn % TURNS_TO_CREATE_SOLDIER == 0
 }

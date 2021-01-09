@@ -46,13 +46,11 @@ class EngineManager {
 
     fun runGame(): Results {
         val game = parser.parseToGameData(gameState)
-        val idGenerator = IdGenerator(game)
-        val soldierFactory = SoldierFactory(idGenerator)
 
         while (game.isUp()) {
             executors.forEachIndexed { side, executor ->
                 val actions = executor.callExecutor(gameState, parser, side)
-                game.updateData(actions, soldierFactory)
+                game.updateData(actions)
                 gameState = parser.gsonParser.toJson(game)
             }
         }

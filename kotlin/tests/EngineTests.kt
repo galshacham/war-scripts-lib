@@ -1,14 +1,13 @@
 package tests
 
 import Engine
-import SoldierFactory
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import junit.framework.Assert.assertTrue
-import main.objects.Castle
 import main.objects.MapData
 import main.objects.actions.Action
+import objects.Castle
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertFalse
@@ -16,15 +15,14 @@ import kotlin.test.assertFalse
 class EngineTests {
     @Test
     fun whenUpdatingGameData_shouldValidateAndApplyActions() {
-        val engine = Engine(mockk(), listOf(), listOf())
-        val soldierFactory = mockk<SoldierFactory>()
+        val engine = Engine(mockk(), mutableListOf())
 
         val mockAction = mockk<Action>()
         every { mockAction.validate(engine) } returns Unit
         every { mockAction.apply(engine) } returns Unit
         val actions = listOf(mockAction)
 
-        engine.updateData(actions, soldierFactory)
+        engine.updateData(actions)
 
         verify(exactly = 1) { actions[0].validate(engine) }
         verify(exactly = 1) { actions[0].apply(engine) }
@@ -51,7 +49,7 @@ class EngineTests {
     fun givenTurnBiggerThanMaxTurn_whenCheckingIfGameIsUp_shouldReturnFalse() {
         every { mapDataMock.turn } returns 1001
 
-        val engine = Engine(mapDataMock, listOf(castleMock1, castleMock2), mockk())
+        val engine = Engine(mapDataMock, mutableListOf(castleMock1, castleMock2))
         assertFalse(engine.isUp())
     }
 
@@ -59,13 +57,13 @@ class EngineTests {
     fun givenOnlyOnePlayerRemains_whenCheckingIfGameIsUp_shouldReturnFalse() {
         every { castleMock2.side } returns 1
 
-        val engine = Engine(mapDataMock, listOf(castleMock1, castleMock2), mockk())
+        val engine = Engine(mapDataMock, mutableListOf(castleMock1, castleMock2))
         assertFalse(engine.isUp())
     }
 
     @Test
     fun givenMoreThanOnePlayerRemains_whenCheckingIfGameIsUp_shouldReturnTrue() {
-        val engine = Engine(mapDataMock, listOf(castleMock1, castleMock2), mockk())
+        val engine = Engine(mapDataMock, mutableListOf(castleMock1, castleMock2))
         assertTrue(engine.isUp())
     }
 

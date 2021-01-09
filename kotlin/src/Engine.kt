@@ -1,23 +1,32 @@
-import main.objects.Castle
 import main.objects.MapData
 import main.objects.actions.Action
-import objects.Soldier
+import objects.Castle
+import objects.GameObject
 
-val NATURAL_SIDE = -1
-val TURNS_TO_CREATE_SOLDIER = 5
+const val NATURAL_SIDE = -1
 
-class Engine(var mapData: MapData, var castles: List<Castle>, var soldiers: List<Soldier>) {
+class Engine(var mapData: MapData, var gameObjects: MutableList<GameObject>) {
 
-    fun isUp(): Boolean = !mapData.players.any { player -> castles.all { it.side == player } } && mapData.turn < mapData.maxTurns
+    fun isUp(): Boolean {
+        val inTurnsCap = mapData.turn < mapData.maxTurns
+        // TODO: i want to keep players which do not have castles
+        val allCastles = gameObjects.filter {
+            it.javaClass == Castle::class.java
+        }
 
-    fun updateData(actions: List<Action>, soldierFactory: SoldierFactory) {
+        return !mapData.players.any { player ->
+            allCastles.all { it.side == player }
+        } && inTurnsCap
+    }
+
+    fun updateData(actions: List<Action>) {
         actions.forEach { it.validate(this) }
         actions.forEach { it.apply(this) }
 
-        for (castle in castles) {
-            if (castle.side != NATURAL_SIDE && mapData.turn % TURNS_TO_CREATE_SOLDIER == 0) {
-                castle.createSoldier(soldierFactory)
-            }
-        }
+        // My thoughts were if should I return updateState from each gameObject, Or should I just add the value
+        // For now, I see no reason to just update the engine itself via the objects, since there is no much use in
+        // any other places. In the future, we can change it to return execAction or something like this
+        // And then it would do the changing
+        gameObjects.forEach { it.updateState(this) }
     }
 }

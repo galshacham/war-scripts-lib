@@ -3,8 +3,10 @@ package main
 import Engine
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import main.objects.GameObjectDeserializer
 import main.objects.actions.Action
 import main.objects.actions.ActionDeserializer
+import objects.GameObject
 import objects.actions.ActionsObject
 
 class GameJsonParser {
@@ -12,7 +14,9 @@ class GameJsonParser {
     val gsonParser: Gson
 
     init {
+        val simpleGson = Gson()
         gsonBuilder.registerTypeAdapter(Action::class.java, ActionDeserializer())
+        gsonBuilder.registerTypeAdapter(GameObject::class.java, GameObjectDeserializer(simpleGson))
         gsonParser = gsonBuilder.create()
     }
 

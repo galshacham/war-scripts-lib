@@ -13,7 +13,7 @@ class ActionValidationTests {
     fun whenActionHasNoPlayer_shouldThrowActionValidationException() {
         val engine = mockk<Engine>()
         every { engine.mapData.players } returns (listOf(1, 2, 3))
-        val action = ChangeSoldierTypeAction(1, 4, 1, SoldierTypeEnum.MELEE)
+        val action = ChangeSoldierTypeAction("1", 4, "1", SoldierTypeEnum.MELEE)
 
         action.validate(engine)
     }

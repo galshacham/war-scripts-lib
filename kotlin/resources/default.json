@@ -7,10 +7,11 @@
       1
     ]
   },
-  "castles": [
+  "gameObjects": [
     {
+      "objectType": "CASTLE",
       "side": 0,
-      "id": 0,
+      "id": "0",
       "soldierType": "MELEE",
       "loc": {
         "row": 1,
@@ -18,8 +19,9 @@
       }
     },
     {
+      "objectType": "CASTLE",
       "side": 1,
-      "id": 1,
+      "id": "1",
       "soldierType": "MELEE",
       "loc": {
         "row": 19,
@@ -27,8 +29,9 @@
       }
     },
     {
+      "objectType": "CASTLE",
       "side": -1,
-      "id": 2,
+      "id": "2",
       "soldierType": "MELEE",
       "loc": {
         "row": 1,
@@ -36,8 +39,9 @@
       }
     },
     {
+      "objectType": "CASTLE",
       "side": -1,
-      "id": 3,
+      "id": "3",
       "soldierType": "MELEE",
       "loc": {
         "row": 19,

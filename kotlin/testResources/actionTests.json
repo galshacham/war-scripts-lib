@@ -1,16 +1,11 @@
 {
-  "mapData": {
-    "rows": 20,
-    "cols": 20
-  },
-  "castles": [],
   "actions": [
     {
       "actionType": "CHANGE_SOLDIER_TYPE",
-      "actionId": 0,
+      "actionId": "0",
       "side": 1,
-      "affectedId": 0,
-      "soldierType": "RANGE"
+      "affectedId": "1",
+      "soldierType": "RANGED"
     }
   ]
 }

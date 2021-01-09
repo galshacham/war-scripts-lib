@@ -14,18 +14,18 @@ val SIDE = "side"
 val AFFECTED_ID = "affectedId"
 val SOLDIER_TYPE = "soldierType"
 
-class ActionDeserializer : JsonDeserializer<Action> {
-    override fun deserialize(element: JsonElement, action: Type, gson: JsonDeserializationContext): Action {
-        val jsonObject = (element as JsonObject)
-        val actionType: ActionTypeEnum = getActionType(jsonObject)
+    class ActionDeserializer : JsonDeserializer<Action> {
+        override fun deserialize(element: JsonElement, action: Type, gson: JsonDeserializationContext): Action {
+            val jsonObject = (element as JsonObject)
+            val actionType: ActionTypeEnum = getActionType(jsonObject)
 
-        val actionId = jsonObject[ACTION_ID].asInt
-        val side = jsonObject[SIDE].asInt
+            val actionId = jsonObject[ACTION_ID].asString
+            val side = jsonObject[SIDE].asInt
 
-        when (actionType) {
-            ActionTypeEnum.CHANGE_SOLDIER_TYPE -> {
-                val affectedId = jsonObject[AFFECTED_ID].asInt
-                val soldierType = jsonObject[SOLDIER_TYPE].asString
+            when (actionType) {
+                ActionTypeEnum.CHANGE_SOLDIER_TYPE -> {
+                    val affectedId = jsonObject[AFFECTED_ID].asString
+                    val soldierType = jsonObject[SOLDIER_TYPE].asString
 
                 return ChangeSoldierTypeAction(actionId, side, affectedId, SoldierTypeEnum.valueOf(soldierType))
             }
