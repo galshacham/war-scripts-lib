@@ -10,6 +10,7 @@ import main.GameJsonParser
 import main.exceptions.ArgumentsException
 import org.junit.Before
 import org.junit.Test
+import tests.FileTestUtils.Companion.getResourceFileText
 
 class EngineManagerTests {
     private val defaultGameState = EngineManager::class.java.classLoader.getResource("default.json").readText()
@@ -30,7 +31,7 @@ class EngineManagerTests {
     fun whenEngineManagerCreatedWithoutFile_shouldCreateWithDefaultPath() {
         val engineManager = EngineManager(arrayOf("oneArgument.mock"), mockFactory, mockParser)
 
-        assertEquals(this::class.java.classLoader.getResource("default.json").readText(), engineManager.gameState)
+        assertEquals(getResourceFileText("default.json"), engineManager.gameState)
     }
 
     @Test(expected = ArgumentsException::class)

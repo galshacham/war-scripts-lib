@@ -10,13 +10,13 @@ import objects.Location
 import objects.Soldier
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.io.File
+import tests.FileTestUtils.Companion.getResourceFileText
 
 class GameJsonParserTests {
     @Test
     fun givenGameJsonParser_whenGettingMapData_shouldReturnMapData() {
         val parser = GameJsonParser()
-        val jsonString = getResourceFile("default.json");
+        val jsonString = getResourceFileText("default.json");
 
         val game = parser.parseToGameData(jsonString)
         assertEquals(20, game.mapData.cols)
@@ -25,7 +25,7 @@ class GameJsonParserTests {
 
     @Test
     fun givenGameSettingsFile_whenCastlesData_shouldReturnCastlesData() {
-        val jsonString = getResourceFile("default.json")
+        val jsonString = getResourceFileText("default.json")
         val parser = GameJsonParser()
 
         val game = parser.parseToGameData(jsonString)
@@ -41,7 +41,7 @@ class GameJsonParserTests {
 
     @Test
     fun givenActionsJson_whenParsingActionData_shouldReturnActionDataObject() {
-        val jsonString = getResourceFile("gameJsonParser/actionTests.json")
+        val jsonString = getResourceFileText("gameJsonParser/actionTests.json")
         val parser = GameJsonParser()
 
         val expectedActions = listOf<Action>(
@@ -52,14 +52,14 @@ class GameJsonParserTests {
 
     @Test(expected = NoSuchActionException::class)
     fun givenGameStateFile_whenActionDataDoesNotExist_shouldThrowException() {
-        val jsonString = getResourceFile("gameJsonParser/notARealActionTests.json")
+        val jsonString = getResourceFileText("gameJsonParser/notARealActionTests.json")
 
         GameJsonParser().parseToActions(jsonString)
     }
 
     @Test
     fun givenSoldierDataAsJson_whenParsingToSoldierObject_shouldParseTheEnum() {
-        val jsonString = getResourceFile("gameJsonParser/soldier.json")
+        val jsonString = getResourceFileText("gameJsonParser/soldier.json")
         val parser = GameJsonParser()
 
         val expectedSoldier = Soldier("1", 1, Location(5, 6), SoldierTypeEnum.MELEE)
@@ -67,7 +67,4 @@ class GameJsonParserTests {
         assertEquals(expectedSoldier, parser.gsonParser.fromJson(jsonString, Soldier::class.java))
     }
 
-    private fun getResourceFile(fileName: String): String {
-        return this::class.java.classLoader.getResource(fileName).readText()
-    }
 }
