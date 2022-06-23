@@ -5,7 +5,8 @@ import main.exceptions.ArgumentsException
 import objects.Results
 import java.io.File
 
-val DEFAULT_SETTING_PATH: String = EngineManager::class.java.classLoader.getResource("default.json").path
+val DEFAULT_SETTING_PATH: String =
+    "default.json"//EngineManager::class.java.classLoader.getResource("default.json").path
 val JSON_SUFFIX = "json"
 
 class EngineManager {
@@ -47,7 +48,13 @@ class EngineManager {
     fun runGame(): Results {
         val game = parser.parseToGameData(gameState)
 
+        println("Started game")
+        var a = 0;
         while (game.isUp()) {
+            if (a % 20 == 0) {
+                println("Turn $a")
+            }
+            a++;
             executors.forEachIndexed { side, executor ->
                 val actions = executor.callExecutor(gameState, parser, side)
                 game.updateData(actions)

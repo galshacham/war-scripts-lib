@@ -8,6 +8,7 @@ const val NATURAL_SIDE = -1
 class Engine(var mapData: MapData, var gameObjects: MutableList<GameObject>) {
 
     fun isUp(): Boolean {
+        return true;
         val inTurnsCap = mapData.turn < mapData.maxTurns
         // TODO: i want to keep players which do not have castles
         val allCastles = gameObjects.filter {
@@ -27,6 +28,6 @@ class Engine(var mapData: MapData, var gameObjects: MutableList<GameObject>) {
         // For now, I see no reason to just update the engine itself via the objects, since there is no much use in
         // any other places. In the future, we can change it to return execAction or something like this
         // And then it would do the changing
-        gameObjects.forEach { it.updateState(this) }
+        gameObjects.map { it }.forEach { it.updateState(this) }
     }
 }

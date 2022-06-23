@@ -26,7 +26,7 @@ data class Soldier(override val id: String,
     }
 
     override fun updateState(game: Engine) {
-        TODO("Not yet implemented")
+
     }
 }
 

@@ -21,8 +21,8 @@ interface GameExecutorInterface {
         val wholeOutput = process.inputStream.readBytes().toString(Charsets.UTF_8).removeWhitespaces()
         val errorOutput = process.errorStream.readBytes().toString(Charsets.UTF_8)
 
-        print(wholeOutput)
-        print(errorOutput)
+//        print(wholeOutput)
+//        print(errorOutput)
 
         if (errorOutput.length != 0) {
             throw RuntimeException("Compilation error of bot, stacktrace presented here: $errorOutput")
