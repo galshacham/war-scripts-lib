@@ -1,5 +1,5 @@
-import executors.GameExecutorFactory
-import executors.GameExecutorInterface
+import steamers.GameStreamerFactory
+import steamers.GameStreamerInterface
 import main.GameJsonParser
 import main.exceptions.ArgumentsException
 import objects.Results
@@ -9,17 +9,17 @@ val DEFAULT_SETTING_PATH: String = EngineManager::class.java.classLoader.getReso
 val JSON_SUFFIX = "json"
 
 class EngineManager {
-    val executors = mutableListOf<GameExecutorInterface>()
+    val Streamers = mutableListOf<GameStreamerInterface>()
     val parser: GameJsonParser
     val mapFilePath: String
     var gameState: String = ""
 
-    constructor(args: Array<String>, gameExecutorFactory: GameExecutorFactory, parser: GameJsonParser) {
+    constructor(args: Array<String>, gameStreamerFactory: GameStreamerFactory, parser: GameJsonParser) {
         if (args.isEmpty()) {
             throw ArgumentsException("Game must have at least one argument! default configuration requires: [code1, code2] format. for different configuration, add config.json as the last argument")
         }
 
-        addExecutorsToEngine(args, gameExecutorFactory)
+        addStreamersToEngine(args, gameStreamerFactory)
 
         this.parser = parser
         this.mapFilePath = getMapFile(args)
@@ -27,10 +27,10 @@ class EngineManager {
         gameState = File(mapFilePath).readText()
     }
 
-    private fun addExecutorsToEngine(args: Array<String>, gameExecutorFactory: GameExecutorFactory) {
+    private fun addStreamersToEngine(args: Array<String>, gameStreamerFactory: GameStreamerFactory) {
         args.forEach { arg ->
             if (!arg.endsWith(JSON_SUFFIX))
-                executors.add(gameExecutorFactory.createExecutor(arg))
+                Streamers.add(gameStreamerFactory.createStreamer(arg))
         }
     }
 
@@ -54,8 +54,8 @@ class EngineManager {
                 println("Turn $a")
             }
             a++;
-            executors.forEachIndexed { side, executor ->
-                val actions = executor.callExecutor(gameState, parser, side)
+            Streamers.forEachIndexed { side, Streamer ->
+                val actions = Streamer.callStreamer(gameState, parser, side)
                 game.updateData(actions)
                 gameState = parser.gsonParser.toJson(game)
             }

@@ -21,7 +21,12 @@ data class Soldier(override val id: String,
                 power = 2
                 range = 1
             }
-            SoldierTypeEnum.RANGED -> TODO()
+            SoldierTypeEnum.RANGED -> {
+                health = 1
+                speed = 2
+                power = 2
+                range = 4
+            }
         }
     }
 

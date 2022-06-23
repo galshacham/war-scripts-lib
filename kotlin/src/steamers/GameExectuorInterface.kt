@@ -1,4 +1,4 @@
-package executors
+package steamers
 
 import exceptions.RuntimeException
 import main.GameJsonParser
@@ -8,14 +8,14 @@ import java.io.File
 
 val STARTING_MARK = "___start___"
 
-interface GameExecutorInterface {
-    val executorPath: String
-    val codeToExecutePath: String
+interface GameStreamerInterface {
+    val StreamerPath: String
+    val codeToStreamPath: String
 
-    fun callExecutor(gameState: String, jsonParser: GameJsonParser, side: Int): List<Action> {
+    fun callStreamer(gameState: String, jsonParser: GameJsonParser, side: Int): List<Action> {
         val gameJsonWithoutSpaces = gameState.removeWhitespaces()
 
-        val command = "$executorPath ${File(codeToExecutePath).absolutePath} $gameJsonWithoutSpaces $side"
+        val command = "$StreamerPath ${File(codeToStreamPath).absolutePath} $gameJsonWithoutSpaces $side"
         val process = Runtime.getRuntime().exec(command)
 
         val wholeOutput = process.inputStream.readBytes().toString(Charsets.UTF_8).removeWhitespaces()

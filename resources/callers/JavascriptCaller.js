@@ -1,10 +1,10 @@
 const { Game } = require("../gameAPIs/game")
 
-const toExecute = process.argv[2];
+const toStream = process.argv[2];
 const jsonGameState = '"' + process.argv[3] + '"';
 const side = process.argv[4] || -1;
 
-const bot = require(toExecute);
+const bot = require(toStream);
 
 const game = new Game(jsonGameState, side);
 

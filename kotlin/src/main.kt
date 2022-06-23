@@ -1,10 +1,10 @@
-import executors.GameExecutorFactory
+import steamers.GameStreamerFactory
 import main.GameJsonParser
 
 fun main(args: Array<String>) {
     val parser = GameJsonParser()
-    val executorsFactory = GameExecutorFactory()
-    val manager = EngineManager(args, executorsFactory, parser)
+    val StreamersFactory = GameStreamerFactory()
+    val manager = EngineManager(args, StreamersFactory, parser)
 
     manager.runGame()
 }
