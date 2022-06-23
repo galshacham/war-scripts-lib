@@ -16,7 +16,7 @@ class GameJsonParserTests {
     @Test
     fun givenGameJsonParser_whenGettingMapData_shouldReturnMapData() {
         val parser = GameJsonParser()
-        val jsonString = this::class.java.classLoader.getResource("default.json").readText()
+        val jsonString = getResourceFile("default.json");
 
         val game = parser.parseToGameData(jsonString)
         assertEquals(20, game.mapData.cols)
@@ -25,7 +25,7 @@ class GameJsonParserTests {
 
     @Test
     fun givenGameSettingsFile_whenCastlesData_shouldReturnCastlesData() {
-        val jsonString = this::class.java.classLoader.getResource("default.json").readText()
+        val jsonString = getResourceFile("default.json")
         val parser = GameJsonParser()
 
         val game = parser.parseToGameData(jsonString)
@@ -41,7 +41,7 @@ class GameJsonParserTests {
 
     @Test
     fun givenActionsJson_whenParsingActionData_shouldReturnActionDataObject() {
-        val jsonString = this::class.java.classLoader.getResource("actionTests.json").readText()
+        val jsonString = getResourceFile("gameJsonParser/actionTests.json")
         val parser = GameJsonParser()
 
         val expectedActions = listOf<Action>(
@@ -52,18 +52,22 @@ class GameJsonParserTests {
 
     @Test(expected = NoSuchActionException::class)
     fun givenGameStateFile_whenActionDataDoesNotExist_shouldThrowException() {
-        val jsonString = this::class.java.classLoader.getResource("notARealActionTests.json").readText()
+        val jsonString = getResourceFile("gameJsonParser/notARealActionTests.json")
 
         GameJsonParser().parseToActions(jsonString)
     }
 
     @Test
     fun givenSoldierDataAsJson_whenParsingToSoldierObject_shouldParseTheEnum() {
-        val jsonString = File("testResources/soldier.json").readText()
+        val jsonString = getResourceFile("gameJsonParser/soldier.json")
         val parser = GameJsonParser()
 
         val expectedSoldier = Soldier("1", 1, Location(5, 6), SoldierTypeEnum.MELEE)
 
         assertEquals(expectedSoldier, parser.gsonParser.fromJson(jsonString, Soldier::class.java))
+    }
+
+    private fun getResourceFile(fileName: String): String {
+        return this::class.java.classLoader.getResource(fileName).readText()
     }
 }
