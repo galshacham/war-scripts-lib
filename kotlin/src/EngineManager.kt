@@ -6,31 +6,26 @@ import steamers.GameStreamerInterface
 import java.io.File
 
 val DEFAULT_SETTING_PATH: String = EngineManager::class.java.classLoader.getResource("default.json").path
-val JSON_SUFFIX = "json"
+const val JSON_SUFFIX = "json"
 
-class EngineManager {
-    val Streamers = mutableListOf<GameStreamerInterface>()
-    val parser: GameJsonParser
-    val mapFilePath: String
-    var gameState: String = ""
+class EngineManager(args: Array<String>, gameStreamerFactory: GameStreamerFactory, private val parser: GameJsonParser) {
+    private val streamers = mutableListOf<GameStreamerInterface>()
+    private val mapFilePath: String
+    var gameState = ""
 
-    constructor(args: Array<String>, gameStreamerFactory: GameStreamerFactory, parser: GameJsonParser) {
+    init {
         if (args.isEmpty()) {
             throw ArgumentsException("Game must have at least one argument! default configuration requires: [code1, code2] format. for different configuration, add config.json as the last argument")
         }
-
         addStreamersToEngine(args, gameStreamerFactory)
-
-        this.parser = parser
         this.mapFilePath = getMapFile(args)
-
         gameState = File(mapFilePath).readText()
     }
 
     private fun addStreamersToEngine(args: Array<String>, gameStreamerFactory: GameStreamerFactory) {
         args.forEachIndexed { index, arg ->
             if (!arg.endsWith(JSON_SUFFIX))
-                Streamers.add(gameStreamerFactory.createStreamer(arg, index))
+                streamers.add(gameStreamerFactory.createStreamer(arg, index))
         }
     }
 
@@ -54,7 +49,7 @@ class EngineManager {
                 println("Turn $a")
             }
             a++;
-            Streamers.forEachIndexed { side, streamer ->
+            streamers.forEachIndexed { side, streamer ->
                 val actions = streamer.callStreamer(gameState, parser, side)
                 game.updateData(actions)
                 gameState = parser.gsonParser.toJson(game)
