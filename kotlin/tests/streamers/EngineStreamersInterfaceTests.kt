@@ -13,7 +13,7 @@ class EngineStreamersInterfaceTests {
     @Test
     fun whenParsingJavascriptStreamerCallResult_shouldReturnActionsList() {
         val gameState = File("testResources/simpleGameState.json").readText()
-        val Streamer = JavascriptStreamer("testResources/demoJsCode.js")
+        val Streamer = JavascriptStreamer("testResources/demoJsCode.js", 1)
         val actions = Streamer.callStreamer(gameState, GameJsonParser(), 0)
         val expectedActions = listOf(ChangeSoldierTypeAction("1", 0, "0", SoldierTypeEnum.RANGED))
 
@@ -23,7 +23,7 @@ class EngineStreamersInterfaceTests {
     @Test(expected = RuntimeException::class)
     fun whenParsingJavascriptStreamerCallResultAndHavingErrors_shouldPrintThrowRunTimeException() {
         val gameState = File("testResources/simpleGameState.json").readText()
-        val Streamer = JavascriptStreamer("testResources/demoJsFailCode.js")
+        val Streamer = JavascriptStreamer("testResources/demoJsFailCode.js", 1)
         Streamer.callStreamer(gameState, GameJsonParser(), 1)
     }
 }

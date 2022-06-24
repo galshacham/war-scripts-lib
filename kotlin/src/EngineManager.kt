@@ -1,8 +1,8 @@
-import steamers.GameStreamerFactory
-import steamers.GameStreamerInterface
 import main.GameJsonParser
 import main.exceptions.ArgumentsException
 import objects.Results
+import steamers.GameStreamerFactory
+import steamers.GameStreamerInterface
 import java.io.File
 
 val DEFAULT_SETTING_PATH: String = EngineManager::class.java.classLoader.getResource("default.json").path
@@ -28,9 +28,9 @@ class EngineManager {
     }
 
     private fun addStreamersToEngine(args: Array<String>, gameStreamerFactory: GameStreamerFactory) {
-        args.forEach { arg ->
+        args.forEachIndexed { index, arg ->
             if (!arg.endsWith(JSON_SUFFIX))
-                Streamers.add(gameStreamerFactory.createStreamer(arg))
+                Streamers.add(gameStreamerFactory.createStreamer(arg, index))
         }
     }
 
@@ -54,8 +54,8 @@ class EngineManager {
                 println("Turn $a")
             }
             a++;
-            Streamers.forEachIndexed { side, Streamer ->
-                val actions = Streamer.callStreamer(gameState, parser, side)
+            Streamers.forEachIndexed { side, streamer ->
+                val actions = streamer.callStreamer(gameState, parser, side)
                 game.updateData(actions)
                 gameState = parser.gsonParser.toJson(game)
             }

@@ -8,6 +8,7 @@ const val NATURAL_SIDE = -1
 class Engine(var mapData: MapData, var gameObjects: MutableList<GameObject>) {
 
     fun isUp(): Boolean {
+        return true
         val inTurnsCap = mapData.turn < mapData.maxTurns
         // TODO: i want to keep players which do not have castles
         val allCastles = gameObjects.filter {

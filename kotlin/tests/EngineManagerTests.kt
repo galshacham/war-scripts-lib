@@ -24,7 +24,7 @@ class EngineManagerTests {
         mockStreamer = mockk()
         mockParser = mockk()
 
-        every { mockFactory.createStreamer("oneArgument.mock") }.returns(mockStreamer)
+        every { mockFactory.createStreamer("oneArgument.mock", 1) }.returns(mockStreamer)
     }
 
     @Test
