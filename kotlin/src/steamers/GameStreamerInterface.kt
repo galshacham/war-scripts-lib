@@ -26,12 +26,12 @@ interface GameStreamerInterface {
             val errorStream = BufferedReader(InputStreamReader(getProcess().errorStream))
             val errorOutput = errorStream.readLine()
             print(errorOutput)
+            // TODO: handle this better
             throw BotRuntimeException("Compilation error of bot, stacktrace presented here: $errorOutput")
         }
 
         return jsonParser.parseToActions(actionsJson)
     }
-
 }
 
 fun String.removeWhitespaces(): String = this.replace("\\s".toRegex(), "")
