@@ -50,7 +50,7 @@ class EngineManager(args: Array<String>, gameStreamerFactory: GameStreamerFactor
             }
             a++;
             streamers.forEachIndexed { side, streamer ->
-                val actions = streamer.callStreamer(gameState, parser, side)
+                val actions = streamer.callStreamer(gameState, parser)
                 game.updateData(actions)
                 gameState = parser.gsonParser.toJson(game)
             }

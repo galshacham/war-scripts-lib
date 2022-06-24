@@ -5,15 +5,13 @@ const side = process.argv[3] || -1;
 
 const bot = require(botPath);
 
-let a = 1;
-
 process.stdin.on('readable', () => {
-    bot.doTurn()
-    let jsonState;
-    while ((jsonState = process.stdin.read()) !== null) {
-        // process.stdout.write(`data: ${jsonState}\n`);
-        console.log("QWEQWEEE" + a++)
-        if (a > 10000) throw new Error("HELLOE")
+    let gameStateString;
+    while ((gameStateString = process.stdin.read()) !== null) {
+        const gameState = new Game(gameStateString, side);
+        const updatedGameState = bot.doTurn(gameState)
+        process.stdout.write(`${JSON.stringify(updatedGameState)}\n`);
+
     }
 })
 // console.log(`[{"actionId": "q","side": 1,"affectedId": "1","soldierType": 1}]`);
