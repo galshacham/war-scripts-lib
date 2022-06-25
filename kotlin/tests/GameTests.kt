@@ -1,6 +1,6 @@
 package tests
 
-import Engine
+import Game
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -12,10 +12,10 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertFalse
 
-class EngineTests {
+class GameTests {
     @Test
     fun whenUpdatingGameData_shouldValidateAndApplyActions() {
-        val engine = Engine(mockk(), mutableListOf())
+        val engine = Game(mockk(), mutableListOf())
 
         val mockAction = mockk<Action>()
         every { mockAction.validate(engine) } returns Unit
@@ -49,7 +49,7 @@ class EngineTests {
     fun givenTurnBiggerThanMaxTurn_whenCheckingIfGameIsUp_shouldReturnFalse() {
         every { mapDataMock.turn } returns 1001
 
-        val engine = Engine(mapDataMock, mutableListOf(castleMock1, castleMock2))
+        val engine = Game(mapDataMock, mutableListOf(castleMock1, castleMock2))
         assertFalse(engine.isUp())
     }
 
@@ -57,13 +57,13 @@ class EngineTests {
     fun givenOnlyOnePlayerRemains_whenCheckingIfGameIsUp_shouldReturnFalse() {
         every { castleMock2.side } returns 1
 
-        val engine = Engine(mapDataMock, mutableListOf(castleMock1, castleMock2))
+        val engine = Game(mapDataMock, mutableListOf(castleMock1, castleMock2))
         assertFalse(engine.isUp())
     }
 
     @Test
     fun givenMoreThanOnePlayerRemains_whenCheckingIfGameIsUp_shouldReturnTrue() {
-        val engine = Engine(mapDataMock, mutableListOf(castleMock1, castleMock2))
+        val engine = Game(mapDataMock, mutableListOf(castleMock1, castleMock2))
         assertTrue(engine.isUp())
     }
 

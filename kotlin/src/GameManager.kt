@@ -5,11 +5,11 @@ import steamers.GameStreamerFactory
 import steamers.GameStreamerInterface
 import java.io.File
 
-val DEFAULT_SETTING_PATH: String = EngineManager::class.java.classLoader.getResource("default.json").path
+val DEFAULT_SETTING_PATH: String = GameManager::class.java.classLoader.getResource("default.json").path
 const val JSON_SUFFIX = "json"
 
-class EngineManager(args: Array<String>, gameStreamerFactory: GameStreamerFactory, private val parser: GameJsonParser) {
-    private val streamers = mutableListOf<GameStreamerInterface>()
+class GameManager(args: Array<String>, gameStreamerFactory: GameStreamerFactory, private val parser: GameJsonParser) {
+    val streamers = mutableListOf<GameStreamerInterface>()
     private val mapFilePath: String
     var gameState = ""
 
@@ -38,24 +38,25 @@ class EngineManager(args: Array<String>, gameStreamerFactory: GameStreamerFactor
         return mapFile
     }
 
-
     fun runGame(): Results {
+        val gameHistory = mutableListOf<Game>()
         val game = parser.parseToGameData(gameState)
 
         println("Started game")
-        var a = 0;
         while (game.isUp()) {
-            if (a % 20 == 0) {
-                println("Turn $a")
+            val currentTurn = game.mapData.turn
+
+            if (currentTurn % 20 == 0) {
+                println("Turn $currentTurn")
             }
-            a++;
-            streamers.forEachIndexed { side, streamer ->
-                val actions = streamer.callStreamer(gameState, parser)
+
+            streamers.forEach { streamer ->
+                val actions = streamer.call(gameState, parser)
                 game.updateData(actions)
                 gameState = parser.gsonParser.toJson(game)
             }
         }
 
-        return Results()
+        return Results(listOf(1), gameHistory);
     }
 }

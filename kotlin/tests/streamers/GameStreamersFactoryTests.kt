@@ -6,7 +6,7 @@ import steamers.GameStreamerFactory
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class EngineStreamersFactoryTests {
+class GameStreamersFactoryTests {
 
     @Test(expected = NoStramerException::class)
     fun whenGameStreamerFactoryCreatesNoneExistingStreamer_shouldThrowNoStreamerException() {
