@@ -1,3 +1,3 @@
-package main.exceptions
+package exceptions
 
 abstract class WarScriptsException(massage: String?) : Throwable(massage)

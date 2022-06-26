@@ -1,3 +1,3 @@
-package main.exceptions
+package exceptions
 
 class NoPlayersException(message: String?) : WarScriptsException(message)

@@ -1,0 +1,14 @@
+{
+  "name": "war-scripts-lib-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/javascriptRunner.js",
+  "scripts": {
+    "test": "npm test --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^28.1.1"
+  }
+}

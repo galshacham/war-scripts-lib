@@ -1,4 +1,4 @@
-const {Game} = require("../resources/gameAPIs/game")
+const {Game} = require("../resources/botRunners/js/src/game")
 
 function doTurn(game) {
     console.log("QWEQ")

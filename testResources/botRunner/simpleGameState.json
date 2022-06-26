@@ -1,0 +1,19 @@
+{
+  "mapData": {
+    "rows": 20,
+    "cols": 20
+  },
+  "gameObjects": [
+    {
+      "objectType": "CASTLE",
+      "side": 0,
+      "id": "0",
+      "soldierType": "MELEE",
+      "loc": {
+        "row": 1,
+        "col": 1
+      },
+      "action": null
+    }
+  ]
+}
