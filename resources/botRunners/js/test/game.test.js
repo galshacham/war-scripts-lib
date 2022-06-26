@@ -12,7 +12,7 @@ const basicGameState = {
     "gameObjects": [
         {
             "objectType": "CASTLE",
-            "side": 0,
+            "player": 0,
             "id": "0",
             "creatingSoldierType": "MELEE",
             "loc": {
@@ -22,7 +22,7 @@ const basicGameState = {
         },
         {
             "objectType": "CASTLE",
-            "side": 1,
+            "player": 1,
             "id": "1",
             "creatingSoldierType": "MELEE",
             "loc": {
@@ -32,7 +32,7 @@ const basicGameState = {
         },
         {
             "objectType": "CASTLE",
-            "side": -1,
+            "player": -1,
             "id": "2",
             "creatingSoldierType": "MELEE",
             "loc": {
@@ -42,7 +42,7 @@ const basicGameState = {
         },
         {
             "objectType": "CASTLE",
-            "side": -1,
+            "player": -1,
             "id": "3",
             "creatingSoldierType": "MELEE",
             "loc": {
@@ -61,7 +61,7 @@ const expectedGameObject = {
         new Castle("2", -1, new Loc(1, 19), "MELEE"),
         new Castle("3", -1, new Loc(19, 1), "MELEE"),
     ],
-    side: 1
+    player: 1
 }
 expectedGameObject.__proto__ = Game.prototype
 
@@ -78,6 +78,6 @@ test("givenValidGame_whenGettingAllMyCastles_shouldReturnOnlyMyCastles", () => {
     const expectedCastles = [
         new Castle("2", -1, new Loc(1, 19), "MELEE"),
         new Castle("3", -1, new Loc(19, 1), "MELEE")]
-    
-    expect(game.getAllMyCastles()).toEqual(expectedCastles)
+
+    expect(game.getAllMyCastles()).toStrictEqual(expectedCastles)
 })
