@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/javascriptRunner.js",
   "scripts": {
-    "test": "npm test --watch"
+    "test": "jest --watch"
   },
   "author": "",
   "license": "ISC",
