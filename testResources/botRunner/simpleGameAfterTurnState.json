@@ -1,21 +1,25 @@
 {
+  "player": 0,
   "mapData": {
     "rows": 20,
-    "cols": 20
+    "cols": 20,
+    "players": [
+      0
+    ]
   },
   "gameObjects": [
     {
       "objectType": "CASTLE",
-      "side": 0,
+      "player": 0,
       "id": "0",
-      "soldierType": "MELEE",
+      "creatingSoldierType": "MELEE",
       "loc": {
         "row": 1,
         "col": 1
       },
       "action": {
-        "type": "CHANGE_SOLDIER_TYPE",
-        "newType": "RANGER"
+        "actionType": "CHANGE_SOLDIER_TYPE",
+        "creatingSoldierType": "RANGED"
       }
     }
   ]

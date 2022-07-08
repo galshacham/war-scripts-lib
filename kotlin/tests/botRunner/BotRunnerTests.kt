@@ -42,14 +42,14 @@ class BotRunnerTests {
     }
 
     @Test
-    fun whenRunningABotRunnerTurn_shouldRunTurn() {
-        val side = 1
+    fun givenAValidBot_whenRunningABotRunnerTurn_shouldRunTurn() {
+        val player = 0
         val execProgram = "node $JS_RUNNER_PATH"
         val botPath = JS_VALID_BOT_PATH
         val gameStateJson = SIMPLE_GAME_STATE_JSON
         val expectedGameState = SIMPLE_GAME_STATE_AFTER_TURN_JSON
 
-        val botRunner = BotRunner(botPath, side, Runtime.getRuntime(), execProgram)
+        val botRunner = BotRunner(botPath, player, Runtime.getRuntime(), execProgram)
 
         val newGameStateJson = botRunner.doTurn(gameStateJson)
 
