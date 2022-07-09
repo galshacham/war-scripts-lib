@@ -3,7 +3,7 @@
     {
       "actionType": "CHANGE_SOLDIER_TYPE",
       "actionId": "0",
-      "side": 1,
+      "owner":1,
       "affectedId": "1",
       "soldierType": "RANGED"
     }

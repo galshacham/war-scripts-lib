@@ -2,9 +2,11 @@ class Game {
     player; // int
     mapData; // MapData
     gameObjects; // GameObject[]
+    logs; // String[]
 
     constructor(jsonGameState, player) {
         const gameState = JSON.parse(jsonGameState);
+        this.logs = []
         this.mapData = new MapData(
             gameState.mapData.rows,
             gameState.mapData.cols,
@@ -31,6 +33,10 @@ class Game {
 
     getAllMyCastles() {
         return this.gameObjects.filter((gameObject) => gameObject instanceof Castle && gameObject.player === this.player);
+    }
+
+    log(message) {
+        this.logs.push(message);
     }
 }
 

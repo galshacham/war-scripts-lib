@@ -3,7 +3,7 @@
     {
       "actionType": "NOT_A_REAL_ACTION",
       "actionId": 0,
-      "side": -1
+      "owner":-1
     }
   ]
 }

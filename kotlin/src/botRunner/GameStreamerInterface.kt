@@ -1,8 +1,8 @@
 //package steamers
 //
 //import exceptions.BotRuntimeException
-//import main.GameJsonParser
-//import main.objects.actions.Action
+//import main.parser.GameJsonParser
+//import objects.actions.Action
 //import java.io.BufferedReader
 //import java.io.InputStreamReader
 //
@@ -12,7 +12,7 @@
 //
 //    fun getProcess(): Process
 //
-//    fun call(gameState: String, jsonParser: GameJsonParser): List<Action> {
+//    fun call(gameState: String, jsonParser: parser.GameJsonParser): List<Action> {
 //        val inputStream = BufferedReader(InputStreamReader(getProcess().inputStream))
 //        getProcess().outputStream.write(gameState.removeWhitespaces().toByteArray())
 //        getProcess().outputStream.flush()

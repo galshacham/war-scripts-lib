@@ -1,18 +1,24 @@
 const {Game} = require("./game")
 
 const botPath = process.argv[2];
-const player = process.argv[3] || -1;
+const player = parseInt(process.argv[3]) || -1;
 
 
 process.stdin.on('readable', () => {
-    const bot = require(botPath);
-    let gameStateString;
-    while ((gameStateString = process.stdin.read()) !== null) {
-        const newGameState = runTurn(gameStateString, bot, player);
+        const bot = require(botPath);
+        let gameStateString;
+        while ((gameStateString = process.stdin.read()) !== null) {
+            try {
+                const newGameState = runTurn(gameStateString, bot, player);
 
-        process.stdout.write(`${newGameState}\n`);
+                process.stdout.write(`${JSON.stringify(newGameState)}\n`);
+            } catch (e) {
+                // TODO: change this
+                process.stdout.write(`${gameStateString}, ${player} ${botPath} \n`);
+            }
+        }
     }
-})
+)
 
 // This looks funny, but this is here so bots functionality can be tested
 function runTurn(gameStateString, bot, player) {

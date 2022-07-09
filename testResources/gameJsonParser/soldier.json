@@ -1,6 +1,6 @@
 {
   "id": 1,
-  "side": 1,
+  "owner":1,
   "soldierType": "MELEE",
   "health": 4,
   "range": 1,

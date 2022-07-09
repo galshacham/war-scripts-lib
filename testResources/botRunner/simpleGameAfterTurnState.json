@@ -1,5 +1,5 @@
 {
-  "player": 0,
+  "owner":0,
   "mapData": {
     "rows": 20,
     "cols": 20,
@@ -10,7 +10,7 @@
   "gameObjects": [
     {
       "objectType": "CASTLE",
-      "player": 0,
+      "owner":0,
       "id": "0",
       "creatingSoldierType": "MELEE",
       "loc": {

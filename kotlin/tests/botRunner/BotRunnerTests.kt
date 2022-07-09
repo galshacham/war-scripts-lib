@@ -3,6 +3,7 @@ package tests.botRunner
 import Constants.Companion.JS_RUNNER_PATH
 import Constants.Companion.PY_RUNNER_PATH
 import botRunner.BotRunner
+import botRunner.removeWhitespaces
 import io.mockk.spyk
 import io.mockk.verify
 import org.junit.Test
@@ -47,7 +48,7 @@ class BotRunnerTests {
         val execProgram = "node $JS_RUNNER_PATH"
         val botPath = JS_VALID_BOT_PATH
         val gameStateJson = SIMPLE_GAME_STATE_JSON
-        val expectedGameState = SIMPLE_GAME_STATE_AFTER_TURN_JSON
+        val expectedGameState = SIMPLE_GAME_STATE_AFTER_TURN_JSON.removeWhitespaces()
 
         val botRunner = BotRunner(botPath, player, Runtime.getRuntime(), execProgram)
 

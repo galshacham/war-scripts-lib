@@ -2,7 +2,7 @@
   "mapData": {
     "rows": 20,
     "cols": 20,
-    "players": [
+    "owners": [
       0,
       1
     ]
@@ -10,7 +10,7 @@
   "gameObjects": [
     {
       "objectType": "CASTLE",
-      "side": 0,
+      "owner": 0,
       "id": "0",
       "soldierType": "MELEE",
       "loc": {
@@ -20,7 +20,7 @@
     },
     {
       "objectType": "CASTLE",
-      "side": 1,
+      "owner": 1,
       "id": "1",
       "soldierType": "MELEE",
       "loc": {
@@ -30,7 +30,7 @@
     },
     {
       "objectType": "CASTLE",
-      "side": -1,
+      "owner": -1,
       "id": "2",
       "soldierType": "MELEE",
       "loc": {
@@ -40,7 +40,7 @@
     },
     {
       "objectType": "CASTLE",
-      "side": -1,
+      "owner": -1,
       "id": "3",
       "soldierType": "MELEE",
       "loc": {

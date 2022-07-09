@@ -1,8 +1,8 @@
 //package tests.streamers
 //
 //import exceptions.BotRuntimeException
-//import main.GameJsonParser
-//import main.enums.SoldierTypeEnum
+//import main.parser.GameJsonParser
+//import enums.SoldierTypeEnum
 //import objects.actions.ChangeSoldierTypeAction
 //import org.junit.Test
 //import steamers.JavascriptStreamer
@@ -15,7 +15,7 @@
 //        val gameState = getResourceFileText("gameStreamersInterface/simpleGameAfterTurnState.json");
 //        val side = 1
 //        val streamer = JavascriptStreamer("testResources/gameStreamersInterface/demoJsCode.js", side)
-//        val actions = streamer.call(gameState, GameJsonParser())
+//        val actions = streamer.call(gameState, parser.GameJsonParser())
 //        val expectedActions = listOf(ChangeSoldierTypeAction("1", side, "0", SoldierTypeEnum.RANGED))
 //
 //        assertEquals(expectedActions, actions)
@@ -25,6 +25,6 @@
 //    fun whenParsingJavascriptStreamerCallResultAndHavingErrors_shouldPrintThrowRunTimeException() {
 //        val gameState = getResourceFileText("gameStreamersInterface/simpleGameAfterTurnState.json");
 //        val streamer = JavascriptStreamer("testResources/demoJsFailCode.js", 1)
-//        streamer.call(gameState, GameJsonParser())
+//        streamer.call(gameState, parser.GameJsonParser())
 //    }
 //}
