@@ -3,6 +3,8 @@ package objects.actions
 import enums.SoldierTypeEnum
 import Game
 
+
+@kotlinx.serialization.Serializable
 data class ChangeSoldierTypeAction(override val side: Int, val affectedId: String, val soldierType: SoldierTypeEnum) : Action {
 
     override fun apply(game: Game) {

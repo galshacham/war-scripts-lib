@@ -3,11 +3,11 @@ package objects
 import Game
 import objects.actions.Action
 
-interface GameObject {
+interface GameObject<ACTION : Action> {
     val id: Int
     val owner: Int
     val loc: Location
-    val action: Action?
+    val action: ACTION?
 
     fun updateState(game: Game)
 }

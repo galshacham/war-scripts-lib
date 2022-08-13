@@ -10,7 +10,6 @@ import org.junit.jupiter.api.assertThrows
 import tests.TestConstants
 
 class BotRunnersFactoryTests {
-
     final val SIDE = 1
 
     @Test
@@ -18,10 +17,8 @@ class BotRunnersFactoryTests {
         val runtimeSpy = spyk(Runtime.getRuntime())
         val fact = BotRunnerFactory(runtimeSpy)
 
-
         assertThrows<UnsupportedBotRunnerException> {
-        fact.createBotRunner("doesntExist.bla", SIDE)
-
+            fact.createBotRunner("doesntExist.bla", SIDE)
         }
     }
 
