@@ -1,6 +1,6 @@
 package enums
 
-enum class SoldierTypeEnum {
-    MELEE,
-    RANGED
+enum class SoldierTypeEnum(soldierType: String) {
+    MELEE("MELEE"),
+    RANGED("RANGED")
 }

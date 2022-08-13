@@ -5,7 +5,7 @@ import Game
 
 
 @kotlinx.serialization.Serializable
-data class ChangeSoldierTypeAction(override val side: Int, val affectedId: String, val soldierType: SoldierTypeEnum) : Action {
+data class ChangeSoldierTypeAction(override val activatorId: Int, val soldierType: SoldierTypeEnum) : Action {
 
     override fun apply(game: Game) {
 //        val selectedCastle = game.gameObjects.find { it.id == affectedId }

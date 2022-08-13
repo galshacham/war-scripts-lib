@@ -1,6 +1,7 @@
 package botRunner
 
 import exceptions.BotRuntimeException
+import kotlinx.serialization.json.Json
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
@@ -14,7 +15,7 @@ class BotRunner(botAbsolutePath: String, player: Int, runtime: Runtime, execStri
 
     fun doTurn(currentGameStateJson: String): String {
         val inputStream = BufferedReader(InputStreamReader(process.inputStream))
-        process.outputStream.write(currentGameStateJson.removeWhitespaces().toByteArray())
+        process.outputStream.write(currentGameStateJson.toByteArray())
         process.outputStream.flush()
 
         val newGameStateJson = inputStream.readLine()
@@ -28,8 +29,4 @@ class BotRunner(botAbsolutePath: String, player: Int, runtime: Runtime, execStri
 
         return newGameStateJson
     }
-
 }
-
-fun String.removeWhitespaces(): String = this.replace("\\s".toRegex(), "")
-

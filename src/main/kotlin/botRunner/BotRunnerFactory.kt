@@ -11,8 +11,8 @@ class BotRunnerFactory(private val runtime: Runtime) {
     val PY_EXEC_STRING = "py " + Constants.PY_RUNNER_PATH
 
     fun createBotRunner(codePath: String, side: Int): BotRunner {
-
         val suffix = getFileSuffix(codePath)
+
         return when (suffix) {
 //            "py" -> PythonStreamer(codePath)
             "js" -> BotRunner(codePath, side, runtime, JS_EXEC_STRING)

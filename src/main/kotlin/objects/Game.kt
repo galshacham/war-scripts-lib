@@ -5,7 +5,7 @@ import objects.GameObject
 
 const val NATURAL_SIDE = -1
 
-class Game(var mapData: MapData, var gameObjects: MutableList<GameObject<Action>>) {
+class Game(var mapData: MapData, var gameObjects: MutableList<GameObject>) {
 
     fun isUp(): Boolean {
         val inTurnsCap = mapData.turn < mapData.maxTurns
