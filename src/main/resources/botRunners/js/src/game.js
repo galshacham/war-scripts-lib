@@ -1,12 +1,14 @@
 class Game {
-    player; // int
+    owner; // int
     mapData; // MapData
     gameObjects; // GameObject[]
     logs; // String[]
+    actions; // AbstractAction[]
 
-    constructor(jsonGameState, player) {
+    constructor(jsonGameState, owner) {
         const gameState = JSON.parse(jsonGameState);
         this.logs = []
+        this.actions = []
         this.mapData = new MapData(
             gameState.mapData.rows,
             gameState.mapData.cols,
@@ -15,24 +17,28 @@ class Game {
         this.gameObjects = gameState.gameObjects.map((gameObject) => {
             const {
                 id,
-                player,
+                owner,
                 loc: {row, col},
             } = gameObject;
             switch (gameObject.objectType) {
                 case CASTLE_TYPE:
                     return new Castle(
                         id,
-                        player,
+                        owner,
                         new Loc(row, col),
                         gameObject.creatingSoldierType,
                     );
             }
         });
-        this.player = player;
+        this.owner = owner;
     }
 
     getAllMyCastles() {
-        return this.gameObjects.filter((gameObject) => gameObject instanceof Castle && gameObject.player === this.player);
+        return this.gameObjects.filter((gameObject) => gameObject instanceof Castle && gameObject.owner === this.owner);
+    }
+
+    changeSoldierType(castleId, soldierType) {
+        this.actions.push(new ChangeSoldierTypeAction(castleId, soldierType));
     }
 
     log(message) {
@@ -67,32 +73,33 @@ class Loc {
 const CHANGE_SOLDIER_TYPE = "CHANGE_SOLDIER_TYPE";
 
 class AbstractAction {
+    activatorId // int
     actionType // string
-    constructor(actionType) {
+    constructor(actionType, activatorId) {
         this.actionType = actionType
+        this.activatorId = activatorId
     }
 }
 
 class ChangeSoldierTypeAction extends AbstractAction {
     creatingSoldierType; // string
 
-    constructor(creatingSoldierType) {
-        super(CHANGE_SOLDIER_TYPE);
+    constructor(activatorId, creatingSoldierType) {
+        super(CHANGE_SOLDIER_TYPE, activatorId);
         this.creatingSoldierType = creatingSoldierType;
     }
 }
 
 class GameObject {
     objectType // string
-    id; // string
-    player; // int
+    id; // int
+    owner; // int
     loc; // Loc
-    action; // ?Action
 
-    constructor(id, player, loc, objectType) {
+    constructor(id, owner, loc, objectType) {
         this.objectType = objectType;
         this.id = id;
-        this.player = player;
+        this.owner = owner;
         this.loc = loc;
     }
 }
@@ -100,16 +107,12 @@ class GameObject {
 class Castle extends GameObject {
     creatingSoldierType; // string
 
-    constructor(id, player, loc, soldierType) {
-        super(id, player, loc, CASTLE_TYPE);
+    constructor(id, owner, loc, soldierType) {
+        super(id, owner, loc, CASTLE_TYPE);
         this.id = id;
         this.creatingSoldierType = soldierType;
-        this.player = player;
+        this.owner = owner;
         this.loc = loc;
-    }
-
-    changeSoldierType(soldierType) {
-        this.action = new ChangeSoldierTypeAction(soldierType);
     }
 }
 

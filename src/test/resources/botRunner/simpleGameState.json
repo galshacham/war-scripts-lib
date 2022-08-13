@@ -1,21 +1,24 @@
 {
-  "owner":0,
+  "owner": 0,
   "mapData": {
     "rows": 20,
     "cols": 20,
-    "players": [0]
+    "players": [
+      0
+    ]
   },
+  "logs": [],
   "gameObjects": [
     {
       "objectType": "CASTLE",
-      "owner":0,
-      "id": "0",
+      "owner": 0,
+      "id": 0,
       "creatingSoldierType": "MELEE",
       "loc": {
         "row": 1,
         "col": 1
-      },
-      "action": null
+      }
     }
-  ]
+  ],
+  "actions": []
 }

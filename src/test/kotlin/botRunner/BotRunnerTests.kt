@@ -5,9 +5,12 @@ import Constants.Companion.PY_RUNNER_PATH
 import botRunner.BotRunner
 import io.mockk.spyk
 import io.mockk.verify
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import tests.TestConstants.Companion.JS_VALID_BOT_PATH
 import tests.TestConstants.Companion.PY_VALID_BOT_PATH
+import tests.TestConstants.Companion.SIMPLE_GAME_STATE_AFTER_TURN_JSON
+import tests.TestConstants.Companion.SIMPLE_GAME_STATE_JSON
 
 class BotRunnerTests {
 
@@ -40,18 +43,18 @@ class BotRunnerTests {
 
 
     // Integ test, for now it will be held
-//    @Test
-//    fun givenAValidBot_whenRunningABotRunnerTurn_shouldRunTurn() {
-//        val player = 0
-//        val execProgram = "node $JS_RUNNER_PATH"
-//        val botPath = JS_VALID_BOT_PATH
-//        val gameStateJson = SIMPLE_GAME_STATE_JSON
-//        val expectedGameState = SIMPLE_GAME_STATE_AFTER_TURN_JSON.removeWhitespaces()
-//
-//        val botRunner = BotRunner(botPath, player, Runtime.getRuntime(), execProgram)
-//
-//        val newGameStateJson = botRunner.doTurn(gameStateJson)
-//
-//        assertEquals(expectedGameState, newGameStateJson)
-//    }
+    @Test
+    fun givenAValidBot_whenRunningABotRunnerTurn_shouldRunTurn() {
+        val player = 0
+        val execProgram = "node $JS_RUNNER_PATH"
+        val botPath = JS_VALID_BOT_PATH
+        val gameStateJson = SIMPLE_GAME_STATE_JSON
+        val expectedGameState = SIMPLE_GAME_STATE_AFTER_TURN_JSON//.removeWhitespaces()
+
+        val botRunner = BotRunner(botPath, player, Runtime.getRuntime(), execProgram)
+
+        val actionsJson = botRunner.doTurn(gameStateJson)
+
+        assertEquals(expectedGameState, actionsJson)
+    }
 }

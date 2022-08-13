@@ -1,5 +1,5 @@
 {
-  "owner":0,
+  "owner": 0,
   "mapData": {
     "rows": 20,
     "cols": 20,
@@ -7,20 +7,24 @@
       0
     ]
   },
+  "logs": [],
   "gameObjects": [
     {
       "objectType": "CASTLE",
-      "owner":0,
-      "id": "0",
+      "owner": 0,
+      "id": 0,
       "creatingSoldierType": "MELEE",
       "loc": {
         "row": 1,
         "col": 1
-      },
-      "action": {
-        "actionType": "CHANGE_SOLDIER_TYPE",
-        "creatingSoldierType": "RANGED"
       }
+    }
+  ],
+  "actions": [
+    {
+      "activatorId": 0,
+      "actionType": "CHANGE_SOLDIER_TYPE",
+      "creatingSoldierType": "RANGED"
     }
   ]
 }
