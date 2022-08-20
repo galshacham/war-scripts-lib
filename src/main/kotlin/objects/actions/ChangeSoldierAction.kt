@@ -1,11 +1,19 @@
 package objects.actions
 
+import enums.ActionTypeEnum
 import enums.SoldierTypeEnum
-import Game
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import objects.Game
 
 
-@kotlinx.serialization.Serializable
-data class ChangeSoldierTypeAction(override val activatorId: Int, val soldierType: SoldierTypeEnum) : Action {
+@Serializable
+@SerialName("ChangeSoldierAction")
+data class ChangeSoldierAction(
+    override val activatorId: Int,
+    override val actionType: ActionTypeEnum = ActionTypeEnum.CHANGE_SOLDIER_TYPE,
+    val creatingSoldierType: SoldierTypeEnum,
+) : Action() {
 
     override fun apply(game: Game) {
 //        val selectedCastle = game.gameObjects.find { it.id == affectedId }
@@ -19,7 +27,7 @@ data class ChangeSoldierTypeAction(override val activatorId: Int, val soldierTyp
     }
 
     override fun validate(game: Game) {
-        super.validate(game)
+//        super.validate(game)
 //        val affectedCastle = game.gameObjects.find { it.id == affectedId }!!
 //
 //        if (affectedCastle.side != side) {

@@ -1,8 +1,6 @@
 package objects
 
-import Game
 import enums.SoldierTypeEnum
-import objects.actions.ChangeSoldierTypeAction
 
 const val TURNS_TO_CREATE_SOLDIER = 5
 
@@ -31,5 +29,5 @@ data class Castle(
 //        }
     }
 
-//    private fun isTimeToCreateSoldier(game: Game) = game.mapData.turn % TURNS_TO_CREATE_SOLDIER == 0
+//    private fun isTimeToCreateSoldier(game: objects.Game) = game.mapData.turn % TURNS_TO_CREATE_SOLDIER == 0
 }

@@ -1,12 +1,11 @@
-import objects.MapData
+package objects
+
 import objects.actions.Action
-import objects.Castle
-import objects.GameObject
 
 const val NATURAL_SIDE = -1
 
+@kotlinx.serialization.Serializable
 class Game(var mapData: MapData, var gameObjects: MutableList<GameObject>) {
-
     fun isUp(): Boolean {
         val inTurnsCap = mapData.turn < mapData.maxTurns
         // TODO: i want to keep players which do not have castles

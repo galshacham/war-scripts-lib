@@ -11,10 +11,11 @@ process.stdin.on('readable', () => {
             try {
                 const newGameState = runTurn(gameStateString, bot, owner);
 
-                process.stdout.write(`${JSON.stringify(newGameState)}\n`);
+                process.stdout.write(`${JSON.stringify(newGameState.actions)}\n`);
             } catch (e) {
                 // TODO: change this
-                process.stdout.write(`${gameStateString}, ${owner} ${botPath} \n`);
+                process.stdout.write(`ERROR\n`);
+                // process.stdout.write(`${gameStateString}, ${owner} ${botPath} \n`);
             }
         }
     }

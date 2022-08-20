@@ -1,11 +1,16 @@
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
 import objects.Castle
 import objects.Location
 
+
 fun main(args: Array<String>) {
-    val loc = Castle(1,2, Location(3,4))
+    val loc = Castle(1, 2, Location(3, 4))
     println(loc)
 
     val string = Json.encodeToString(loc)
