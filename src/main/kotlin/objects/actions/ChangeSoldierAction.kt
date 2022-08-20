@@ -13,7 +13,7 @@ data class ChangeSoldierAction(
     override val activatorId: Int,
     override val actionType: ActionTypeEnum = ActionTypeEnum.CHANGE_SOLDIER_TYPE,
     val creatingSoldierType: SoldierTypeEnum,
-) : Action() {
+) : Action {
 
     override fun apply(game: Game) {
 //        val selectedCastle = game.gameObjects.find { it.id == affectedId }
