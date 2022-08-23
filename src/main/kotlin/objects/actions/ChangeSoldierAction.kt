@@ -11,9 +11,10 @@ import objects.Game
 @SerialName("ChangeSoldierAction")
 data class ChangeSoldierAction(
     override val activatorId: Int,
-    override val actionType: ActionTypeEnum = ActionTypeEnum.CHANGE_SOLDIER_TYPE,
     val creatingSoldierType: SoldierTypeEnum,
-) : Action {
+    override val actionType: ActionTypeEnum = ActionTypeEnum.CHANGE_SOLDIER_TYPE
+) : Action() {
+
 
     override fun apply(game: Game) {
 //        val selectedCastle = game.gameObjects.find { it.id == affectedId }

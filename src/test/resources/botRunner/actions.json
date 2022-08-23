@@ -1,0 +1,12 @@
+[
+  {
+    "activatorId": 60,
+    "actionType": "CHANGE_SOLDIER_TYPE",
+    "creatingSoldierType": "RANGED"
+  },
+  {
+    "activatorId": 70,
+    "actionType": "CHANGE_SOLDIER_TYPE",
+    "creatingSoldierType": "MELEE"
+  }
+]

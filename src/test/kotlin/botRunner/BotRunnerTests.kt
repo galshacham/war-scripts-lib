@@ -53,29 +53,25 @@ class BotRunnerTests {
 
 
     // Integ test, for now it will be held
-    @Test
-    fun givenAValidBot_whenRunningABotRunnerTurn_shouldRunTurn() {
-        val player = 0
-        val execProgram = "node $JS_RUNNER_PATH"
-        val botPath = JS_VALID_BOT_PATH
-        val gameStateJson = SIMPLE_GAME_STATE_JSON
-        val expectedActions =
-            listOf(ChangeSoldierAction(0, ActionTypeEnum.CHANGE_SOLDIER_TYPE, SoldierTypeEnum.RANGED))
-
-        val botRunner = BotRunner(botPath, player, Runtime.getRuntime(), execProgram)
-
-        val module = SerializersModule {
-            return polymorphic(Action::class, ChangeSoldierAction::class, ChangeSoldierAction.serializer());
-        }
-
-
-        val string = botRunner.doTurn(gameStateJson)
-        val actualActions = Json { serializersModule = module }.decodeFromString<List<Action>>(string)
-
-        assertEquals(expectedActions, actualActions)
-    }
-
-    object ListOfProjectSerializer : KSerializer<List<Action>> by ListSerializer(Action.serializer())
-
-
+//    @Test
+//    fun givenAValidBot_whenRunningABotRunnerTurn_shouldRunTurn() {
+//        val player = 0
+//        val execProgram = "node $JS_RUNNER_PATH"
+//        val botPath = JS_VALID_BOT_PATH
+//        val gameStateJson = SIMPLE_GAME_STATE_JSON
+//        val expectedActions =
+//            listOf(ChangeSoldierAction(0, ActionTypeEnum.CHANGE_SOLDIER_TYPE, SoldierTypeEnum.RANGED))
+//
+//        val botRunner = BotRunner(botPath, player, Runtime.getRuntime(), execProgram)
+//
+//        val module = SerializersModule {
+//            polymorphic(Action::class, ChangeSoldierAction::class, ChangeSoldierAction.serializer());
+//        }
+//
+//
+//        val string = botRunner.doTurn(gameStateJson)
+//        val actualActions = Json { serializersModule = module }.decodeFromString<List<Action>>(string)
+//
+//        assertEquals(expectedActions, actualActions)
+//    }
 }
