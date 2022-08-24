@@ -1,5 +1,6 @@
 package objects
 
+import enums.GameObjectsTypesEnums
 import enums.SoldierTypeEnum
 
 const val TURNS_TO_CREATE_SOLDIER = 5
@@ -8,8 +9,9 @@ const val TURNS_TO_CREATE_SOLDIER = 5
 data class Castle(
     override val id: Int,
     override val owner: Int,
-    override val loc: Location
-) : GameObject {
+    override val loc: Location,
+    override val objectType: GameObjectsTypesEnums = GameObjectsTypesEnums.CASTLE
+) : GameObject() {
     var soldierType = SoldierTypeEnum.MELEE
 
     fun changeSoldierType(newType: SoldierTypeEnum) {

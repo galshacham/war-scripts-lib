@@ -1,9 +1,14 @@
 package objects
 
-interface GameObject {
-    val id: Int
-    val owner: Int
-    val loc: Location
+import GameObjectSerializer
+import enums.GameObjectsTypesEnums
 
-    fun updateState(game: Game)
+@kotlinx.serialization.Serializable(with = GameObjectSerializer::class)
+abstract class GameObject {
+    abstract val id: Int
+    abstract val owner: Int
+    abstract val loc: Location
+    abstract val objectType: GameObjectsTypesEnums
+
+    abstract fun updateState(game: Game)
 }

@@ -1,0 +1,32 @@
+{
+  "mapData": {
+    "rows": 5,
+    "cols": 6,
+    "turn": 7,
+    "maxTurns": 60,
+    "players": [
+      2,
+      3
+    ]
+  },
+  "gameObjects": [
+    {
+      "type": "Castle",
+      "id": 10,
+      "owner": 2,
+      "loc": {
+        "row": 4,
+        "col": 4
+      }
+    },
+    {
+      "type": "Castle",
+      "id": 11,
+      "owner": 3,
+      "loc": {
+        "row": 4,
+        "col": 5
+      }
+    }
+  ]
+}

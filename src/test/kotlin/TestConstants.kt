@@ -7,8 +7,10 @@ class TestConstants {
         val JS_VALID_BOT_PATH: String = File("src/test/resources/botRunner/demoJsCode.js").absolutePath
         val PY_VALID_BOT_PATH: String = File("src/test/resources/botRunner/demoPythonCode.py").absolutePath
 
-        val ACTIONS_JSON: String = File("src/test/resources/botRunner/actions.json").readText()
-        val NON_ACTION_JSON: String = File("src/test/resources/botRunner/nonActions.json").readText()
+        val ACTIONS_JSON: String = File("src/test/resources/parser/actions.json").readText()
+        val NON_ACTION_JSON: String = File("src/test/resources/parser/nonActions.json").readText()
+
+        val GAME_JSON_STRING: String = File("src/test/resources/parser/game.json").readText()
 
 
         val SIMPLE_GAME_STATE_JSON: String = File("src/test/resources/botRunner/simpleGameState.json").readText()
