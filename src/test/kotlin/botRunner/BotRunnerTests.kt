@@ -3,24 +3,11 @@ package tests.botRunner
 import Constants.Companion.JS_RUNNER_PATH
 import Constants.Companion.PY_RUNNER_PATH
 import botRunner.BotRunner
-import enums.ActionTypeEnum
-import enums.SoldierTypeEnum
 import io.mockk.spyk
 import io.mockk.verify
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.builtins.ListSerializer
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.modules.SerializersModule
-import objects.actions.Action
-import objects.actions.ChangeSoldierAction
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import tests.TestConstants.Companion.JS_VALID_BOT_PATH
 import tests.TestConstants.Companion.PY_VALID_BOT_PATH
-import tests.TestConstants.Companion.SIMPLE_GAME_STATE_JSON
-import java.lang.reflect.TypeVariable
-import kotlin.reflect.KClass
 
 class BotRunnerTests {
 
@@ -50,7 +37,6 @@ class BotRunnerTests {
 
         verify { runtimeSpy.exec(expectedExecString) }
     }
-
 
     // Integ test, for now it will be held
 //    @Test

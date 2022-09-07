@@ -105,3 +105,8 @@ test("givenGame_whenAddingDebugGameLogs_shouldAddPushLogs", () => {
     game.log(logMessage2)
     expect(game).toStrictEqual(expectedGame);
 });
+
+
+test("check", () => {
+    const action = new ChangeSoldierTypeAction(1, "MELEE")
+});

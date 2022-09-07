@@ -11,7 +11,6 @@ import tests.TestConstants
 
 class BotRunnersFactoryTests {
     final val SIDE = 1
-
     @Test
     fun whenBotFactoryCreatingUnsupportedBotRunner_shouldThrowException() {
         val runtimeSpy = spyk(Runtime.getRuntime())
