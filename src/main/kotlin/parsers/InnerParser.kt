@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 
 class InnerParser {
-    fun parseToObject(jsonString: String): ActionData<*> {
+    fun parseToObjectData(jsonString: String): ActionData<*> {
         val jsonObject = Json.parseToJsonElement(jsonString)
         val objectType = ActionTypeEnum.valueOf(jsonObject.jsonObject["actionType"].toString().replace("\"", ""))
 

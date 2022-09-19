@@ -5,8 +5,6 @@ import comm.inner.AttackSoldierActionData
 import comm.inner.ChangeSoldierActionData
 import enums.ActionTypeEnum
 import enums.SoldierTypeEnum
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Test
 import parsers.InnerParser
 import kotlin.test.assertEquals
@@ -26,7 +24,7 @@ class InnerParserTests {
               }
         """.trimIndent()
 
-        val actualActionData = parser.parseToObject(actionJsonString)
+        val actualActionData = parser.parseToObjectData(actionJsonString)
 
         val soldierChangeActionData = ActionData(
             1,
@@ -49,7 +47,7 @@ class InnerParserTests {
               }
         """.trimIndent()
 
-        val actualActionData = parser.parseToObject(actionJsonString)
+        val actualActionData = parser.parseToObjectData(actionJsonString)
 
         val soldierChangeActionData = ActionData(
             1,
