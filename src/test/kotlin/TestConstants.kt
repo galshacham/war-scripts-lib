@@ -13,7 +13,15 @@ class TestConstants {
         val GAME_JSON_STRING: String = File("src/test/resources/parser/game.json").readText()
 
 
+        val CASTLE_OBJECT_JSON: String = File("src/test/resources/parser/castle.json").readText()
+
+
         val SIMPLE_GAME_STATE_JSON: String = File("src/test/resources/botRunner/simpleGameState.json").readText()
-        val SIMPLE_GAME_STATE_AFTER_TURN_JSON: String = File("src/test/resources/botRunner/simpleExpectedActions.json").readText()
+        val SIMPLE_ACTIONS_AFTER_TURN_JSON: String =
+            File("src/test/resources/botRunner/simpleExpectedActions.json").readText().removeSpaces()
     }
+}
+
+private fun String.removeSpaces(): String {
+    return this.filter { !it.isWhitespace() }
 }

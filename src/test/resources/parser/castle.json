@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "owner": 2,
+  "objectType": "CASTLE",
+  "loc": {
+    "row": 3,
+    "col": 4
+  },
+  "objectData": {
+    "creatingSoldierType": "MELEE"
+  }
+}

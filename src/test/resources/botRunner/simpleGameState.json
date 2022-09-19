@@ -10,6 +10,7 @@
   "logs": [],
   "gameObjects": [
     {
+
       "objectType": "CASTLE",
       "owner": 0,
       "id": 0,
