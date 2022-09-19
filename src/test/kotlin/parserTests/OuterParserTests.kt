@@ -1,6 +1,8 @@
 package tests.parserTests
 
+import comm.outer.GameData
 import comm.outer.LocData
+import comm.outer.MapData
 import comm.outer.ObjectData
 import comm.outer.objectsData.CastleData
 import enums.GameObjectsTypesEnums
@@ -31,5 +33,4 @@ class OuterParserTests {
 
         assertEquals(Json.parseToJsonElement(expectedJson), Json.parseToJsonElement(actualJson))
     }
-
 }

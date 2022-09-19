@@ -4,6 +4,4 @@ import enums.SoldierTypeEnum
 import kotlinx.serialization.Serializable
 
 @Serializable
-class CastleData(val creatingSoldierType: SoldierTypeEnum) : ObjectDataInterface {
-
-}
+class CastleData(val creatingSoldierType: SoldierTypeEnum) : ObjectDataInterface
