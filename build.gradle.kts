@@ -17,11 +17,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
     testImplementation(kotlin("test"))
     testImplementation("io.mockk:mockk:1.12.4")
-    // https://mvnrepository.com/artifact/org.assertj/assertj-core
     testImplementation("org.assertj:assertj-core:3.22.0")
-
-//    testImplementation("junit:junit:4.13.2")
-
+    testImplementation("com.github.stefanbirkner:system-lambda:1.2.0")
 }
 
 tasks.test {
