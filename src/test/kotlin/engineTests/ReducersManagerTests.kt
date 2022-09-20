@@ -11,22 +11,39 @@ import org.junit.jupiter.api.Test
 
 class ReducersManagerTests {
     @Test
-    fun whenReducersManagerValidate_shouldCallAllValidationReducers() {
-        val duplicator1 = mockk<ValidationReducer>()
-        val duplicator2 = mockk<ValidationReducer>()
+    fun `when reducer manager validate SHOULD call all validation reducers`() {
+        val validationReducer1 = mockk<ValidationReducer>()
+        val validationReducer2 = mockk<ValidationReducer>()
 
         val gameData = mockk<GameData>()
         val actions = listOf(mockk<ActionData>())
 
-        every { duplicator1.validate(gameData, actions) } returns listOf()
-        every { duplicator2.validate(gameData, actions) } returns listOf()
+        every { validationReducer1.validate(gameData, actions) } returns listOf()
+        every { validationReducer2.validate(gameData, actions) } returns listOf()
 
-        val list = listOf(duplicator1, duplicator2)
+        val list = listOf(validationReducer1, validationReducer2)
 
         val manager = ReducerManager(list)
 
         manager.validateState(gameData, actions)
 
         list.forEach { it -> verify { it.validate(gameData, actions) } }
+    }
+
+    @Test
+    fun `when reducer manager updates state SHOULD call all actions`() {
+        val gameData = mockk<GameData>()
+        val action1 = mockk<ActionData>()
+        val action2 = mockk<ActionData>()
+        val action3 = mockk<ActionData>()
+
+        val actions = listOf(action1, action2, action3)
+
+        val list = listOf<ValidationReducer>()
+
+        val manager = ReducerManager(list)
+
+//        manager.updateState(gameData, actions)
+
     }
 }

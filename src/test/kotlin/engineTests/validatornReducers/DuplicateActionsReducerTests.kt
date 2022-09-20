@@ -32,7 +32,7 @@ class DuplicateActionsReducerTests {
     }
 
     @Test
-    fun whenThereAreTwoActionsInvokedFromTheSameObject_shouldFilterTheSecondOne() {
+    fun `when there are two actions invoked from the same object SHOULD filter the second one`() {
 
         val expectedActions = listOf(action1, action2)
 
@@ -44,7 +44,7 @@ class DuplicateActionsReducerTests {
     }
 
     @Test
-    fun whenThereAreTwoActionsInvokedFromTheSameObject_shouldLogIgnoreMessage() {
+    fun `when there are two actions invoked from the same object SHOULD log ignore message`() {
 
         val actions = listOf(action1, action3, action3)
 
