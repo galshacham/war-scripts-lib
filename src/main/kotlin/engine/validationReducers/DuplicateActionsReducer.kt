@@ -3,7 +3,7 @@ package engine.validationReducers
 import engine.actionsData.ActionData
 import engine.objectsData.GameData
 
-class DuplicateActionsReducer : ValidationReducer {
+class DuplicateActionsReducer : IValidationReducer {
     override fun validate(gameData: GameData, actions: List<ActionData>): List<ActionData> {
         val idSet = HashSet<String>()
         val filteredList = mutableListOf<ActionData>()

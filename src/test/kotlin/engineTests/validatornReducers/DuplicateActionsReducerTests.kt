@@ -6,10 +6,8 @@ import engine.objectsData.GameData
 import engine.validationReducers.DuplicateActionsReducer
 import io.mockk.every
 import io.mockk.mockk
-import org.assertj.core.api.Assert
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.util.DuplicateFormatFlagsException
 import kotlin.test.assertEquals
 
 class DuplicateActionsReducerTests {
