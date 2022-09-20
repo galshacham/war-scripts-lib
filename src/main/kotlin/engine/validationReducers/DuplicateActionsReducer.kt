@@ -1,12 +1,12 @@
 package engine.validationReducers
 
-import engine.actionsData.ActionData
-import engine.objectsData.GameData
+import engine.actionsData.Action
+import engine.objectsData.Game
 
 class DuplicateActionsReducer : IValidationReducer {
-    override fun validate(gameData: GameData, actions: List<ActionData>): List<ActionData> {
+    override fun validate(game: Game, actions: List<Action>): List<Action> {
         val idSet = HashSet<String>()
-        val filteredList = mutableListOf<ActionData>()
+        val filteredList = mutableListOf<Action>()
         actions.forEach {
             if (!idSet.contains(it.activatorId)) {
                 filteredList.add(it);

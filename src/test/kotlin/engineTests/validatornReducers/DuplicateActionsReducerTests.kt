@@ -1,8 +1,8 @@
 package engineTests.validatornReducers
 
 import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
-import engine.actionsData.ActionData
-import engine.objectsData.GameData
+import engine.actionsData.Action
+import engine.objectsData.Game
 import engine.validationReducers.DuplicateActionsReducer
 import io.mockk.every
 import io.mockk.mockk
@@ -12,14 +12,14 @@ import kotlin.test.assertEquals
 
 class DuplicateActionsReducerTests {
     private val duplicateActionsReducer = DuplicateActionsReducer()
-    private lateinit var gameData: GameData
-    private lateinit var action1: ActionData
-    private lateinit var action2: ActionData
-    private lateinit var action3: ActionData
+    private lateinit var game: Game
+    private lateinit var action1: Action
+    private lateinit var action2: Action
+    private lateinit var action3: Action
 
     @BeforeEach
     fun init() {
-        gameData = mockk()
+        game = mockk()
         action1 = mockk()
         action2 = mockk()
         action3 = mockk()
@@ -36,7 +36,7 @@ class DuplicateActionsReducerTests {
 
         val actions = listOf(action1, action2, action3)
 
-        val filteredActions = duplicateActionsReducer.validate(gameData, actions)
+        val filteredActions = duplicateActionsReducer.validate(game, actions)
 
         assertEquals(expectedActions, filteredActions)
     }
@@ -46,7 +46,7 @@ class DuplicateActionsReducerTests {
 
         val actions = listOf(action1, action3, action3)
 
-        val output = tapSystemOut { duplicateActionsReducer.validate(gameData, actions) }
+        val output = tapSystemOut { duplicateActionsReducer.validate(game, actions) }
 
         assertEquals(
             """
