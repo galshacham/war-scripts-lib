@@ -1,7 +1,7 @@
 package engineTests.activationReducers
 
 import engine.actionsData.MoveAction
-import engine.activationReducers.MoveActionReducer
+import engine.reducers.activationReducers.MoveActionReducer
 import engine.exceptions.NoIdException
 import engine.objectsData.Game
 import engine.objectsData.Loc

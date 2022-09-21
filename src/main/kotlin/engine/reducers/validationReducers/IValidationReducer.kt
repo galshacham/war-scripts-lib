@@ -1,4 +1,4 @@
-package engine.validationReducers
+package engine.reducers.validationReducers
 
 import engine.actionsData.Action
 import engine.objectsData.Game

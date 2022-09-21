@@ -1,4 +1,4 @@
-package engine.activationReducers
+package engine.reducers.activationReducers
 
 import engine.actionsData.Action
 import engine.objectsData.Game
