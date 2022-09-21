@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 
 class ReducersManagerTests {
     @Test
-    fun `when reducer manager validate SHOULD call all validation reducers`() {
+    fun `WHEN reducer manager validate SHOULD call all validation reducers`() {
         val validationReducer1 = mockk<IValidationReducer>()
         val validationReducer2 = mockk<IValidationReducer>()
 
@@ -32,7 +32,7 @@ class ReducersManagerTests {
     }
 
     @Test
-    fun `when reducer manager updates state SHOULD call all actions`() {
+    fun `WHEN reducer manager updates state SHOULD call all actions`() {
         val game = mockk<Game>()
         val activationReducer1 = mockk<IActivationReducer<Action>>()
         val activationReducer2 = mockk<IActivationReducer<Action>>()

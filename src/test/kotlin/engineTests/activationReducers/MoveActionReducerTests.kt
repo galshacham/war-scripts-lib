@@ -1,17 +1,16 @@
 package engineTests.activationReducers
 
-import engine.actionsData.Action
 import engine.actionsData.MoveAction
 import engine.activationReducers.MoveActionReducer
+import engine.exceptions.NoIdException
 import engine.objectsData.Game
 import engine.objectsData.Loc
-import engine.objectsData.RangedSoldier
 import engine.objectsData.Soldier
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
-import io.mockk.verify
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
 
 class MoveActionReducerTests {
@@ -21,7 +20,7 @@ class MoveActionReducerTests {
     // For instance, if we want to expand Soldier (just as it will go with range, melee...) but all of them use this
     // Then we must test the Soldier, but Soldier is abstract
     @Test
-    fun `when updating state with MoveActionReducer SHOULD set new to new game state1`() {
+    fun `WHEN updating state with MoveActionReducer SHOULD set new to new game state`() {
         val moveActionReducer = MoveActionReducer()
 
         val newLoc1 = mockk<Loc>()
@@ -59,5 +58,35 @@ class MoveActionReducerTests {
 
         assertEquals(loc1.captured, newLoc1)
         assertEquals(loc2.captured, newLoc2)
+    }
+
+    // This case shouldn't happen in any case!
+    // That is why when it does happen, the game should crash
+    @Test
+    fun `GIVEN invalid state (activatorId which doesn't exist) WHEN updating state with MoveActionReducer SHOULD throw exception`() {
+        val moveActionReducer = MoveActionReducer()
+
+        val soldier = mockk<Soldier>()
+
+        every { soldier.id } returns "someId"
+
+        val gameObjects = listOf(soldier)
+
+        val game = mockk<Game>()
+        every { game.objects } returns gameObjects
+
+        val action = mockk<MoveAction>()
+        val actions = listOf(action)
+
+        val noneExistId = "noneExistId"
+        every { action.activatorId } returns noneExistId
+
+        val message = assertThrows<NoIdException> {
+            moveActionReducer.update(game, actions)
+        }.message
+
+        val expectedMessage = "Got id: [$noneExistId] from action but no game object exist with this id"
+
+        assertEquals(expectedMessage, message)
     }
 }
