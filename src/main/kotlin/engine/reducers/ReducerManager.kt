@@ -16,13 +16,12 @@ class ReducerManager(
     }
 
     // TODO: Maybe change actions to action
+    // For now, lets assume that we do not need to deep copy the game
     fun updateState(game: Game, actions: List<Action>) {
-        val newGameData = game.copy()
-        activationReducers.forEach { it.update(newGameData, actions) }
+        activationReducers.forEach { it.update(game, actions) }
     }
 
     fun finaleState(game: Game) {
-        val newGameData = game.copy()
-        finaleReducers.forEach { it.finaleState(newGameData) }
+        finaleReducers.forEach { it.finaleState(game) }
     }
 }
