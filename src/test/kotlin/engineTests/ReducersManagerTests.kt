@@ -60,7 +60,7 @@ class ReducersManagerTests {
         val finaleReducer2 = mockk<IFinaleReducer>()
         val finaleReducers = listOf(finaleReducer1, finaleReducer2)
 
-        every { finaleReducer1.finaleState(game) } returns false
+        every { finaleReducer1.finaleState(game) } returns true
         every { finaleReducer2.finaleState(game) } returns false
 
         val manager = ReducerManager(listOf(), listOf(), finaleReducers)
