@@ -2,7 +2,6 @@ package engineTests.activationReducers
 
 import engine.actionsData.MoveAction
 import engine.reducers.activationReducers.MoveActionReducer
-import engine.exceptions.NoIdException
 import engine.objectsData.Game
 import engine.objectsData.Loc
 import engine.objectsData.Soldier
@@ -40,7 +39,7 @@ class MoveActionReducerTests {
         every { soldier1.loc = capture(loc1) } returns Unit
         every { soldier2.loc = capture(loc2) } returns Unit
 
-        val gameObjects = listOf(soldier1, soldier2)
+        val gameObjects = mapOf(Pair(soldier1.id, soldier1), Pair(soldier2.id, soldier2))
 
         val game = mockk<Game>()
         every { game.objects } returns gameObjects
@@ -70,7 +69,7 @@ class MoveActionReducerTests {
 
         every { soldier.id } returns "someId"
 
-        val gameObjects = listOf(soldier)
+        val gameObjects = mapOf(Pair(soldier.id, soldier))
 
         val game = mockk<Game>()
         every { game.objects } returns gameObjects
@@ -81,12 +80,8 @@ class MoveActionReducerTests {
         val noneExistId = "noneExistId"
         every { action.activatorId } returns noneExistId
 
-        val message = assertThrows<NoIdException> {
+        assertThrows<java.lang.NullPointerException> {
             moveActionReducer.update(game, actions)
-        }.message
-
-        val expectedMessage = "Got id: [$noneExistId] from action but no game object exist with this id"
-
-        assertEquals(expectedMessage, message)
+        }
     }
 }

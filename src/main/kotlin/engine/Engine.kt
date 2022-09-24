@@ -7,11 +7,12 @@ import engine.reducers.activationReducers.IActivationReducer
 import engine.reducers.activationReducers.MoveActionReducer
 import engine.reducers.finaleReducers.TurnsReducer
 import engine.reducers.validationReducers.DuplicateActionsReducer
+import engine.reducers.validationReducers.MoveValidationReducer
 
 class Engine {
     fun runTurn(game: Game, actions: List<Action>): Game {
         val reducerManager = ReducerManager(
-            listOf(DuplicateActionsReducer()),
+            listOf(DuplicateActionsReducer(), MoveValidationReducer()),
             listOf(MoveActionReducer() as (IActivationReducer<Action>)),
             listOf(TurnsReducer())
         )

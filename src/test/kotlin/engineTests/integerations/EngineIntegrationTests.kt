@@ -13,7 +13,7 @@ class EngineIntegrationTests {
     fun `WHEN specific game plan SHOULD change states and reach to the expected state`() {
         val soldierId = "Ola"
         val game = Game(
-            listOf(RangedSoldier(soldierId, Loc(0, 5))),
+            mapOf(Pair(soldierId, RangedSoldier(soldierId, Loc(0, 5)))),
             GameData(10, 0)
         )
 
@@ -22,7 +22,7 @@ class EngineIntegrationTests {
         val actualGame = engine.runTurn(game, actions)
 
         val expectedGame = Game(
-            listOf(RangedSoldier(soldierId, Loc(60, 60))),
+            mapOf(Pair(soldierId, RangedSoldier(soldierId, Loc(60, 60)))),
             GameData(10, 1)
         )
 
