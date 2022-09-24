@@ -11,8 +11,11 @@ class ReducerManager(
     private val activationReducers: List<IActivationReducer<Action>>,
     private val finaleReducers: List<IFinaleReducer>
 ) {
-    fun validateState(game: Game, actions: List<Action>) {
-        validationReducers.forEach { it.validate(game, actions) }
+    fun validateState(game: Game, actions: List<Action>): List<Action> {
+        var filteredActions = actions
+        validationReducers.forEach { filteredActions = it.validate(game, filteredActions) }
+
+        return filteredActions
     }
 
     // TODO: Maybe change actions to action

@@ -17,8 +17,8 @@ class Engine {
             listOf(TurnsReducer())
         )
 
-        reducerManager.validateState(game, actions)
-        reducerManager.updateState(game, actions)
+        val validActions = reducerManager.validateState(game, actions)
+        reducerManager.updateState(game, validActions)
         reducerManager.finaleState(game)
 
         return game

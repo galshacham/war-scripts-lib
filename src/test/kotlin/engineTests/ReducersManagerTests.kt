@@ -4,8 +4,6 @@ import engine.reducers.ReducerManager
 import engine.actionsData.Action
 import engine.reducers.activationReducers.IActivationReducer
 import engine.objectsData.Game
-import engine.objectsData.GameData
-import engine.objectsData.GameObject
 import engine.reducers.finaleReducers.IFinaleReducer
 import engine.reducers.validationReducers.IValidationReducer
 import io.mockk.every
@@ -15,22 +13,26 @@ import org.junit.jupiter.api.Test
 
 class ReducersManagerTests {
     @Test
-    fun `WHEN reducer manager validate SHOULD call all validation reducers`() {
+    fun `WHEN reducer manager validate SHOULD call all validation reducers and use their results on each other`() {
         val validationReducer1 = mockk<IValidationReducer>()
         val validationReducer2 = mockk<IValidationReducer>()
 
         val game = mockk<Game>()
         val actions = listOf(mockk<Action>())
+        val actionsAfterFirstValidation = listOf<Action>()
 
-        every { validationReducer1.validate(game, actions) } returns listOf()
-        every { validationReducer2.validate(game, actions) } returns listOf()
+
+        every { validationReducer1.validate(game, actions) } returns actionsAfterFirstValidation
+        every { validationReducer2.validate(game, actionsAfterFirstValidation) } returns listOf()
 
         val validationReducers = listOf(validationReducer1, validationReducer2)
 
         val manager = ReducerManager(validationReducers, listOf(), listOf())
         manager.validateState(game, actions)
 
-        validationReducers.forEach { it -> verify { it.validate(game, actions) } }
+
+        verify { validationReducer1.validate(game, actions) }
+        verify { validationReducer2.validate(game, actionsAfterFirstValidation) }
     }
 
     @Test

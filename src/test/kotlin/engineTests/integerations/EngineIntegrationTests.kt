@@ -18,11 +18,11 @@ class EngineIntegrationTests {
         )
 
         val engine = Engine()
-        val actions = listOf<Action>(MoveAction(soldierId, Loc(60, 60)))
+        val actions = listOf<Action>(MoveAction(soldierId, Loc(0, 8)))
         val actualGame = engine.runTurn(game, actions)
 
         val expectedGame = Game(
-            mapOf(Pair(soldierId, RangedSoldier(soldierId, Loc(60, 60)))),
+            mapOf(Pair(soldierId, RangedSoldier(soldierId, Loc(0, 8)))),
             GameData(10, 1)
         )
 
