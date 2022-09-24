@@ -2,17 +2,17 @@ package engineTests.finaleRedcuers
 
 import engine.objectsData.Game
 import engine.objectsData.GameData
-import engine.reducers.finaleReducers.MaxTurnsReducer
+import engine.reducers.finaleReducers.TurnsReducer
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.slot
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFails
 import kotlin.test.assertTrue
 
 
-class MaxTurnsReducerTests {
+class TurnsReducerTests {
     @Test
     fun `WHEN game turns is over the max turns SHOULD stop game`() {
         val game = mockk<Game>()
@@ -23,9 +23,9 @@ class MaxTurnsReducerTests {
         every { gameData.currentTurn } returns 60
         every { gameData.maxTurns } returns 50
 
-        val maxTurnsReducer = MaxTurnsReducer()
+        val turnsReducer = TurnsReducer()
 
-        assertTrue { maxTurnsReducer.finaleState(game) }
+        assertTrue { turnsReducer.finaleState(game) }
     }
 
     @Test
@@ -34,12 +34,18 @@ class MaxTurnsReducerTests {
 
         val gameData = mockk<GameData>()
 
+        val currentTurn = slot<Int>()
+        val currentTurnValue = 50
+        currentTurn.captured = currentTurnValue
+
         every { game.gameData } returns gameData
-        every { gameData.currentTurn } returns 50
+        every { gameData.currentTurn } returns currentTurnValue
+        every { gameData.currentTurn = capture(currentTurn) } returns Unit
         every { gameData.maxTurns } returns 60
 
-        val maxTurnsReducer = MaxTurnsReducer()
+        val turnsReducer = TurnsReducer()
 
-        assertFalse { maxTurnsReducer.finaleState(game) }
+        assertFalse { turnsReducer.finaleState(game) }
+        assertEquals(currentTurnValue + 1, currentTurn.captured)
     }
 }

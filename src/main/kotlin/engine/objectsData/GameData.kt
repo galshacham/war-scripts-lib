@@ -1,3 +1,3 @@
 package engine.objectsData
 
-data class GameData(val maxTurns: Int, val currentTurn: Int)
+data class GameData(val maxTurns: Int, var currentTurn: Int)

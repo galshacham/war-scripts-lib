@@ -23,7 +23,7 @@ class EngineIntegrationTests {
 
         val expectedGame = Game(
             listOf(RangedSoldier(soldierId, Loc(60, 60))),
-            GameData(10, 0)
+            GameData(10, 1)
         )
 
         assertEquals(expectedGame, actualGame)

@@ -2,11 +2,10 @@ package engine
 
 import engine.actionsData.Action
 import engine.objectsData.Game
-import engine.objectsData.GameResults
 import engine.reducers.ReducerManager
 import engine.reducers.activationReducers.IActivationReducer
 import engine.reducers.activationReducers.MoveActionReducer
-import engine.reducers.finaleReducers.MaxTurnsReducer
+import engine.reducers.finaleReducers.TurnsReducer
 import engine.reducers.validationReducers.DuplicateActionsReducer
 
 class Engine {
@@ -14,7 +13,7 @@ class Engine {
         val reducerManager = ReducerManager(
             listOf(DuplicateActionsReducer()),
             listOf(MoveActionReducer() as (IActivationReducer<Action>)),
-            listOf(MaxTurnsReducer())
+            listOf(TurnsReducer())
         )
 
         reducerManager.validateState(game, actions)
