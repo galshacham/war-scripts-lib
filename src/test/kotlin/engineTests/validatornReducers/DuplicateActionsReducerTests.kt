@@ -24,9 +24,9 @@ class DuplicateActionsReducerTests {
         action2 = mockk()
         action3 = mockk()
 
-        every { action1.activatorId } returns "duplicated"
-        every { action2.activatorId } returns "unique"
-        every { action3.activatorId } returns "duplicated"
+        every { action1.activatorId } returns 1
+        every { action2.activatorId } returns 2
+        every { action3.activatorId } returns 1
     }
 
     @Test

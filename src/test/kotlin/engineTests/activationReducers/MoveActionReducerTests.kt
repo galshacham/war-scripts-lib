@@ -3,6 +3,7 @@ package engineTests.activationReducers
 import engine.actionsData.MoveAction
 import engine.reducers.activationReducers.MoveActionReducer
 import engine.objectsData.Game
+import engine.objectsData.GameObject
 import engine.objectsData.Loc
 import engine.objectsData.Soldier
 import io.mockk.every
@@ -25,8 +26,8 @@ class MoveActionReducerTests {
         val newLoc1 = mockk<Loc>()
         val newLoc2 = mockk<Loc>()
 
-        val activatorId1 = "yo"
-        val activatorId2 = "ma"
+        val activatorId1 = 5
+        val activatorId2 = 6
 
         val soldier1 = mockk<Soldier>()
         val soldier2 = mockk<Soldier>()
@@ -39,7 +40,7 @@ class MoveActionReducerTests {
         every { soldier1.loc = capture(loc1) } returns Unit
         every { soldier2.loc = capture(loc2) } returns Unit
 
-        val gameObjects = mapOf(Pair(soldier1.id, soldier1), Pair(soldier2.id, soldier2))
+        val gameObjects = mutableMapOf<Int, GameObject>(Pair(soldier1.id, soldier1), Pair(soldier2.id, soldier2))
 
         val game = mockk<Game>()
         every { game.objects } returns gameObjects
@@ -67,9 +68,9 @@ class MoveActionReducerTests {
 
         val soldier = mockk<Soldier>()
 
-        every { soldier.id } returns "someId"
+        every { soldier.id } returns 4
 
-        val gameObjects = mapOf(Pair(soldier.id, soldier))
+        val gameObjects = mutableMapOf<Int, GameObject>(Pair(soldier.id, soldier))
 
         val game = mockk<Game>()
         every { game.objects } returns gameObjects
@@ -77,7 +78,7 @@ class MoveActionReducerTests {
         val action = mockk<MoveAction>()
         val actions = listOf(action)
 
-        val noneExistId = "noneExistId"
+        val noneExistId = 6
         every { action.activatorId } returns noneExistId
 
         assertThrows<java.lang.NullPointerException> {

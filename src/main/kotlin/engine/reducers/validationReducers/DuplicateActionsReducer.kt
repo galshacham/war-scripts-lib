@@ -5,7 +5,7 @@ import engine.objectsData.Game
 
 class DuplicateActionsReducer : IValidationReducer {
     override fun validate(game: Game, actions: List<Action>): List<Action> {
-        val idSet = HashSet<String>()
+        val idSet = HashSet<Int>()
         val filteredList = mutableListOf<Action>()
         actions.forEach {
             if (!idSet.contains(it.activatorId)) {

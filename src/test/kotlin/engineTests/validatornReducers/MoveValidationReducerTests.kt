@@ -15,7 +15,7 @@ import kotlin.test.assertEquals
 
 class MoveValidationReducerTests {
     private val moveValidationReducer = MoveValidationReducer()
-    private val soldierId = "id"
+    private val soldierId = 1
     private lateinit var game: Game
     private lateinit var soldier: Soldier
 
@@ -27,7 +27,7 @@ class MoveValidationReducerTests {
         every { soldier.id } returns soldierId
         every { soldier.speed } returns 4
         every { soldier.loc } returns Loc(7, 7)
-        every { game.objects } returns mapOf(Pair(soldierId, soldier))
+        every { game.objects } returns mutableMapOf(Pair(soldierId, soldier))
     }
 
     @Test

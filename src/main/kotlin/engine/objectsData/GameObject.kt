@@ -1,3 +1,3 @@
 package engine.objectsData
 
-abstract class GameObject(open val id: String, open var loc: Loc)
+abstract class GameObject(open val id: Int, open var loc: Loc)
