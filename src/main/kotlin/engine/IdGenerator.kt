@@ -1,8 +1,8 @@
 package engine
 
 object IdGenerator {
-    var currentId: Int = 0
+    private var currentId: Int = 0
     fun getId(): Int {
-        return ++currentId
+        return currentId++
     }
 }
