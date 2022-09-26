@@ -13,9 +13,10 @@ class SoldierCreationReducer : IFinaleReducer {
         game.objects
             .filter { it.value is Castle }
             .forEach {
-                val newId = IdGenerator.currentId
-                // TODO change according to castle type
-                val newSoldier = RangedSoldier(newId, it.value.loc)
+                val newId = IdGenerator.getId()
+
+                // TODO change according to castle production type
+                addedSoldiers[newId] = RangedSoldier(newId, it.value.loc)
             }
 
         game.objects.putAll(addedSoldiers)

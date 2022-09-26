@@ -5,6 +5,7 @@ import engine.objectsData.*
 import engine.reducers.finaleReducers.SoldierCreationReducer
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.mockkObject
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
@@ -23,6 +24,8 @@ class SoldierCreationReducerTests {
         val objects = mutableMapOf<Int, GameObject>(Pair(castleId, castle))
 
         val expectedSoldierId = 60
+
+        mockkObject(IdGenerator)
         every { game.objects } returns objects
         every { IdGenerator.getId() } returns expectedSoldierId
 
@@ -30,7 +33,7 @@ class SoldierCreationReducerTests {
 
         val expectedObjects = mutableMapOf(
             Pair(castleId, castle),
-            Pair(castleId, rangedSoldier)
+            Pair(expectedSoldierId, rangedSoldier)
         )
 
         reducer.finaleState(game)
