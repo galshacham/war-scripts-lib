@@ -1,23 +1,25 @@
 package engine.reducers.finaleReducers
 
+import bigComm.enums.SoldierTypeEnum
 import engine.IdGenerator
-import engine.objectsData.Castle
-import engine.objectsData.Game
-import engine.objectsData.RangedSoldier
-import engine.objectsData.Soldier
+import engine.objectsData.*
 
 class SoldierCreationReducer : IFinaleReducer {
     override fun finaleState(game: Game): Boolean {
         val addedSoldiers = mutableMapOf<Int, Soldier>()
 
-        game.objects
-            .filter { it.value is Castle }
-            .forEach {
+        game.objects.forEach() {
+            if (it.value is Castle) {
                 val newId = IdGenerator.getId()
 
-                // TODO change according to castle production type
-                addedSoldiers[newId] = RangedSoldier(newId, it.value.loc)
+                val newSoldier = when ((it.value as Castle).soldierType) {
+                    SoldierTypeEnum.MELEE -> MeleeSoldier(newId, it.value.loc)
+                    SoldierTypeEnum.RANGED -> RangedSoldier(newId, it.value.loc)
+                }
+
+                addedSoldiers[newId] = newSoldier
             }
+        }
 
         game.objects.putAll(addedSoldiers)
 
