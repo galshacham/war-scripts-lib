@@ -11,7 +11,7 @@ import engine.reducers.validationReducers.DuplicateActionsReducer
 import engine.reducers.validationReducers.IValidationReducer
 import engine.reducers.validationReducers.MoveValidationReducer
 
-class Engine {
+class Engine : IEngine {
     // Note!
     /*
         Currently, the order of the reducers matter, right now the reducers are invoked this way:
@@ -34,7 +34,7 @@ class Engine {
         )
     )
 
-    fun runTurn(game: Game, actions: List<Action>): Game {
+    override fun runTurn(game: Game, actions: List<Action>): Game {
 
         val validActions = reducerManager.validateState(game, actions)
         reducerManager.updateState(game, validActions)
