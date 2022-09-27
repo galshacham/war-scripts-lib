@@ -19,13 +19,22 @@ class Engine {
         Activations - 1,2,3,4... - each activation applies changes of specific action type for all actions
         Finalizing - 1,2,3,4.... - each finalization applies more changes needed to be done for the next turn
      */
-    fun runTurn(game: Game, actions: List<Action>): Game {
-        val validationReducers = listOf(DuplicateActionsReducer(), MoveValidationReducer()) as List<IValidationReducer<Action>>
-        val reducerManager = ReducerManager(
-            validationReducers,
-            listOf(MoveActionReducer() as (IActivationReducer<Action>)),
-            listOf(SoldierCreationReducer(), TurnsReducer())
+
+    private val reducerManager: ReducerManager = ReducerManager(
+        listOf(
+            DuplicateActionsReducer(),
+            MoveValidationReducer()
+        ) as List<IValidationReducer<Action>>,
+
+        listOf(MoveActionReducer() as (IActivationReducer<Action>)),
+
+        listOf(
+            SoldierCreationReducer(),
+            TurnsReducer()
         )
+    )
+
+    fun runTurn(game: Game, actions: List<Action>): Game {
 
         val validActions = reducerManager.validateState(game, actions)
         reducerManager.updateState(game, validActions)
