@@ -14,8 +14,8 @@ import org.junit.jupiter.api.Test
 class ReducersManagerTests {
     @Test
     fun `WHEN reducer manager validate SHOULD call all validation reducers and use their results on each other`() {
-        val validationReducer1 = mockk<IValidationReducer>()
-        val validationReducer2 = mockk<IValidationReducer>()
+        val validationReducer1 = mockk<IValidationReducer<Action>>()
+        val validationReducer2 = mockk<IValidationReducer<Action>>()
 
         val game = mockk<Game>()
         val actions = listOf(mockk<Action>())
@@ -29,7 +29,6 @@ class ReducersManagerTests {
 
         val manager = ReducerManager(validationReducers, listOf(), listOf())
         manager.validateState(game, actions)
-
 
         verify { validationReducer1.validate(game, actions) }
         verify { validationReducer2.validate(game, actionsAfterFirstValidation) }

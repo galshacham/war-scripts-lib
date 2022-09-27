@@ -7,7 +7,7 @@ import engine.reducers.finaleReducers.IFinaleReducer
 import engine.reducers.validationReducers.IValidationReducer
 
 class ReducerManager(
-    private val validationReducers: List<IValidationReducer>,
+    private val validationReducers: List<IValidationReducer<Action>>,
     private val activationReducers: List<IActivationReducer<Action>>,
     private val finaleReducers: List<IFinaleReducer>
 ) {
