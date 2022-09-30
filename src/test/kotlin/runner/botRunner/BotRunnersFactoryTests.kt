@@ -1,7 +1,8 @@
-package bigComm.botRunner
+package runner.botRunner
 
-import bigComm.Constants.Companion.JS_RUNNER_PATH
-import bigComm.exceptions.UnsupportedBotRunnerException
+import runner.Constants.Companion.JS_RUNNER_PATH
+import runner.exceptions.UnsupportedBotRunnerException
+import runner.botRunner.BotRunnerFactory
 import io.mockk.spyk
 import io.mockk.verify
 import org.junit.jupiter.api.Test

@@ -1,3 +1,3 @@
-package bigComm.exceptions
+package runner.exceptions
 
 class NoPlayersException(message: String?) : WarScriptsException(message)

@@ -1,6 +1,6 @@
-package bigComm.botRunner
+package runner.botRunner
 
-import bigComm.exceptions.BotRuntimeException
+import runner.exceptions.BotRuntimeException
 import java.io.BufferedReader
 import java.io.InputStreamReader
 

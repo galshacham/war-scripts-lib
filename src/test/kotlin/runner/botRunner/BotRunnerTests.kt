@@ -1,7 +1,8 @@
-package bigComm.botRunner
+package runner.botRunner
 
-import bigComm.Constants.Companion.JS_RUNNER_PATH
-import bigComm.Constants.Companion.PY_RUNNER_PATH
+import runner.Constants.Companion.JS_RUNNER_PATH
+import runner.Constants.Companion.PY_RUNNER_PATH
+import runner.botRunner.BotRunner
 import io.mockk.spyk
 import io.mockk.verify
 import org.junit.jupiter.api.Test

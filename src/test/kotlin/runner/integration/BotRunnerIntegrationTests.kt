@@ -1,6 +1,6 @@
-package bigComm.integration
+package runner.integration
 
-import bigComm.botRunner.BotRunnerFactory
+import runner.botRunner.BotRunnerFactory
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import tests.bigComm.TestConstants

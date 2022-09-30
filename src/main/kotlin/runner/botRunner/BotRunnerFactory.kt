@@ -1,8 +1,8 @@
-package bigComm.botRunner
+package runner.botRunner
 
-import bigComm.Constants
-import bigComm.Utils.Companion.getFileSuffix
-import bigComm.exceptions.UnsupportedBotRunnerException
+import runner.Constants
+import runner.Utils.Companion.getFileSuffix
+import runner.exceptions.UnsupportedBotRunnerException
 
 
 class BotRunnerFactory(private val runtime: Runtime) {
