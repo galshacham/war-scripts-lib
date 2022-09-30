@@ -1,6 +1,6 @@
 package engineTests.finaleRedcuers
 
-import bigComm.enums.SoldierTypeEnum
+import engine.enums.SoldierTypeEnum
 import engine.IdGenerator
 import engine.objectsData.*
 import engine.reducers.finaleReducers.SoldierCreationReducer

@@ -4,7 +4,7 @@ import bigComm.comm.outer.LocData
 import bigComm.comm.outer.ObjectData
 import bigComm.comm.outer.objectsData.CastleData
 import bigComm.enums.GameObjectsTypesEnums
-import bigComm.enums.SoldierTypeEnum
+import engine.enums.SoldierTypeEnum
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Test
 import bigComm.parsers.OuterParser

@@ -1,8 +1,6 @@
 package engine.objectsData
 
-abstract class Soldier(
-    override val id: Int,
-    override var loc: Loc,
-    open val speed: Int
-) : GameObject(id, loc) {
+@kotlinx.serialization.Serializable
+abstract class Soldier() : GameObject() {
+    abstract val speed: Int
 }

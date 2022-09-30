@@ -4,7 +4,7 @@ import bigComm.comm.inner.ActionData
 import bigComm.comm.inner.AttackSoldierActionData
 import bigComm.comm.inner.ChangeSoldierActionData
 import bigComm.enums.ActionTypeEnum
-import bigComm.enums.SoldierTypeEnum
+import engine.enums.SoldierTypeEnum
 import org.junit.jupiter.api.Test
 import bigComm.parsers.InnerParser
 import kotlin.test.assertEquals

@@ -1,4 +1,4 @@
-package bigComm.enums
+package engine.enums
 
 enum class SoldierTypeEnum(soldierType: String) {
     MELEE("MELEE"),

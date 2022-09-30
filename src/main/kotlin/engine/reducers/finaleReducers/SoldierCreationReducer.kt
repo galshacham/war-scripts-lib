@@ -1,6 +1,6 @@
 package engine.reducers.finaleReducers
 
-import bigComm.enums.SoldierTypeEnum
+import engine.enums.SoldierTypeEnum
 import engine.IdGenerator
 import engine.objectsData.*
 

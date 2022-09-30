@@ -1,6 +1,6 @@
 package bigComm.comm.outer.objectsData
 
-import bigComm.enums.SoldierTypeEnum
+import engine.enums.SoldierTypeEnum
 import kotlinx.serialization.Serializable
 
 @Serializable
