@@ -14,7 +14,6 @@ repositories {
 }
 
 dependencies {
-  implementation("wsl.game:engine:1.0.0")
   testImplementation(kotlin("test"))
   testImplementation("io.mockk:mockk:1.12.4")
   testImplementation("org.assertj:assertj-core:3.22.0")
