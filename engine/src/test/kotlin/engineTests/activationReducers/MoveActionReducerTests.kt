@@ -1,7 +1,7 @@
 package engineTests.activationReducers
 
 import actionsData.MoveAction
-import engine.reducers.activationReducers.MoveActionReducer
+import reducers.activationReducers.MoveActionReducer
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot

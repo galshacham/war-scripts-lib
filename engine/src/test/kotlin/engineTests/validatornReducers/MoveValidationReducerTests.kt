@@ -3,7 +3,7 @@ package engineTests.validatornReducers
 import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
 import actionsData.Action
 import actionsData.MoveAction
-import engine.reducers.validationReducers.MoveValidationReducer
+import reducers.validationReducers.MoveValidationReducer
 import objectsData.Game
 import objectsData.Loc
 import objectsData.Soldier

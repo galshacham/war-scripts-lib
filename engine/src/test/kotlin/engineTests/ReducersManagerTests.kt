@@ -1,10 +1,10 @@
 package engineTests
 
 import actionsData.Action
-import engine.reducers.ReducerManager
-import engine.reducers.activationReducers.IActivationReducer
-import engine.reducers.finaleReducers.IFinaleReducer
-import engine.reducers.validationReducers.IValidationReducer
+import reducers.ReducerManager
+import reducers.activationReducers.IActivationReducer
+import reducers.finaleReducers.IFinaleReducer
+import reducers.validationReducers.IValidationReducer
 import objectsData.Game
 import io.mockk.every
 import io.mockk.mockk

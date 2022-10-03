@@ -1,6 +1,6 @@
 package engineTests.finaleRedcuers
 
-import engine.reducers.finaleReducers.TurnsReducer
+import reducers.finaleReducers.TurnsReducer
 import objectsData.Game
 import objectsData.GameData
 import io.mockk.every

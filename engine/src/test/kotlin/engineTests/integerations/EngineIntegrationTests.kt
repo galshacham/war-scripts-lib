@@ -2,7 +2,7 @@ package engineTests.integerations
 
 import actionsData.Action
 import actionsData.MoveAction
-import engine.Engine
+import Engine
 import objectsData.*
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
