@@ -4,7 +4,7 @@ import exceptions.BotRuntimeException
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
-class BotRunner(botAbsolutePath: String, player: Int, runtime: Runtime, execString: String) {
+class BotRunner(botAbsolutePath: String, player: Int, runtime: Runtime, execString: String) : IBotRunner {
     private var process: Process
 
     init {
@@ -12,7 +12,7 @@ class BotRunner(botAbsolutePath: String, player: Int, runtime: Runtime, execStri
         this.process = runtime.exec(command)
     }
 
-    fun doTurn(currentGameStateJson: String): String {
+    override fun doTurn(currentGameStateJson: String): String {
         val inputStream = BufferedReader(InputStreamReader(process.inputStream))
         process.outputStream.write(currentGameStateJson.toByteArray())
         process.outputStream.flush()
