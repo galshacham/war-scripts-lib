@@ -1,12 +1,12 @@
 package engineTests.validatornReducers
 
 import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
-import engine.actionsData.Action
-import engine.actionsData.MoveAction
-import engine.objectsData.Game
-import engine.objectsData.Loc
-import engine.objectsData.Soldier
+import actionsData.Action
+import actionsData.MoveAction
 import engine.reducers.validationReducers.MoveValidationReducer
+import objectsData.Game
+import objectsData.Loc
+import objectsData.Soldier
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.BeforeEach

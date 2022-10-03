@@ -1,4 +1,4 @@
-package engine.enums
+package enums
 
 enum class SoldierTypeEnum(soldierType: String) {
     MELEE("MELEE"),

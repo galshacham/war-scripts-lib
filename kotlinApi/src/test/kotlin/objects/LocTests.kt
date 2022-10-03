@@ -1,6 +1,6 @@
-package engineTests.objects
+package objects
 
-import engine.objectsData.Loc
+import objectsData.Loc
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue

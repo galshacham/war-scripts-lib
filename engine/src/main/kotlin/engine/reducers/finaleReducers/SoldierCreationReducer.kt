@@ -1,8 +1,8 @@
 package engine.reducers.finaleReducers
 
-import engine.enums.SoldierTypeEnum
 import engine.IdGenerator
-import engine.objectsData.*
+import enums.SoldierTypeEnum
+import objectsData.*
 
 class SoldierCreationReducer : IFinaleReducer {
     override fun finaleState(game: Game): Boolean {

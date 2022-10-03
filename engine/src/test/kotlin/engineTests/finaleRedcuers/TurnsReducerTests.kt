@@ -1,8 +1,8 @@
 package engineTests.finaleRedcuers
 
-import engine.objectsData.Game
-import engine.objectsData.GameData
 import engine.reducers.finaleReducers.TurnsReducer
+import objectsData.Game
+import objectsData.GameData
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot

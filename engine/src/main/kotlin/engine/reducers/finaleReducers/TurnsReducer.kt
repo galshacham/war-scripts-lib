@@ -1,6 +1,6 @@
 package engine.reducers.finaleReducers
 
-import engine.objectsData.Game
+import objectsData.Game
 
 class TurnsReducer : IFinaleReducer {
     override fun finaleState(game: Game): Boolean {

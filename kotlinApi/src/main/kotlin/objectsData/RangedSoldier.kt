@@ -1,4 +1,4 @@
-package engine.objectsData
+package objectsData
 
 @kotlinx.serialization.Serializable
 data class RangedSoldier(override val id: Int, override var loc: Loc) : Soldier() {

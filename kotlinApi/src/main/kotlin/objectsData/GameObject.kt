@@ -1,4 +1,4 @@
-package engine.objectsData
+package objectsData
 
 @kotlinx.serialization.Serializable
 abstract class GameObject() {

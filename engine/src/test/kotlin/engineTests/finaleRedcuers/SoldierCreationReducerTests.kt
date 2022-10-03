@@ -1,9 +1,9 @@
 package engineTests.finaleRedcuers
 
-import engine.enums.SoldierTypeEnum
+import enums.SoldierTypeEnum
 import engine.IdGenerator
-import engine.objectsData.*
 import engine.reducers.finaleReducers.SoldierCreationReducer
+import objectsData.*
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject

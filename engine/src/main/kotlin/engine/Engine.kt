@@ -1,7 +1,6 @@
 package engine
 
-import engine.actionsData.Action
-import engine.objectsData.Game
+import  actionsData.Action
 import engine.reducers.ReducerManager
 import engine.reducers.activationReducers.IActivationReducer
 import engine.reducers.activationReducers.MoveActionReducer
@@ -10,6 +9,7 @@ import engine.reducers.finaleReducers.TurnsReducer
 import engine.reducers.validationReducers.DuplicateActionsReducer
 import engine.reducers.validationReducers.IValidationReducer
 import engine.reducers.validationReducers.MoveValidationReducer
+import objectsData.Game
 
 class Engine : IEngine {
     // Note!

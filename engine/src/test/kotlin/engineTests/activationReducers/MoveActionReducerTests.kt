@@ -1,14 +1,14 @@
 package engineTests.activationReducers
 
-import engine.actionsData.MoveAction
+import actionsData.MoveAction
 import engine.reducers.activationReducers.MoveActionReducer
-import engine.objectsData.Game
-import engine.objectsData.GameObject
-import engine.objectsData.Loc
-import engine.objectsData.Soldier
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
+import objectsData.Game
+import objectsData.GameObject
+import objectsData.Loc
+import objectsData.Soldier
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals

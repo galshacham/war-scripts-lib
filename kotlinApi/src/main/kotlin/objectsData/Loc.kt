@@ -1,4 +1,4 @@
-package engine.objectsData
+package objectsData
 
 import kotlin.math.abs
 

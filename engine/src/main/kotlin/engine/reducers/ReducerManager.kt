@@ -1,10 +1,10 @@
 package engine.reducers
 
-import engine.actionsData.Action
+import actionsData.Action
 import engine.reducers.activationReducers.IActivationReducer
-import engine.objectsData.Game
 import engine.reducers.finaleReducers.IFinaleReducer
 import engine.reducers.validationReducers.IValidationReducer
+import objectsData.Game
 
 class ReducerManager(
     private val validationReducers: List<IValidationReducer<Action>>,

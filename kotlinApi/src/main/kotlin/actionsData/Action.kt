@@ -1,3 +1,3 @@
-package engine.actionsData
+package actionsData
 
 abstract class Action(open val activatorId: Int)

@@ -1,7 +1,7 @@
 package engine.reducers.validationReducers
 
-import engine.actionsData.Action
-import engine.objectsData.Game
+import actionsData.Action
+import objectsData.Game
 
 class DuplicateActionsReducer : IValidationReducer<Action> {
     override fun validate(game: Game, actions: List<Action>): List<Action> {
