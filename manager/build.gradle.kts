@@ -14,6 +14,7 @@ repositories {
 }
 
 dependencies {
+  implementation("wsl.game:engine:1.0.0")
   implementation("wsl.game:runner:1.0.0")
   testImplementation(kotlin("test"))
   testImplementation("io.mockk:mockk:1.12.4")

@@ -15,4 +15,10 @@ class Manager(val runnerFactory: BotRunnerFactory) {
 
     }
 
+    fun runGame(gameState: String) {
+        var newGameState = gameState
+
+
+    }
+
 }
