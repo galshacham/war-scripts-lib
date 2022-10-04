@@ -11,7 +11,7 @@ class MoveValidationReducer : IValidationReducer<MoveAction> {
             val soldier = game.objects[it.activatorId] as Soldier
 
             val isValidMove = it.newLoc.inRange(soldier.loc, soldier.speed)
-            print("Error: ignored action from activator: [${it.activatorId}], can not move more than ${soldier.speed}")
+            println("Error: ignored action from activator: [${it.activatorId}], can not move more than ${soldier.speed}")
 
             isValidMove
         }

@@ -1,4 +1,10 @@
 import  actionsData.Action
+import actionsData.MoveAction
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
+import objectsData.*
 import reducers.ReducerManager
 import reducers.activationReducers.IActivationReducer
 import reducers.activationReducers.MoveActionReducer
@@ -7,7 +13,6 @@ import reducers.finaleReducers.TurnsReducer
 import reducers.validationReducers.DuplicateActionsReducer
 import reducers.validationReducers.IValidationReducer
 import reducers.validationReducers.MoveValidationReducer
-import objectsData.Game
 
 class Engine : IEngine {
     // Note!
@@ -32,12 +37,26 @@ class Engine : IEngine {
         )
     )
 
-    override fun runTurn(game: Game, actions: List<Action>): Game {
+    fun runTurn(game: Game, actions: List<Action>): Game {
+        val copiedGame = deepCopy(game)
 
-        val validActions = reducerManager.validateState(game, actions)
-        reducerManager.updateState(game, validActions)
-        reducerManager.finaleState(game)
+        val validActions = reducerManager.validateState(copiedGame, actions)
+        reducerManager.updateState(copiedGame, validActions)
+        reducerManager.finaleState(copiedGame)
 
-        return game
+        return copiedGame
     }
+
+
+    override fun runTurn(game: String, actions: String): String {
+        val game = Json.decodeFromString<Game>(game)
+        val actions = Json.decodeFromString<List<Action>>(actions)
+        val newGame = this.runTurn(game, actions)
+
+        return Json.encodeToString(newGame)
+    }
+
+    // TODO: This is the most hideous way to deep copy, and I hope i don't need it in the future, but for now
+    // This helps me save the in mutation of objects
+    private fun deepCopy(game: Game) = Json.decodeFromString<Game>(Json.encodeToString(game))
 }

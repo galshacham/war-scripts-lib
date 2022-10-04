@@ -1,6 +1,14 @@
 package actionsData
 
-import actionsData.Action
+import kotlinx.serialization.EncodeDefault
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.Serializable
 import objectsData.Loc
 
-data class MoveAction(override val activatorId: Int, val newLoc: Loc) : Action(activatorId)
+@OptIn(ExperimentalSerializationApi::class)
+@Serializable
+data class MoveAction(
+    override val activatorId: Int,
+    val newLoc: Loc,
+    @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val type: String = "move"
+) : Action()

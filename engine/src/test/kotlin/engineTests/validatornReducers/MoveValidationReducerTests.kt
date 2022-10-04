@@ -68,9 +68,8 @@ class MoveValidationReducerTests {
         val output = tapSystemOut { moveValidationReducer.validate(game, actions) }
 
         assertEquals(
-            """
-            |Error: ignored action from activator: [${invalidAction.activatorId}], can not move more than ${soldier.speed}
-        """.trimMargin(), output.trim()
+            """Error: ignored action from activator: [${invalidAction.activatorId}], can not move more than ${soldier.speed}""".trim(),
+            output.trim()
         )
     }
 }

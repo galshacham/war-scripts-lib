@@ -9,7 +9,6 @@ import kotlin.test.assertEquals
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class IdGeneratorTests {
-
     @Order(1)
     @Test
     fun `WHEN generator gets first id SHOULD return 0`() {
