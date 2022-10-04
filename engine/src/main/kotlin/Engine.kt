@@ -1,9 +1,7 @@
 import  actionsData.Action
-import actionsData.MoveAction
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.modules.SerializersModule
 import objectsData.*
 import reducers.ReducerManager
 import reducers.activationReducers.IActivationReducer
@@ -48,12 +46,19 @@ class Engine : IEngine {
     }
 
 
-    override fun runTurn(game: String, actions: String): String {
-        val game = Json.decodeFromString<Game>(game)
-        val actions = Json.decodeFromString<List<Action>>(actions)
-        val newGame = this.runTurn(game, actions)
+    override fun runTurn(gameState: String, botsActions: List<String>): String {
+        val game = Json.decodeFromString<Game>(gameState)
+        val actions: List<List<Action>> = botsActions.map {
+            Json.decodeFromString<List<Action>>(it)
+        }
+
+        val newGame = this.runTurn(game, actions.flatten())
 
         return Json.encodeToString(newGame)
+    }
+
+    override fun isOver(gameState: String): Boolean {
+        TODO("Not yet implemented")
     }
 
     // TODO: This is the most hideous way to deep copy, and I hope i don't need it in the future, but for now

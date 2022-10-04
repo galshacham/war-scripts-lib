@@ -68,7 +68,7 @@ class EngineTests {
         }
         """.trimIndent()
 
-        val actionsString = """
+        val actionsString = listOf("""
             [
               {
                 "type": "move",
@@ -79,7 +79,7 @@ class EngineTests {
                 }
               }
             ]
-        """.trimIndent()
+        """.trimIndent())
 
         engine.runTurn(gameString, actionsString)
 
