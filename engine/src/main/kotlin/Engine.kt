@@ -49,7 +49,7 @@ class Engine : IEngine {
     override fun runTurn(gameState: String, botsActions: List<String>): String {
         val game = Json.decodeFromString<Game>(gameState)
         val actions: List<List<Action>> = botsActions.map {
-            Json.decodeFromString<List<Action>>(it)
+            Json.decodeFromString(it)
         }
 
         val newGame = this.runTurn(game, actions.flatten())

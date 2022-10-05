@@ -2,16 +2,29 @@ package engineTests.finaleRedcuers
 
 import enums.SoldierTypeEnum
 import IdGenerator
+import io.mockk.clearAllMocks
 import reducers.finaleReducers.SoldierCreationReducer
 import objectsData.*
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 
 class SoldierCreationReducerTests {
+    private val expectedSoldierId = 60
+
+    @BeforeEach
+    fun initStaticMocks() {
+
+        mockkObject(IdGenerator)
+        every { IdGenerator.getId() } returns expectedSoldierId
+    }
+
     @Test
     fun `WHEN reducer add ranged soldier SHOULD add ranged soldier to castles`() {
         val reducer = SoldierCreationReducer()
@@ -23,11 +36,7 @@ class SoldierCreationReducerTests {
         val castle = Castle(castleId, castleLocation, SoldierTypeEnum.RANGED)
         val objects = mutableMapOf<Int, GameObject>(Pair(castleId, castle))
 
-        val expectedSoldierId = 60
-
-        mockkObject(IdGenerator)
         every { game.objects } returns objects
-        every { IdGenerator.getId() } returns expectedSoldierId
 
         val rangedSoldier = RangedSoldier(expectedSoldierId, castleLocation)
 
@@ -52,11 +61,7 @@ class SoldierCreationReducerTests {
         val castle = Castle(castleId, castleLocation, SoldierTypeEnum.MELEE)
         val objects = mutableMapOf<Int, GameObject>(Pair(castleId, castle))
 
-        val expectedSoldierId = 60
-
-        mockkObject(IdGenerator)
         every { game.objects } returns objects
-        every { IdGenerator.getId() } returns expectedSoldierId
 
         val meleeSoldier = MeleeSoldier(expectedSoldierId, castleLocation)
 
@@ -68,5 +73,10 @@ class SoldierCreationReducerTests {
         reducer.finaleState(game)
 
         assertEquals(expectedObjects, game.objects)
+    }
+
+    @AfterEach
+    fun clearMocks() {
+        clearAllMocks()
     }
 }
