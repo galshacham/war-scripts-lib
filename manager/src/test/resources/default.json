@@ -1,0 +1,52 @@
+{
+  "mapData": {
+    "rows": 20,
+    "cols": 20,
+    "owners": [
+      0,
+      1
+    ]
+  },
+  "gameObjects": [
+    {
+      "objectType": "CASTLE",
+      "owner": 0,
+      "id": "0",
+      "soldierType": "MELEE",
+      "loc": {
+        "row": 1,
+        "col": 1
+      }
+    },
+    {
+      "objectType": "CASTLE",
+      "owner": 1,
+      "id": "1",
+      "soldierType": "MELEE",
+      "loc": {
+        "row": 19,
+        "col": 19
+      }
+    },
+    {
+      "objectType": "CASTLE",
+      "owner": -1,
+      "id": "2",
+      "soldierType": "MELEE",
+      "loc": {
+        "row": 1,
+        "col": 19
+      }
+    },
+    {
+      "objectType": "CASTLE",
+      "owner": -1,
+      "id": "3",
+      "soldierType": "MELEE",
+      "loc": {
+        "row": 19,
+        "col": 1
+      }
+    }
+  ]
+}

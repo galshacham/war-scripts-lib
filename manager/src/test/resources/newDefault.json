@@ -1,0 +1,44 @@
+{
+  "gameData": {
+    "maxTurns": 1000,
+    "currentTurn": 0
+  },
+  "gameObjects": [
+    {
+      "type": "castle",
+      "id": "0",
+      "soldierType": "MELEE",
+      "loc": {
+        "row": 1,
+        "col": 1
+      }
+    },
+    {
+      "type": "castle",
+      "id": "1",
+      "soldierType": "MELEE",
+      "loc": {
+        "row": 19,
+        "col": 19
+      }
+    },
+    {
+      "objectType": "castle",
+      "id": "2",
+      "soldierType": "MELEE",
+      "loc": {
+        "row": 1,
+        "col": 19
+      }
+    },
+    {
+      "type": "castle",
+      "id": "3",
+      "soldierType": "MELEE",
+      "loc": {
+        "row": 19,
+        "col": 1
+      }
+    }
+  ]
+}

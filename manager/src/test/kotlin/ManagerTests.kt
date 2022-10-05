@@ -72,10 +72,8 @@ class ManagerTests {
         every { engineMock.runTurn(secondTurnState, listOf(secondTurnActions1, secondTurnActions2)) } returns thirdTurnState
         every { engineMock.runTurn(thirdTurnState, listOf(thirdTurnActions1, thirdTurnActions2)) } returns fourthTurnState
 
-        every { engineMock.isOver(firstTurnState) } returns false
-        every { engineMock.isOver(secondTurnState) } returns false
-        every { engineMock.isOver(thirdTurnState) } returns false
-        every { engineMock.isOver(fourthTurnState) } returns true
+        every { engineMock.isOver() } returnsMany listOf(false,false ,false, true)
+
 
         every { botRunnerMock1.doTurn(firstTurnState) } returns firstTurnActions1
         every { botRunnerMock1.doTurn(secondTurnState) } returns secondTurnActions1
@@ -92,21 +90,18 @@ class ManagerTests {
 
         manager.runGame(firstTurnState)
 
-        verify { engineMock.isOver(firstTurnState) }
+        verify(exactly = 4) { engineMock.isOver() }
         verify { botRunnerMock1.doTurn(firstTurnState) }
         verify { botRunnerMock2.doTurn(firstTurnState) }
         verify { engineMock.runTurn(firstTurnState, listOf(firstTurnActions1, firstTurnActions2)) }
 
-        verify { engineMock.isOver(secondTurnState) }
         verify { botRunnerMock1.doTurn(secondTurnState) }
         verify { botRunnerMock2.doTurn(secondTurnState) }
         verify { engineMock.runTurn(secondTurnState, listOf(secondTurnActions1, secondTurnActions2)) }
 
-        verify { engineMock.isOver(thirdTurnState) }
         verify { botRunnerMock1.doTurn(thirdTurnState) }
         verify { botRunnerMock2.doTurn(thirdTurnState) }
         verify { engineMock.runTurn(thirdTurnState, listOf(thirdTurnActions1, thirdTurnActions2)) }
 
-        verify { engineMock.isOver(fourthTurnState) }
     }
 }

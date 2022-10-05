@@ -16,7 +16,7 @@ class Manager(private val runnerFactory: BotRunnerFactory, private val engine: I
 
     fun runGame(gameState: String) {
         var newGameState = gameState
-        while (!engine.isOver(newGameState)) {
+        while (!engine.isOver()) {
             val actions = mutableListOf<String>()
             bots.forEach {
                 actions.add(it.doTurn(newGameState))

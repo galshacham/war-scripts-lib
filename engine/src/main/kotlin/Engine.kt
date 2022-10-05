@@ -13,6 +13,7 @@ import reducers.validationReducers.IValidationReducer
 import reducers.validationReducers.MoveValidationReducer
 
 class Engine : IEngine {
+    var isOverFlag = false
     // Note!
     /*
         Currently, the order of the reducers matter, right now the reducers are invoked this way:
@@ -40,7 +41,7 @@ class Engine : IEngine {
 
         val validActions = reducerManager.validateState(copiedGame, actions)
         reducerManager.updateState(copiedGame, validActions)
-        reducerManager.finaleState(copiedGame)
+        isOverFlag = reducerManager.finaleState(copiedGame)
 
         return copiedGame
     }
@@ -57,8 +58,8 @@ class Engine : IEngine {
         return Json.encodeToString(newGame)
     }
 
-    override fun isOver(gameState: String): Boolean {
-        TODO("Not yet implemented")
+    override fun isOver(): Boolean {
+        return isOverFlag
     }
 
     // TODO: This is the most hideous way to deep copy, and I hope i don't need it in the future, but for now

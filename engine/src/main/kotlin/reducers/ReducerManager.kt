@@ -24,7 +24,7 @@ class ReducerManager(
         activationReducers.forEach { it.update(game, actions) }
     }
 
-    fun finaleState(game: Game) {
-        finaleReducers.forEach { it.finaleState(game) }
+    fun finaleState(game: Game): Boolean {
+        return finaleReducers.all { it.finaleState(game) }
     }
 }
