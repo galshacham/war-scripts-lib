@@ -1,2 +1,2 @@
 rootProject.name = "engine"
-includeBuild("../kotlinApi")
+includeBuild("../objects")
