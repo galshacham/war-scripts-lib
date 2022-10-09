@@ -12,51 +12,40 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class EngineTests {
-    val BASIC_GAME_STATE = """
-        {
-          "objects": {
-            "1": {
-            "type": "RANGED",
-              "id": 1,
-              "loc": {
-                "row": 2,
-                "col": 3
-              },
-              "speed": 4
-            },
-            "2": {
-            "type": "MELEE",
-              "id": 2,
-              "loc": {
-                "row": 4,
-                "col": 5
-              },
-              "speed": 4
-            },
-            "3": {
-            "type": "CASTLE",
-              "id": 3,
-              "loc": {
-                "row": 6,
-                "col": 7
-              },
-            "soldierType": "MELEE"
-            }
-          },
-          "gameData": {
-            "maxTurns": 60,
-            "currentTurn": 25
-          }
-        }
-        """.trimIndent()
+
+    // This test is integration!
+//    @Test
+//    fun `WHEN engine parse gameState SHOULD parse to correct game state`() {
+//        val engine = spyk<Engine>()
+//
+//        mockkObject(IdGenerator)
+//        every { IdGenerator.getId() } returns 60
+//
+//        val expectedLoChange = Loc(4, 4)
+//        val expectedGame = Game(
+//            mutableMapOf(
+//                Pair(1, RangedSoldier(1, expectedLoChange)),
+//                Pair(2, MeleeSoldier(2, Loc(4, 5))),
+//                Pair(3, Castle(3, Loc(6, 7), SoldierTypeEnum.MELEE)),
+//            ),
+//            GameData(60, 26)
+//        )
+//
+//        val actions = listOf<Action>(
+//            MoveAction(1, Loc(3, 4))
+//        )
+//
+//        engine.runTurn(game, actions)
+//
+//        verify { engine.runTurn(expectedGame, actions) }
+//        clearAllMocks()
+//    }
+
     @Test
-    fun `WHEN engine parse gameState SHOULD parse to correct game state`() {
-        val engine = spyk<Engine>()
+    fun `WHEN checks if the game is over by turns SHOULD return false`() {
+        val engine = Engine()
 
-        mockkObject(IdGenerator)
-        every { IdGenerator.getId() } returns 60
-
-        val expectedGame = Game(
+        val game = Game(
             mutableMapOf(
                 Pair(1, RangedSoldier(1, Loc(2, 3))),
                 Pair(2, MeleeSoldier(2, Loc(4, 5))),
@@ -65,45 +54,17 @@ class EngineTests {
             GameData(60, 25)
         )
 
-        val expectedActions = listOf<Action>(
-            MoveAction(1, Loc(3, 4))
-        )
-
-        val actionsString = listOf("""
-            [
-              {
-                "type": "MOVE",
-                "activatorId": 1,
-                "newLoc": {
-                  "row": 3,
-                  "col": 4
-                }
-              }
-            ]
-        """.trimIndent())
-
-        engine.runTurn(BASIC_GAME_STATE, actionsString)
-
-        verify { engine.runTurn(expectedGame, expectedActions) }
-        assertFalse(engine.isOver())
-        clearAllMocks()
-    }
-
-    @Test
-    fun `WHEN checks if the game is over by turns SHOULD return false`() {
-        val engine = spyk<Engine>()
-
-        assertFalse(engine.isOver())
+        assertFalse(engine.isOver(game))
     }
 
     @Test
     fun `WHEN checks if the game is over by turns after doTurn SHOULD return true`() {
-        val engine = spyk<Engine>()
+        val engine = Engine()
 
         val gameData = GameData(60, 61)
 
-        engine.runTurn(Game(mutableMapOf(),gameData), listOf())
+        val game= Game(mutableMapOf(),gameData)
 
-        assertTrue(engine.isOver())
+        assertTrue(engine.isOver(game))
     }
 }

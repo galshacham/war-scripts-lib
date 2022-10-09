@@ -1,7 +1,4 @@
 import  actionsData.Action
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import objectsData.*
 import reducers.ReducerManager
 import reducers.activationReducers.IActivationReducer
@@ -13,7 +10,6 @@ import reducers.validationReducers.IValidationReducer
 import reducers.validationReducers.MoveValidationReducer
 
 class Engine : IEngine {
-    var isOverFlag = false
     // Note!
     /*
         Currently, the order of the reducers matter, right now the reducers are invoked this way:
@@ -36,33 +32,15 @@ class Engine : IEngine {
         )
     )
 
-    fun runTurn(game: Game, actions: List<Action>): Game {
-        val copiedGame = deepCopy(game)
+    override fun runTurn(gameState: Game, actions: List<Action>): Game {
+        val validActions = reducerManager.validateState(gameState, actions)
+        reducerManager.updateState(gameState, validActions)
+        reducerManager.finaleState(gameState)
 
-        val validActions = reducerManager.validateState(copiedGame, actions)
-        reducerManager.updateState(copiedGame, validActions)
-        isOverFlag = reducerManager.finaleState(copiedGame)
-
-        return copiedGame
+        return gameState
     }
 
-
-    override fun runTurn(gameState: String, botsActions: List<String>): String {
-        val game = Json.decodeFromString<Game>(gameState)
-        val actions: List<List<Action>> = botsActions.map {
-            Json.decodeFromString(it)
-        }
-
-        val newGame = this.runTurn(game, actions.flatten())
-
-        return Json.encodeToString(newGame)
+    override fun isOver(gameState: Game): Boolean {
+        return gameState.gameData.currentTurn > gameState.gameData.maxTurns
     }
-
-    override fun isOver(): Boolean {
-        return isOverFlag
-    }
-
-    // TODO: This is the most hideous way to deep copy, and I hope i don't need it in the future, but for now
-    // This helps me save the in mutation of objects
-    private fun deepCopy(game: Game) = Json.decodeFromString<Game>(Json.encodeToString(game))
 }

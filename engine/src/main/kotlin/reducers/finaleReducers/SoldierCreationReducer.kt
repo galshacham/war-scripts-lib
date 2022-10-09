@@ -5,7 +5,7 @@ import enums.SoldierTypeEnum
 import objectsData.*
 
 class SoldierCreationReducer : IFinaleReducer {
-    override fun finaleState(game: Game): Boolean {
+    override fun finaleState(game: Game) {
         val addedSoldiers = mutableMapOf<Int, Soldier>()
 
         game.objects.forEach() {
@@ -22,7 +22,5 @@ class SoldierCreationReducer : IFinaleReducer {
         }
 
         game.objects.putAll(addedSoldiers)
-
-        return true
     }
 }

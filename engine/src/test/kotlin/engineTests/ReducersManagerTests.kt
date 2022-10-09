@@ -61,35 +61,12 @@ class ReducersManagerTests {
         val finaleReducer2 = mockk<IFinaleReducer>()
         val finaleReducers = listOf(finaleReducer1, finaleReducer2)
 
-        every { finaleReducer1.finaleState(game) } returns true
-        every { finaleReducer2.finaleState(game) } returns false
+        every { finaleReducer1.finaleState(game) } returns Unit
+        every { finaleReducer2.finaleState(game) } returns Unit
 
         val manager = ReducerManager(listOf(), listOf(), finaleReducers)
         manager.finaleState(game)
 
         finaleReducers.forEach { verify { it.finaleState(game) } }
     }
-
-//    @Test
-//    fun `WHEN deep copying game SHOULD create new identical game`() {
-//        val manager = ReducerManager(listOf(), listOf(), listOf())
-//        val game = mockk<Game>()
-//
-//        val object1 = mockk<GameObject>()
-//        val object2 = mockk<GameObject>()
-//        val objects = listOf(object1, object2)
-//
-//        val gameData = mockk<GameData>()
-//
-//        every { game.gameData } returns gameData
-//        every { gameData.copy() } returns mockk()
-//        every { object1.copy() } returns mockk()
-//        every { object2.copy() } returns mockk()
-//        every { game.objects } returns objects
-//
-//        val cloned = manager.deepCopy(game)
-//
-//        objects.forEach { verify { it.copy() } }
-//        verify { gameData.copy() }
-//    }
 }

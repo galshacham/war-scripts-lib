@@ -1,7 +1,11 @@
+import actionsData.Action
 import botRunner.BotRunnerFactory
 import botRunner.IBotRunner
 import exceptions.NoArgumentsException
-import java.util.Date
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import objectsData.Game
 
 class Manager(private val runnerFactory: BotRunnerFactory, private val engine: IEngine) {
     val bots = mutableListOf<IBotRunner>()
@@ -15,13 +19,14 @@ class Manager(private val runnerFactory: BotRunnerFactory, private val engine: I
         }
     }
 
-    fun runGame(gameState: String) {
-        var newGameState = gameState
-        while (!engine.isOver()) {
-            val actions = bots.map { it.doTurn(newGameState) }
 
-            newGameState = engine.runTurn(newGameState, actions)
-        }
+    // TODO; test it
+    fun runGame(gameString: String) {
+        do {
+            var gameObject = Json.decodeFromString<Game>(gameString)
+            val newGameString = Json.encodeToString(gameObject)
+            val allActions = bots.map { Json.decodeFromString<List<Action>>(it.doTurn(newGameString)) }.flatten()
+            gameObject = engine.runTurn(gameObject, allActions)
+        } while (!engine.isOver(gameObject))
     }
-
 }
