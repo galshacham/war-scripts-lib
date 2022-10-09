@@ -7,7 +7,7 @@ import objectsData.*
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class EngineIntegrationTests {
+class EngineDoTurnTests {
 
     @Test
     fun `WHEN specific game plan SHOULD change states and reach to the expected state`() {

@@ -1,14 +1,22 @@
 package engineTests
 
 import IdGenerator
-import org.junit.jupiter.api.MethodOrderer
-import org.junit.jupiter.api.Order
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestMethodOrder
+import io.mockk.clearAllMocks
+import io.mockk.every
+import io.mockk.mockkObject
+import org.junit.jupiter.api.*
 import kotlin.test.assertEquals
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class IdGeneratorTests {
+    companion object {
+        @JvmStatic
+        @BeforeAll
+        fun initIdGenerator(): Unit {
+            clearAllMocks()
+        }
+    }
+
     @Order(1)
     @Test
     fun `WHEN generator gets first id SHOULD return 0`() {

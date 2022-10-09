@@ -14,7 +14,7 @@ import kotlin.test.assertTrue
 
 class TurnsReducerTests {
     @Test
-    fun `WHEN game turns is under the max turns SHOULD do nothing`() {
+    fun `WHEN reducer is called SHOULD add turn`() {
         val game = mockk<Game>()
 
         val gameData = mockk<GameData>()
@@ -26,7 +26,6 @@ class TurnsReducerTests {
         every { game.gameData } returns gameData
         every { gameData.currentTurn } returns currentTurnValue
         every { gameData.currentTurn = capture(currentTurn) } returns Unit
-        every { gameData.maxTurns } returns 60
 
         val turnsReducer = TurnsReducer()
 

@@ -26,7 +26,7 @@ class SoldierCreationReducerTests {
     }
 
     @Test
-    fun `WHEN reducer add ranged soldier SHOULD add ranged soldier to castles`() {
+    fun `GIVEN a correct state to add soldier WHEN reducer is called SHOULD add ranged soldier to castles`() {
         val reducer = SoldierCreationReducer()
         val game = mockk<Game>()
 
@@ -51,7 +51,7 @@ class SoldierCreationReducerTests {
     }
 
     @Test
-    fun `WHEN reducer add melee soldier SHOULD add melee soldier to castles`() {
+    fun `GIVEN a correct state to add melee soldier WHEN reducer is called SHOULD add melee soldier to castles`() {
         val reducer = SoldierCreationReducer()
         val game = mockk<Game>()
 
@@ -73,10 +73,5 @@ class SoldierCreationReducerTests {
         reducer.finaleState(game)
 
         assertEquals(expectedObjects, game.objects)
-    }
-
-    @AfterEach
-    fun clearMocks() {
-        clearAllMocks()
     }
 }
