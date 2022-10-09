@@ -10,5 +10,5 @@ import objectsData.Loc
 data class MoveAction(
     override val activatorId: Int,
     val newLoc: Loc,
-    @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val type: String = "move"
+    @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val type: String = "MOVE"
 ) : Action()

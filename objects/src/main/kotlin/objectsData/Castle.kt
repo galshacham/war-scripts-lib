@@ -10,5 +10,5 @@ data class Castle(
     override val id: Int,
     override var loc: Loc,
     val soldierType: SoldierTypeEnum,
-    @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val type: String = "castle"
+    @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val type: String = "CASTLE"
 ) : GameObject()

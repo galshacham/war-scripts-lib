@@ -16,7 +16,7 @@ class EngineTests {
         {
           "objects": {
             "1": {
-            "type": "ranged",
+            "type": "RANGED",
               "id": 1,
               "loc": {
                 "row": 2,
@@ -25,7 +25,7 @@ class EngineTests {
               "speed": 4
             },
             "2": {
-            "type": "melee",
+            "type": "MELEE",
               "id": 2,
               "loc": {
                 "row": 4,
@@ -34,7 +34,7 @@ class EngineTests {
               "speed": 4
             },
             "3": {
-            "type": "castle",
+            "type": "CASTLE",
               "id": 3,
               "loc": {
                 "row": 6,
@@ -72,7 +72,7 @@ class EngineTests {
         val actionsString = listOf("""
             [
               {
-                "type": "move",
+                "type": "MOVE",
                 "activatorId": 1,
                 "newLoc": {
                   "row": 3,

@@ -5,10 +5,7 @@ import reducers.activationReducers.MoveActionReducer
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
-import objectsData.Game
-import objectsData.GameObject
-import objectsData.Loc
-import objectsData.Soldier
+import objectsData.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals

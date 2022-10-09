@@ -1,18 +1,13 @@
-{
-  "mapData": {
-    "rows": 20,
-    "cols": 20,
-    "owners": [
-      0,
-      1
-    ]
+ {
+  "gameData": {
+    "maxTurns": 1000,
+    "currentTurn":0
   },
   "gameObjects": [
     {
       "type": "CASTLE",
-      "owner": 0,
-      "id": "0",
-      "soldierType": "MELEE",
+      "id": 0,
+      "creatingSoldierType": "MELEE",
       "loc": {
         "row": 1,
         "col": 1
@@ -20,9 +15,8 @@
     },
     {
       "type": "CASTLE",
-      "owner": 1,
-      "id": "1",
-      "soldierType": "MELEE",
+      "id": 1,
+      "creatingSoldierType": "MELEE",
       "loc": {
         "row": 19,
         "col": 19
@@ -30,9 +24,8 @@
     },
     {
       "type": "CASTLE",
-      "owner": -1,
-      "id": "2",
-      "soldierType": "MELEE",
+      "id": 2,
+      "creatingSoldierType": "MELEE",
       "loc": {
         "row": 1,
         "col": 19
@@ -40,9 +33,8 @@
     },
     {
       "type": "CASTLE",
-      "owner": -1,
-      "id": "3",
-      "soldierType": "MELEE",
+      "id": 3,
+      "creatingSoldierType": "MELEE",
       "loc": {
         "row": 19,
         "col": 1

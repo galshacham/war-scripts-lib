@@ -9,6 +9,7 @@ import objectsData.Loc
 import objectsData.Soldier
 import io.mockk.every
 import io.mockk.mockk
+import objectsData.Castle
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -71,5 +72,20 @@ class MoveValidationReducerTests {
             """Error: ignored action from activator: [${invalidAction.activatorId}], can not move more than ${soldier.speed}""".trim(),
             output.trim()
         )
+    }
+
+
+    // TODO wtf?
+    @Test
+    fun `GIVEN both castle and soldier WHEN validating actions SHOULD ignore the castles`() {
+        val validAction = MoveAction(soldierId, Loc(5, 5))
+        val expectedActions = listOf(validAction)
+        every { game.objects } returns mutableMapOf(Pair(soldierId, soldier), Pair(16, mockk<Castle>()))
+
+        val actions = listOf(validAction)
+
+        val filteredActions = moveValidationReducer.validate(game, actions)
+
+        assertEquals(expectedActions, filteredActions)
     }
 }

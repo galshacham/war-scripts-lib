@@ -1,9 +1,0 @@
-[
-  {
-    "activatorId": 0,
-    "actionType": "CHANGE_SOLDIER_TYPE",
-    "actionData": {
-      "creatingSoldierType": "RANGED"
-    }
-  }
-]

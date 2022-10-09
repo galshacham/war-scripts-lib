@@ -14,7 +14,7 @@ import objectsData.RangedSoldier
 object ActionModuleSerializer : JsonContentPolymorphicSerializer<Action>(Action::class) {
     override fun selectDeserializer(element: JsonElement): DeserializationStrategy<out Action> {
         return when (element.jsonObject["type"]?.jsonPrimitive?.content) {
-            "move" -> MoveAction.serializer()
+            "MOVE" -> MoveAction.serializer()
             else -> throw Exception("Unknown Action: key 'type' not found or does not matches any module type")
         }
     }

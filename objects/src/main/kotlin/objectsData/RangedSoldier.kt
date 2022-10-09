@@ -8,7 +8,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 data class RangedSoldier(
     override val id: Int,
     override var loc: Loc,
-    @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val type: String = "ranged",
+    @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val type: String = "RANGED",
     @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val speed: Int = 4
 ) : Soldier() {
 }
