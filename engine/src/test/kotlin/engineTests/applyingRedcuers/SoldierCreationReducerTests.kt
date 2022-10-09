@@ -1,15 +1,12 @@
-package engineTests.finaleRedcuers
+package engineTests.applyingRedcuers
 
 import enums.SoldierTypeEnum
 import IdGenerator
-import io.mockk.clearAllMocks
-import reducers.finaleReducers.SoldierCreationReducer
+import reducers.applyingReducers.SoldierCreationReducer
 import objectsData.*
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -45,7 +42,7 @@ class SoldierCreationReducerTests {
             Pair(expectedSoldierId, rangedSoldier)
         )
 
-        reducer.finaleState(game)
+        reducer.applyState(game)
 
         assertEquals(expectedObjects, game.objects)
     }
@@ -70,7 +67,7 @@ class SoldierCreationReducerTests {
             Pair(expectedSoldierId, meleeSoldier)
         )
 
-        reducer.finaleState(game)
+        reducer.applyState(game)
 
         assertEquals(expectedObjects, game.objects)
     }

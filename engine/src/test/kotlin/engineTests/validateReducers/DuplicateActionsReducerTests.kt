@@ -1,8 +1,8 @@
-package engineTests.validatornReducers
+package engineTests.validateReducers
 
 import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
 import actionsData.Action
-import reducers.validationReducers.DuplicateActionsReducer
+import reducers.validatingReducers.DuplicateActionsReducer
 import objectsData.Game
 import io.mockk.every
 import io.mockk.mockk

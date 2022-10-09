@@ -1,8 +1,8 @@
-package reducers.activationReducers
+package reducers.updateReducers
 
 import actionsData.Action
 import objectsData.Game
 
-interface IActivationReducer<ACTION_TYPE : Action> {
+interface IUpdateReducer<ACTION_TYPE : Action> {
     fun update(game: Game, actions: List<ACTION_TYPE>)
 }

@@ -1,15 +1,13 @@
-package engineTests.finaleRedcuers
+package engineTests.applyingRedcuers
 
-import reducers.finaleReducers.TurnsReducer
+import reducers.applyingReducers.TurnsReducer
 import objectsData.Game
 import objectsData.GameData
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
-import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 
 class TurnsReducerTests {
@@ -29,7 +27,7 @@ class TurnsReducerTests {
 
         val turnsReducer = TurnsReducer()
 
-        turnsReducer.finaleState(game)
+        turnsReducer.applyState(game)
 
         assertEquals(currentTurnValue + 1, currentTurn.captured)
     }

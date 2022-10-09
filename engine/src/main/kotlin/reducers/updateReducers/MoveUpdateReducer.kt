@@ -1,9 +1,9 @@
-package reducers.activationReducers
+package reducers.updateReducers
 
 import actionsData.MoveAction
 import objectsData.Game
 
-class MoveActionReducer : IActivationReducer<MoveAction> {
+class MoveUpdateReducer : IUpdateReducer<MoveAction> {
     override fun update(game: Game, actions: List<MoveAction>) {
         actions.forEach {
             val soldier = game.objects[it.activatorId]

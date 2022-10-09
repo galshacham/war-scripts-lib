@@ -1,7 +1,7 @@
-package engineTests.activationReducers
+package engineTests.updateReducers
 
 import actionsData.MoveAction
-import reducers.activationReducers.MoveActionReducer
+import reducers.updateReducers.MoveUpdateReducer
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
 
-class MoveActionReducerTests {
+class MoveUpdateReducerTests {
     // After many thoughts, we must use mocks!
     // The reason to use mocks is that you must not use data classes in unit tests!
     // If we use data classes, then we are forcing them to be the last class
@@ -18,7 +18,7 @@ class MoveActionReducerTests {
     // Then we must test the Soldier, but Soldier is abstract
     @Test
     fun `WHEN updating state with MoveActionReducer SHOULD set new to new game state`() {
-        val moveActionReducer = MoveActionReducer()
+        val moveChangeReducer = MoveUpdateReducer()
 
         val newLoc1 = mockk<Loc>()
         val newLoc2 = mockk<Loc>()
@@ -51,7 +51,7 @@ class MoveActionReducerTests {
         every { action1.activatorId } returns activatorId1
         every { action2.activatorId } returns activatorId2
 
-        moveActionReducer.update(game, actions)
+        moveChangeReducer.update(game, actions)
 
         assertEquals(loc1.captured, newLoc1)
         assertEquals(loc2.captured, newLoc2)
@@ -61,7 +61,7 @@ class MoveActionReducerTests {
     // That is why when it does happen, the game should crash
     @Test
     fun `GIVEN invalid state (activatorId which doesn't exist) WHEN updating state with MoveActionReducer SHOULD throw exception`() {
-        val moveActionReducer = MoveActionReducer()
+        val moveChangeReducer = MoveUpdateReducer()
 
         val soldier = mockk<Soldier>()
 
@@ -79,7 +79,7 @@ class MoveActionReducerTests {
         every { action.activatorId } returns noneExistId
 
         assertThrows<java.lang.NullPointerException> {
-            moveActionReducer.update(game, actions)
+            moveChangeReducer.update(game, actions)
         }
     }
 }

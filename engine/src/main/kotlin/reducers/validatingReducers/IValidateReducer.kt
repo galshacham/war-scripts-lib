@@ -1,8 +1,8 @@
-package reducers.validationReducers
+package reducers.validatingReducers
 
 import actionsData.Action
 import objectsData.Game
 
-interface IValidationReducer<in ACTION: Action> {
+interface IValidateReducer<in ACTION: Action> {
     fun validate(game: Game, actions: List<ACTION>): List<Action>
 }

@@ -1,9 +1,9 @@
-package engineTests.validatornReducers
+package engineTests.validateReducers
 
 import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
 import actionsData.Action
 import actionsData.MoveAction
-import reducers.validationReducers.MoveValidationReducer
+import reducers.validatingReducers.MoveValidateReducer
 import objectsData.Game
 import objectsData.Loc
 import objectsData.Soldier
@@ -14,8 +14,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class MoveValidationReducerTests {
-    private val moveValidationReducer = MoveValidationReducer()
+class MoveValidateReducerTests {
+    private val moveValidationReducer = MoveValidateReducer()
     private val soldierId = 1
     private lateinit var game: Game
     private lateinit var soldier: Soldier
@@ -78,6 +78,7 @@ class MoveValidationReducerTests {
     // TODO wtf?
     @Test
     fun `GIVEN both castle and soldier WHEN validating actions SHOULD ignore the castles`() {
+        TODO()
         val validAction = MoveAction(soldierId, Loc(5, 5))
         val expectedActions = listOf(validAction)
         every { game.objects } returns mutableMapOf(Pair(soldierId, soldier), Pair(16, mockk<Castle>()))

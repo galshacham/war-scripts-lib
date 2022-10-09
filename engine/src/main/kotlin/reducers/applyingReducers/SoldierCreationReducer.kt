@@ -1,11 +1,11 @@
-package reducers.finaleReducers
+package reducers.applyingReducers
 
 import IdGenerator
 import enums.SoldierTypeEnum
 import objectsData.*
 
-class SoldierCreationReducer : IFinaleReducer {
-    override fun finaleState(game: Game) {
+class SoldierCreationReducer : IApplyReducer {
+    override fun applyState(game: Game) {
         val addedSoldiers = mutableMapOf<Int, Soldier>()
 
         game.objects.forEach() {

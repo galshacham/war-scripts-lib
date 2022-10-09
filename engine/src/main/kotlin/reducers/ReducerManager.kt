@@ -1,19 +1,19 @@
 package reducers
 
 import actionsData.Action
-import reducers.activationReducers.IActivationReducer
-import reducers.finaleReducers.IFinaleReducer
-import reducers.validationReducers.IValidationReducer
+import reducers.updateReducers.IUpdateReducer
+import reducers.applyingReducers.IApplyReducer
+import reducers.validatingReducers.IValidateReducer
 import objectsData.Game
 
 class ReducerManager(
-    private val validationReducers: List<IValidationReducer<Action>>,
-    private val activationReducers: List<IActivationReducer<Action>>,
-    private val finaleReducers: List<IFinaleReducer>
+    private val validatingReducers: List<IValidateReducer<Action>>,
+    private val updatingReducers: List<IUpdateReducer<Action>>,
+    private val applyingReducers: List<IApplyReducer>
 ) {
     fun validateState(game: Game, actions: List<Action>): List<Action> {
         var filteredActions = actions
-        validationReducers.forEach { filteredActions = it.validate(game, filteredActions) }
+        validatingReducers.forEach { filteredActions = it.validate(game, filteredActions) }
 
         return filteredActions
     }
@@ -21,10 +21,10 @@ class ReducerManager(
     // TODO: Maybe change actions to action
     // For now, lets assume that we do not need to deep copy the game
     fun updateState(game: Game, actions: List<Action>) {
-        activationReducers.forEach { it.update(game, actions) }
+        updatingReducers.forEach { it.update(game, actions) }
     }
 
-    fun finaleState(game: Game) {
-        return finaleReducers.forEach { it.finaleState(game) }
+    fun applyState(game: Game) {
+        return applyingReducers.forEach { it.applyState(game) }
     }
 }

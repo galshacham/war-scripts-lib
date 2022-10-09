@@ -2,9 +2,9 @@ package engineTests
 
 import actionsData.Action
 import reducers.ReducerManager
-import reducers.activationReducers.IActivationReducer
-import reducers.finaleReducers.IFinaleReducer
-import reducers.validationReducers.IValidationReducer
+import reducers.updateReducers.IUpdateReducer
+import reducers.applyingReducers.IApplyReducer
+import reducers.validatingReducers.IValidateReducer
 import objectsData.Game
 import io.mockk.every
 import io.mockk.mockk
@@ -14,59 +14,59 @@ import org.junit.jupiter.api.Test
 class ReducersManagerTests {
     @Test
     fun `WHEN reducer manager validate SHOULD call all validation reducers and use their results on each other`() {
-        val validationReducer1 = mockk<IValidationReducer<Action>>()
-        val validationReducer2 = mockk<IValidationReducer<Action>>()
+        val validateReducer1 = mockk<IValidateReducer<Action>>()
+        val validateReducer2 = mockk<IValidateReducer<Action>>()
 
         val game = mockk<Game>()
         val actions = listOf(mockk<Action>())
         val actionsAfterFirstValidation = listOf<Action>()
 
 
-        every { validationReducer1.validate(game, actions) } returns actionsAfterFirstValidation
-        every { validationReducer2.validate(game, actionsAfterFirstValidation) } returns listOf()
+        every { validateReducer1.validate(game, actions) } returns actionsAfterFirstValidation
+        every { validateReducer2.validate(game, actionsAfterFirstValidation) } returns listOf()
 
-        val validationReducers = listOf(validationReducer1, validationReducer2)
+        val validateReducers = listOf(validateReducer1, validateReducer2)
 
-        val manager = ReducerManager(validationReducers, listOf(), listOf())
+        val manager = ReducerManager(validateReducers, listOf(), listOf())
         manager.validateState(game, actions)
 
-        verify { validationReducer1.validate(game, actions) }
-        verify { validationReducer2.validate(game, actionsAfterFirstValidation) }
+        verify { validateReducer1.validate(game, actions) }
+        verify { validateReducer2.validate(game, actionsAfterFirstValidation) }
     }
 
     @Test
-    fun `WHEN reducer manager updates state SHOULD call all actions reducers`() {
+    fun `WHEN reducer manager updates state SHOULD call all update reducers`() {
         val game = mockk<Game>()
-        val activationReducer1 = mockk<IActivationReducer<Action>>()
-        val activationReducer2 = mockk<IActivationReducer<Action>>()
+        val updateReducer1 = mockk<IUpdateReducer<Action>>()
+        val updateReducer2 = mockk<IUpdateReducer<Action>>()
         val actions = listOf<Action>()
 
-        val activationReducers = listOf(activationReducer1, activationReducer2)
+        val updateReducers = listOf(updateReducer1, updateReducer2)
 
-        every { activationReducer1.update(game, actions) } returns Unit
-        every { activationReducer2.update(game, actions) } returns Unit
+        every { updateReducer1.update(game, actions) } returns Unit
+        every { updateReducer2.update(game, actions) } returns Unit
 
 
-        val manager = ReducerManager(listOf(), activationReducers, listOf())
+        val manager = ReducerManager(listOf(), updateReducers, listOf())
         manager.updateState(game, actions)
 
-        activationReducers.forEach { verify { it.update(game, actions) } }
+        updateReducers.forEach { verify { it.update(game, actions) } }
     }
 
     @Test
-    fun `WHEN reducer manager finales SHOULD call all finales reducers`() {
+    fun `WHEN reducer manager applies SHOULD call all applies reducers`() {
         val game = mockk<Game>()
 
-        val finaleReducer1 = mockk<IFinaleReducer>()
-        val finaleReducer2 = mockk<IFinaleReducer>()
-        val finaleReducers = listOf(finaleReducer1, finaleReducer2)
+        val applyReducer1 = mockk<IApplyReducer>()
+        val applyReducer2 = mockk<IApplyReducer>()
+        val applyReducers = listOf(applyReducer1, applyReducer2)
 
-        every { finaleReducer1.finaleState(game) } returns Unit
-        every { finaleReducer2.finaleState(game) } returns Unit
+        every { applyReducer1.applyState(game) } returns Unit
+        every { applyReducer2.applyState(game) } returns Unit
 
-        val manager = ReducerManager(listOf(), listOf(), finaleReducers)
-        manager.finaleState(game)
+        val manager = ReducerManager(listOf(), listOf(), applyReducers)
+        manager.applyState(game)
 
-        finaleReducers.forEach { verify { it.finaleState(game) } }
+        applyReducers.forEach { verify { it.applyState(game) } }
     }
 }

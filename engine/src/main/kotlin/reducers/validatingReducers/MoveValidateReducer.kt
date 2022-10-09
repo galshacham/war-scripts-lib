@@ -1,11 +1,11 @@
-package reducers.validationReducers
+package reducers.validatingReducers
 
 import actionsData.Action
 import actionsData.MoveAction
 import objectsData.Game
 import objectsData.Soldier
 
-class MoveValidationReducer : IValidationReducer<MoveAction> {
+class MoveValidateReducer : IValidateReducer<MoveAction> {
     override fun validate(game: Game, actions: List<MoveAction>): List<Action> {
         return actions.filter {
             val soldier = game.objects[it.activatorId] as Soldier

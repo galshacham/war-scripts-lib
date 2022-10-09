@@ -1,9 +1,9 @@
-package reducers.validationReducers
+package reducers.validatingReducers
 
 import actionsData.Action
 import objectsData.Game
 
-class DuplicateActionsReducer : IValidationReducer<Action> {
+class DuplicateActionsReducer : IValidateReducer<Action> {
     override fun validate(game: Game, actions: List<Action>): List<Action> {
         val idSet = HashSet<Int>()
         val filteredList = mutableListOf<Action>()

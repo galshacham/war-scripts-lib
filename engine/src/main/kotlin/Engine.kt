@@ -1,13 +1,13 @@
 import  actionsData.Action
 import objectsData.*
 import reducers.ReducerManager
-import reducers.activationReducers.IActivationReducer
-import reducers.activationReducers.MoveActionReducer
-import reducers.finaleReducers.SoldierCreationReducer
-import reducers.finaleReducers.TurnsReducer
-import reducers.validationReducers.DuplicateActionsReducer
-import reducers.validationReducers.IValidationReducer
-import reducers.validationReducers.MoveValidationReducer
+import reducers.updateReducers.IUpdateReducer
+import reducers.updateReducers.MoveUpdateReducer
+import reducers.applyingReducers.SoldierCreationReducer
+import reducers.applyingReducers.TurnsReducer
+import reducers.validatingReducers.DuplicateActionsReducer
+import reducers.validatingReducers.IValidateReducer
+import reducers.validatingReducers.MoveValidateReducer
 
 class Engine : IEngine {
     // Note!
@@ -21,10 +21,10 @@ class Engine : IEngine {
     private val reducerManager: ReducerManager = ReducerManager(
         listOf(
             DuplicateActionsReducer(),
-            MoveValidationReducer()
-        ) as List<IValidationReducer<Action>>,
+            MoveValidateReducer()
+        ) as List<IValidateReducer<Action>>,
 
-        listOf(MoveActionReducer() as (IActivationReducer<Action>)),
+        listOf(MoveUpdateReducer() as (IUpdateReducer<Action>)),
 
         listOf(
             SoldierCreationReducer(),
@@ -35,7 +35,7 @@ class Engine : IEngine {
     override fun runTurn(gameState: Game, actions: List<Action>): Game {
         val validActions = reducerManager.validateState(gameState, actions)
         reducerManager.updateState(gameState, validActions)
-        reducerManager.finaleState(gameState)
+        reducerManager.applyState(gameState)
 
         return gameState
     }
