@@ -1,13 +1,14 @@
-package engineTests.integerations
+package engineTests
 
 import actionsData.Action
 import actionsData.MoveAction
 import Engine
 import objectsData.*
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class EngineDoTurnTests {
+class EngineIntegrationTests {
 
     @Test
     fun `WHEN specific game plan SHOULD change states and reach to the expected state`() {
@@ -18,6 +19,7 @@ class EngineDoTurnTests {
         )
 
         val engine = Engine()
+
         val actions = listOf<Action>(MoveAction(soldierId, Loc(0, 8)))
         val actualGame = engine.runTurn(game, actions)
 
@@ -50,5 +52,28 @@ class EngineDoTurnTests {
         )
 
         assertEquals(expectedGame, actualGame)
+    }
+
+    @Test
+    fun `GIVEN a game that shouldn't be over WHEN checks checking if game is over SHOULD return false`() {
+        val engine = Engine()
+
+        val gameData = GameData(60, 25)
+
+        val game = Game(mutableMapOf(), gameData)
+
+        Assertions.assertFalse(engine.isOver(game))
+    }
+
+
+    @Test
+    fun `GIVEN a game that turns are passed max turns WHEN checks checking if game is over SHOULD return true`() {
+        val engine = Engine()
+
+        val gameData = GameData(1000, 1001)
+
+        val game = Game(mutableMapOf(), gameData)
+
+        Assertions.assertTrue(engine.isOver(game))
     }
 }

@@ -1,4 +1,6 @@
 import  actionsData.Action
+import finaleValidator.FinaleValidator
+import finaleValidator.validators.TurnsOverValidator
 import objectsData.*
 import reducers.ReducerManager
 import reducers.updateReducers.IUpdateReducer
@@ -31,6 +33,11 @@ class Engine : IEngine {
             TurnsReducer()
         )
     )
+    private val finaleValidator: FinaleValidator = FinaleValidator(
+        listOf(
+            TurnsOverValidator()
+        )
+    )
 
     override fun runTurn(gameState: Game, actions: List<Action>): Game {
         val validActions = reducerManager.validateState(gameState, actions)
@@ -41,6 +48,6 @@ class Engine : IEngine {
     }
 
     override fun isOver(gameState: Game): Boolean {
-        return gameState.gameData.currentTurn > gameState.gameData.maxTurns
+        return finaleValidator.validateGameOver(gameState)
     }
 }
