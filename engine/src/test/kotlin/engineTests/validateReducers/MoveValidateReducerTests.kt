@@ -76,17 +76,17 @@ class MoveValidateReducerTests {
 
 
     // TODO wtf?
-    @Test
-    fun `GIVEN both castle and soldier WHEN validating actions SHOULD ignore the castles`() {
-        TODO()
-        val validAction = MoveAction(soldierId, Loc(5, 5))
-        val expectedActions = listOf(validAction)
-        every { game.objects } returns mutableMapOf(Pair(soldierId, soldier), Pair(16, mockk<Castle>()))
-
-        val actions = listOf(validAction)
-
-        val filteredActions = moveValidationReducer.validate(game, actions)
-
-        assertEquals(expectedActions, filteredActions)
-    }
+//    @Test
+//    fun `GIVEN both castle and soldier WHEN validating actions SHOULD ignore the castles`() {
+//        TODO()
+//        val validAction = MoveAction(soldierId, Loc(5, 5))
+//        val expectedActions = listOf(validAction)
+//        every { game.objects } returns mutableMapOf(Pair(soldierId, soldier), Pair(16, mockk<Castle>()))
+//
+//        val actions = listOf(validAction)
+//
+//        val filteredActions = moveValidationReducer.validate(game, actions)
+//
+//        assertEquals(expectedActions, filteredActions)
+//    }
 }
