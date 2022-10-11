@@ -10,7 +10,7 @@ class SoldierCreationReducer : IApplyReducer {
 
         game.objects.forEach() {
             if (it.value is Castle) {
-                val newId = IdGenerator.getId()
+                val newId = IdGenerator.getId(game.objects)
 
                 val newSoldier = when ((it.value as Castle).soldierType) {
                     SoldierTypeEnum.MELEE -> MeleeSoldier(newId, it.value.loc)

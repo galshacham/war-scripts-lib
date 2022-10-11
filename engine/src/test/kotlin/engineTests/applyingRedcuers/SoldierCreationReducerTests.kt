@@ -19,7 +19,7 @@ class SoldierCreationReducerTests {
     fun initStaticMocks() {
 
         mockkObject(IdGenerator)
-        every { IdGenerator.getId() } returns expectedSoldierId
+        every { IdGenerator.getId(any()) } returns expectedSoldierId
     }
 
     @Test

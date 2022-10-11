@@ -2,30 +2,26 @@ package engineTests
 
 import IdGenerator
 import io.mockk.clearAllMocks
-import io.mockk.every
-import io.mockk.mockkObject
+import io.mockk.mockk
+import objectsData.GameObject
 import org.junit.jupiter.api.*
 import kotlin.test.assertEquals
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class IdGeneratorTests {
-    companion object {
-        @JvmStatic
-        @BeforeAll
-        fun initIdGenerator(): Unit {
-            clearAllMocks()
-        }
-    }
-
-    @Order(1)
     @Test
-    fun `WHEN generator gets first id SHOULD return 0`() {
-        assertEquals(0, IdGenerator.getId())
-    }
+    fun `WHEN initiating generator according to to objects SHOULD start counting from the +1 of the highest Id`() {
+        val highest = 60
+        val objectsMap = mutableMapOf<Int, GameObject>(
+            Pair(1, mockk()),
+            Pair(highest, mockk()),
+            Pair(3, mockk()),
+            Pair(5, mockk()),
+        )
 
-    @Order(2)
-    @Test
-    fun `WHEN generator gets second id SHOULD return 1`() {
-        assertEquals(1, IdGenerator.getId())
+        assertEquals(highest + 1, IdGenerator.getId(objectsMap))
+        assertEquals(highest + 2, IdGenerator.getId(objectsMap))
+        assertEquals(highest + 3, IdGenerator.getId(objectsMap))
+        assertEquals(highest + 4, IdGenerator.getId(objectsMap))
     }
 }
