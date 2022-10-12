@@ -8,6 +8,6 @@ fun main(vararg args: String) {
     manager.init(*args)
 
     println(Date())
-    manager.runGame(File("""E:\ComputerScience\Projects\war-scripts-lib\manager\src\test\resources\newDefault.json""").readText())
+    manager.runGame(File("""E:\ComputerScience\Projects\war-scripts-lib\manager\src\test\resources\simpleGame.json""").readText())
     println(Date())
 }

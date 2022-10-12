@@ -1,0 +1,26 @@
+{
+  "gameData": {
+    "maxTurns": 100,
+    "currentTurn": 0
+  },
+  "objects": {
+    "0": {
+      "type": "CASTLE",
+      "id": 0,
+      "soldierType": "MELEE",
+      "loc": {
+        "row": 1,
+        "col": 1
+      }
+    },
+    "1": {
+      "type": "MELEE",
+      "id": 1,
+      "speed": 4,
+      "loc": {
+        "row": 1,
+        "col": 1
+      }
+    }
+  }
+}

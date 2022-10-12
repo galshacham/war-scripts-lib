@@ -54,7 +54,7 @@ export default class Game {
                     object.speed,
                 );
             default:
-                throw new Error("QWEQWE Type didnt match any type! " + JSON.stringify(object))
+                throw new Error("Type didnt match any type! " + JSON.stringify(object))
         }
     }
 

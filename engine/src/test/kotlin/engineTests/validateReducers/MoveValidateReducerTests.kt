@@ -32,7 +32,7 @@ class MoveValidateReducerTests {
     }
 
     @Test
-    fun `WHEN move action is legal since its under max speed SHOULD do nothing`() {
+    fun `WHEN move action is legal since its under max speed SHOULD not filter action`() {
         val validAction = MoveAction(soldierId, Loc(5, 5))
         val expectedActions = listOf(validAction)
 
@@ -56,37 +56,31 @@ class MoveValidateReducerTests {
     }
 
     @Test
-    fun `WHEN there are two actions invoked from the same object SHOULD log ignore message`() {
-        val invalidAction = MoveAction(soldierId, Loc(4, 5))
+    fun `WHEN action is invalid SHOULD log ignore message`() {
+        val invalidAction = MoveAction(soldierId, Loc(999, 999))
         val expectedActions = listOf<Action>()
 
         val actions = listOf(invalidAction)
 
-        val filteredActions = moveValidationReducer.validate(game, actions)
-
-        assertEquals(expectedActions, filteredActions)
-
         val output = tapSystemOut { moveValidationReducer.validate(game, actions) }
 
         assertEquals(
-            """Error: ignored action from activator: [${invalidAction.activatorId}], can not move more than ${soldier.speed}""".trim(),
+            """Error: ignored action from activator: [${invalidAction.activatorId}], can not move more than ${soldier.speed} steps at a time""".trim(),
             output.trim()
         )
     }
 
+    @Test
+    fun `WHEN action is valid SHOULD not log ignore message`() {
+        val invalidAction = MoveAction(soldierId, Loc(6, 6))
 
-    // TODO wtf?
-//    @Test
-//    fun `GIVEN both castle and soldier WHEN validating actions SHOULD ignore the castles`() {
-//        TODO()
-//        val validAction = MoveAction(soldierId, Loc(5, 5))
-//        val expectedActions = listOf(validAction)
-//        every { game.objects } returns mutableMapOf(Pair(soldierId, soldier), Pair(16, mockk<Castle>()))
-//
-//        val actions = listOf(validAction)
-//
-//        val filteredActions = moveValidationReducer.validate(game, actions)
-//
-//        assertEquals(expectedActions, filteredActions)
-//    }
+        val actions = listOf(invalidAction)
+
+        val output = tapSystemOut { moveValidationReducer.validate(game, actions) }
+
+        assertEquals(
+            "".trim(),
+            output.trim()
+        )
+    }
 }
