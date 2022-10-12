@@ -1,6 +1,6 @@
 package engineTests.applyingRedcuers
 
-import enums.SoldierTypeEnum
+import enums.ObjectTypeEnum
 import IdGenerator
 import reducers.applyingReducers.SoldierCreationReducer
 import objectsData.*
@@ -30,7 +30,7 @@ class SoldierCreationReducerTests {
         val castleId = 1
 
         val castleLocation = Loc(2, 2)
-        val castle = Castle(castleId, castleLocation, SoldierTypeEnum.RANGED)
+        val castle = Castle(castleId, castleLocation, ObjectTypeEnum.RANGED)
         val objects = mutableMapOf<Int, GameObject>(Pair(castleId, castle))
 
         every { game.objects } returns objects
@@ -55,7 +55,7 @@ class SoldierCreationReducerTests {
         val castleId = 1
 
         val castleLocation = Loc(2, 2)
-        val castle = Castle(castleId, castleLocation, SoldierTypeEnum.MELEE)
+        val castle = Castle(castleId, castleLocation, ObjectTypeEnum.MELEE)
         val objects = mutableMapOf<Int, GameObject>(Pair(castleId, castle))
 
         every { game.objects } returns objects

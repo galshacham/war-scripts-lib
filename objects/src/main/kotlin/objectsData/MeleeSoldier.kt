@@ -1,5 +1,6 @@
 package objectsData
 
+import enums.ObjectTypeEnum
 import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.ExperimentalSerializationApi
 
@@ -9,5 +10,5 @@ data class MeleeSoldier(
     override val id: Int,
     override var loc: Loc,
     @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val speed: Int = 4,
-    @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val type: String = "MELEE"
+    @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val type: ObjectTypeEnum = ObjectTypeEnum.MELEE
 ) : Soldier()

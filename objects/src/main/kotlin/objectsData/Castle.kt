@@ -1,6 +1,6 @@
 package objectsData
 
-import enums.SoldierTypeEnum
+import enums.ObjectTypeEnum
 import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.ExperimentalSerializationApi
 
@@ -9,6 +9,6 @@ import kotlinx.serialization.ExperimentalSerializationApi
 data class Castle(
     override val id: Int,
     override var loc: Loc,
-    val soldierType: SoldierTypeEnum,
-    @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val type: String = "CASTLE"
+    val soldierType: ObjectTypeEnum,
+    @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val type: ObjectTypeEnum = ObjectTypeEnum.CASTLE
 ) : GameObject()
