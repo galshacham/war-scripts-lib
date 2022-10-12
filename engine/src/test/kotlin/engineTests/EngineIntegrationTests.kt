@@ -14,17 +14,17 @@ class EngineIntegrationTests {
     fun `WHEN specific game plan SHOULD change states and reach to the expected state`() {
         val soldierId = 1
         val game = Game(
-            mutableMapOf(Pair(soldierId, RangedSoldier(soldierId, Loc(0, 5)))),
+            mutableMapOf(Pair(soldierId, RangedSoldier(soldierId, Loc(0, 5), 1))),
             GameData(10, 0)
         )
 
         val engine = Engine()
 
-        val actions = listOf<Action>(MoveAction(soldierId, Loc(0, 8)))
+        val actions = listOf<Action>(MoveAction(soldierId, Loc(0, 8), 1))
         val actualGame = engine.runTurn(game, actions)
 
         val expectedGame = Game(
-            mutableMapOf(Pair(soldierId, RangedSoldier(soldierId, Loc(0, 8)))),
+            mutableMapOf(Pair(soldierId, RangedSoldier(soldierId, Loc(0, 8), 1))),
             GameData(10, 1)
         )
 
@@ -35,19 +35,19 @@ class EngineIntegrationTests {
     fun `WHEN specific game plan with two turns SHOULD change states and reach to the expected state`() {
         val soldierId = 2
         val game = Game(
-            mutableMapOf(Pair(soldierId, RangedSoldier(soldierId, Loc(0, 5)))),
+            mutableMapOf(Pair(soldierId, RangedSoldier(soldierId, Loc(0, 5), 1))),
             GameData(10, 0)
         )
 
         val engine = Engine()
-        val firstTurnActions = listOf<Action>(MoveAction(soldierId, Loc(0, 8)))
-        val secondTurnActions = listOf<Action>(MoveAction(soldierId, Loc(3, 8)))
+        val firstTurnActions = listOf<Action>(MoveAction(soldierId, Loc(0, 8), 1))
+        val secondTurnActions = listOf<Action>(MoveAction(soldierId, Loc(3, 8), 1))
 
         val firstGameResults = engine.runTurn(game, firstTurnActions)
         val actualGame = engine.runTurn(firstGameResults, secondTurnActions)
 
         val expectedGame = Game(
-            mutableMapOf(Pair(soldierId, RangedSoldier(soldierId, Loc(3, 8)))),
+            mutableMapOf(Pair(soldierId, RangedSoldier(soldierId, Loc(3, 8), 1))),
             GameData(10, 2)
         )
 

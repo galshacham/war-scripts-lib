@@ -10,14 +10,14 @@ import org.junit.jupiter.api.assertThrows
 import TestConstants
 
 class BotRunnersFactoryTests {
-    final val SIDE = 1
+    final val OWNER = 1
     @Test
     fun whenBotFactoryCreatingUnsupportedBotRunner_shouldThrowException() {
         val runtimeSpy = spyk(Runtime.getRuntime())
         val fact = BotRunnerFactory(runtimeSpy)
 
         assertThrows<UnsupportedBotRunnerException> {
-            fact.createBotRunner("doesntExist.bla", SIDE)
+            fact.createBotRunner("doesntExist.bla", OWNER)
         }
     }
 
@@ -28,9 +28,9 @@ class BotRunnersFactoryTests {
 
         val botPath = TestConstants.JS_VALID_BOT_PATH
         val execProgram = "node $JS_RUNNER_PATH"
-        val expectedExecString = "$execProgram $botPath $SIDE"
+        val expectedExecString = "$execProgram $botPath $OWNER"
 
-        fact.createBotRunner(botPath, SIDE);
+        fact.createBotRunner(botPath, OWNER);
 
         verify { runtimeSpy.exec(expectedExecString) }
     }
@@ -42,9 +42,9 @@ class BotRunnersFactoryTests {
 
         val botPath = TestConstants.TS_VALID_BOT_PATH
         val execProgram = "node $TS_RUNNER_PATH"
-        val expectedExecString = "$execProgram $botPath $SIDE"
+        val expectedExecString = "$execProgram $botPath $OWNER"
 
-        fact.createBotRunner(botPath, SIDE);
+        fact.createBotRunner(botPath, OWNER);
 
         verify { runtimeSpy.exec(expectedExecString) }
     }

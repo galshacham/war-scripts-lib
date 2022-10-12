@@ -13,8 +13,8 @@ class SoldierCreationReducer : IApplyReducer {
                 val newId = IdGenerator.getId(game.objects)
 
                 val newSoldier = when ((it.value as Castle).soldierType) {
-                    ObjectTypeEnum.MELEE -> MeleeSoldier(newId, it.value.loc)
-                    ObjectTypeEnum.RANGED -> RangedSoldier(newId, it.value.loc)
+                    ObjectTypeEnum.MELEE -> MeleeSoldier(newId, it.value.loc, 1)
+                    ObjectTypeEnum.RANGED -> RangedSoldier(newId, it.value.loc, 1)
                     else -> throw Exception("Error: ignored soldier creation since the type given was $it is not a soldier!")
                 }
 

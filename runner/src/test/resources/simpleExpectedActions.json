@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "type": "MOVE",
+    "owner": 5,
+    "activatorId": 1,
+    "newLoc": {
+      "row": 1000,
+      "col": 1000
+    }
+  }
+]

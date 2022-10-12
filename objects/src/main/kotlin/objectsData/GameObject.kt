@@ -27,6 +27,7 @@ abstract class GameObject() {
     abstract val type: ObjectTypeEnum
     abstract val id: Int
     abstract var loc: Loc
+    abstract var owner: Int
 }
 
 

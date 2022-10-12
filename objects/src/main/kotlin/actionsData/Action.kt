@@ -28,5 +28,6 @@ object ActionModuleSerializer : JsonContentPolymorphicSerializer<Action>(Action:
 @Serializable(with = ActionModuleSerializer::class)
 abstract class Action {
     abstract val type: ActionTypeEnum
+    abstract val owner: Int
     abstract val activatorId: Int
 }

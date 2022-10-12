@@ -1,14 +1,19 @@
-// const {runTurn} = require("../src/javascriptRunner");
+import MoveAction from "../src/classes/actions/MoveAction";
+import Loc from "../src/classes/Loc";
+import Game from "../src/Game";
 
+const {runTurn} = require("../src/typescriptRunner");
+// TODO this ts file can be better
 test("GIVEN demo bot and simple game WHEN running simple turn SHOULD change castle action", () => {
-    const bot = require('../../../../../test/resources/apis/js/demoJsCode');
-    // const owner = 0;
+    const bot = require('../../../../../test/resources/apis/ts/demoTsCode');
+    const owner = 5;
     const simpleGameState = JSON.stringify(require('../../../../../test/resources/simpleGameState.json'));
-    const expectedGameState = JSON.stringify(require('../../../../../test/resources/simpleExpectedActions.json'));
 
-    // const actualNewGameState = runTurn(simpleGameState, bot);
+    const expectedActions = [new MoveAction(1, new Loc(1000, 1000), owner)]
 
-    // expect(actualNewGameState).toEqual(JSON.parse(expectedGameState))
+    const actualActions = runTurn(simpleGameState, owner, bot) as Game
+
+    expect(actualActions.actions).toEqual(expectedActions)
 });
 
 // test("givenANoneValidAction_should", () => {

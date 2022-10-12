@@ -5,6 +5,7 @@
   },
   "objects": {
     "0": {
+      "owner": 0,
       "type": "CASTLE",
       "id": 0,
       "soldierType": "MELEE",
@@ -14,6 +15,7 @@
       }
     },
     "1": {
+      "owner": 1,
       "type": "MELEE",
       "id": 1,
       "speed": 4,

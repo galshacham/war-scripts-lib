@@ -12,12 +12,12 @@ class BotRunnerFactory(private val runtime: Runtime) {
     private val TS_EXEC_STRING = "ts-node.cmd " + Constants.TS_RUNNER_PATH
     private val PY_EXEC_STRING = "py " + Constants.PY_RUNNER_PATH
 
-    fun createBotRunner(codePath: String, side: Int): IBotRunner {
+    fun createBotRunner(codePath: String, owner: Int): IBotRunner {
         val suffix = getFileSuffix(codePath)
 
         return when (suffix) {
-            "js" -> BotRunner(codePath, side, runtime, JS_EXEC_STRING)
-            "ts" -> BotRunner(codePath, side, runtime, TS_EXEC_STRING)
+            "js" -> BotRunner(codePath, owner, runtime, JS_EXEC_STRING)
+            "ts" -> BotRunner(codePath, owner, runtime, TS_EXEC_STRING)
             else -> throw UnsupportedBotRunnerException("botRunner of type ($suffix) do not exist, it can be added on streamers.properties file")
         }
     }

@@ -28,14 +28,15 @@ class SoldierCreationReducerTests {
         val game = mockk<Game>()
 
         val castleId = 1
+        val owner = 1
 
         val castleLocation = Loc(2, 2)
-        val castle = Castle(castleId, castleLocation, ObjectTypeEnum.RANGED)
+        val castle = Castle(castleId, castleLocation, ObjectTypeEnum.RANGED, owner)
         val objects = mutableMapOf<Int, GameObject>(Pair(castleId, castle))
 
         every { game.objects } returns objects
 
-        val rangedSoldier = RangedSoldier(expectedSoldierId, castleLocation)
+        val rangedSoldier = RangedSoldier(expectedSoldierId, castleLocation, owner)
 
         val expectedObjects = mutableMapOf(
             Pair(castleId, castle),
@@ -53,14 +54,15 @@ class SoldierCreationReducerTests {
         val game = mockk<Game>()
 
         val castleId = 1
+        val owner = 1
 
         val castleLocation = Loc(2, 2)
-        val castle = Castle(castleId, castleLocation, ObjectTypeEnum.MELEE)
+        val castle = Castle(castleId, castleLocation, ObjectTypeEnum.MELEE, owner)
         val objects = mutableMapOf<Int, GameObject>(Pair(castleId, castle))
 
         every { game.objects } returns objects
 
-        val meleeSoldier = MeleeSoldier(expectedSoldierId, castleLocation)
+        val meleeSoldier = MeleeSoldier(expectedSoldierId, castleLocation, owner)
 
         val expectedObjects = mutableMapOf(
             Pair(castleId, castle),

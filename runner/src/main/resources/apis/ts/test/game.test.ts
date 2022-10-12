@@ -8,7 +8,7 @@ import MeleeSoldier from "../src/classes/objects/MeleeSoldier";
 import RangedSoldier from "../src/classes/objects/RangedSoldier";
 
 // Note! In order to re-transpile the ts code, run "tsc -w & nodemon build" on the ts api folder
-
+const owner = 60
 const basicGameState = {
     "gameData": {
         "maxTurns": 1000,
@@ -16,6 +16,7 @@ const basicGameState = {
     },
     "objects": {
         "0": {
+            "owner": 1,
             "type": "CASTLE",
             "id": 0,
             "soldierType": "MELEE",
@@ -25,6 +26,7 @@ const basicGameState = {
             }
         },
         "1": {
+            "owner": 2,
             "type": "CASTLE",
             "id": 1,
             "soldierType": "MELEE",
@@ -34,6 +36,7 @@ const basicGameState = {
             }
         },
         "2": {
+            "owner": 3,
             "type": "CASTLE",
             "id": 2,
             "soldierType": "MELEE",
@@ -43,6 +46,7 @@ const basicGameState = {
             }
         },
         "3": {
+            "owner": 4,
             "type": "CASTLE",
             "id": 3,
             "soldierType": "MELEE",
@@ -51,6 +55,7 @@ const basicGameState = {
                 "col": 1
             }
         }, "4": {
+            "owner": 5,
             "type": "MELEE",
             "id": 4,
             "speed": 4,
@@ -59,6 +64,7 @@ const basicGameState = {
                 "col": 0
             }
         }, "5": {
+            "owner": 6,
             "type": "RANGED",
             "id": 5,
             "speed": 3,
@@ -74,26 +80,27 @@ const basicGameString = JSON.stringify(basicGameState);
 describe("Game Tests", () => {
     describe("Game Initialization", () => {
         const gameObjects = new Map<number, GameObject>()
-        gameObjects.set(0, new Castle(0, new Loc(1, 1), "MELEE"))
-        gameObjects.set(1, new Castle(1, new Loc(19, 19), "MELEE"))
-        gameObjects.set(2, new Castle(2, new Loc(19, 1), "MELEE"))
-        gameObjects.set(3, new Castle(3, new Loc(1, 19), "MELEE"))
-        gameObjects.set(4, new MeleeSoldier(4, new Loc(0, 0), 4))
-        gameObjects.set(5, new RangedSoldier(5, new Loc(5, 5), 3))
+        gameObjects.set(0, new Castle(0, new Loc(1, 1), "MELEE", 1))
+        gameObjects.set(1, new Castle(1, new Loc(19, 19), "MELEE", 2))
+        gameObjects.set(2, new Castle(2, new Loc(19, 1), "MELEE", 3))
+        gameObjects.set(3, new Castle(3, new Loc(1, 19), "MELEE", 4))
+        gameObjects.set(4, new MeleeSoldier(4, new Loc(0, 0), 4, 5))
+        gameObjects.set(5, new RangedSoldier(5, new Loc(5, 5), 3, 6))
 
         const expectedGameObject = {
             // owner: 1,
             // logs: [],
             actions: [],
             gameData: new GameData(1000, 0),
-            objects: gameObjects
+            objects: gameObjects,
+            owner: 60
         };
         // @ts-ignore -- only for testing
         expectedGameObject.__proto__ = Game.prototype;
 
 
         test("WHEN initializing game from json state SHOULD construct new game", () => {
-            const game = new Game(basicGameString/*, 1*/);
+            const game = new Game(basicGameString, owner);
 
             expect(game).toStrictEqual(expectedGameObject);
         });
@@ -101,12 +108,12 @@ describe("Game Tests", () => {
 
     describe("Api tests", () => {
         test("GIVEN basicGame WHEN moving a soldier SHOULD add action to list", () => {
-            const game = new Game(basicGameString);
-            const expectedGame = new Game(basicGameString);
+            const game = new Game(basicGameString, owner);
+            const expectedGame = new Game(basicGameString, owner);
 
             const soldierId = 4
             const loc = new Loc(5, 5)
-            expectedGame.actions = [new MoveAction(soldierId, loc)]
+            expectedGame.actions = [new MoveAction(soldierId, loc, owner)]
 
             game.moveSoldier(soldierId, loc)
 
@@ -129,7 +136,7 @@ describe("Game Tests", () => {
 
         describe("Get Directions Tests", () => {
             test("GIVEN basicGame WHEN getting directions right only SHOULD return list of possible right location only", () => {
-                const game = new Game(basicGameString);
+                const game = new Game(basicGameString, owner);
 
                 const soldierId = 4
                 const desiredLocation = new Loc(5, 0)
@@ -144,7 +151,7 @@ describe("Game Tests", () => {
             })
 
             test("GIVEN basicGame WHEN getting directions up only SHOULD return list of possible up only", () => {
-                const game = new Game(basicGameString);
+                const game = new Game(basicGameString, owner);
 
                 const soldierId = 4
                 const desiredLocation = new Loc(0, 5)
@@ -159,7 +166,7 @@ describe("Game Tests", () => {
             })
 
             test("GIVEN basicGame WHEN getting directions up and right SHOULD return list of possible locations", () => {
-                const game = new Game(basicGameString);
+                const game = new Game(basicGameString, owner);
 
                 const soldierId = 4
                 const desiredLocation = new Loc(5, 5)
@@ -178,7 +185,7 @@ describe("Game Tests", () => {
             })
 
             test("GIVEN basicGame WHEN getting directions down and left SHOULD return list of possible locations", () => {
-                const game = new Game(basicGameString);
+                const game = new Game(basicGameString, owner);
 
                 const soldierId = 5
                 const desiredLocation = new Loc(0, 0)

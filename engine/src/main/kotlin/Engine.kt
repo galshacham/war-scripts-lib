@@ -40,6 +40,7 @@ class Engine : IEngine {
     )
 
     override fun runTurn(gameState: Game, actions: List<Action>): Game {
+        // TODO here I need to add the owner for validations since someone can just push actions himself as another owner
         val validActions = reducerManager.validateState(gameState, actions)
         reducerManager.updateState(gameState, validActions)
         reducerManager.applyState(gameState)

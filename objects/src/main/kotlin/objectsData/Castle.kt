@@ -10,5 +10,6 @@ data class Castle(
     override val id: Int,
     override var loc: Loc,
     val soldierType: ObjectTypeEnum,
+    override var owner: Int,
     @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val type: ObjectTypeEnum = ObjectTypeEnum.CASTLE
 ) : GameObject()

@@ -1,44 +1,26 @@
- {
+{
   "gameData": {
-    "maxTurns": 1000,
-    "currentTurn":0
+    "maxTurns": 100,
+    "currentTurn": 0
   },
-  "gameObjects": [
-    {
+  "objects": {
+    "0": {
       "type": "CASTLE",
       "id": 0,
-      "creatingSoldierType": "MELEE",
+      "soldierType": "MELEE",
       "loc": {
         "row": 1,
         "col": 1
       }
     },
-    {
-      "type": "CASTLE",
+    "1": {
+      "type": "MELEE",
       "id": 1,
-      "creatingSoldierType": "MELEE",
-      "loc": {
-        "row": 19,
-        "col": 19
-      }
-    },
-    {
-      "type": "CASTLE",
-      "id": 2,
-      "creatingSoldierType": "MELEE",
+      "speed": 4,
       "loc": {
         "row": 1,
-        "col": 19
-      }
-    },
-    {
-      "type": "CASTLE",
-      "id": 3,
-      "creatingSoldierType": "MELEE",
-      "loc": {
-        "row": 19,
         "col": 1
       }
     }
-  ]
+  }
 }

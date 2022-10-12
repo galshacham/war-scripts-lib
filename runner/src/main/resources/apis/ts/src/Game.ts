@@ -10,12 +10,14 @@ import MeleeSoldier from "./classes/objects/MeleeSoldier";
 import RangedSoldier from "./classes/objects/RangedSoldier";
 
 export default class Game {
+    readonly owner: number
+    actions: Action[] // TODO: there can be a breach here if i won't attend ot it on engine
     gameData: GameData
     objects: Map<number, GameObject>
-    actions: Action[]
 
-    constructor(jsonGameState: string) {
+    constructor(jsonGameState: string, owner: number) {
         const gameState = JSON.parse(jsonGameState);
+        this.owner = owner
         this.actions = []
         this.gameData = new GameData(
             gameState.gameData.maxTurns,
@@ -29,8 +31,8 @@ export default class Game {
         });
     }
 
-    private createObject(object: { id: number, type: string, loc: Loc }): GameObject {
-        const {id, type, loc} = object
+    private createObject(object: { id: number, type: string, loc: Loc, owner: number }): GameObject {
+        const {id, type, loc, owner} = object
         switch (type) {
             case CASTLE_TYPE:
                 return new Castle(
@@ -38,6 +40,7 @@ export default class Game {
                     new Loc(loc.col, loc.row),
                     // @ts-ignore -- this is the initiation only
                     object.soldierType,
+                    owner
                 );
             case MELEE_SOLDIER_TYPE:
                 return new MeleeSoldier(
@@ -45,6 +48,7 @@ export default class Game {
                     new Loc(loc.col, loc.row),
                     // @ts-ignore -- this is the initiation only
                     object.speed,
+                    owner
                 );
             case RANGED_SOLDIER_TYPE:
                 return new RangedSoldier(
@@ -52,6 +56,7 @@ export default class Game {
                     new Loc(loc.col, loc.row),
                     // @ts-ignore -- this is the initiation only
                     object.speed,
+                    owner
                 );
             default:
                 throw new Error("Type didnt match any type! " + JSON.stringify(object))
@@ -59,7 +64,8 @@ export default class Game {
     }
 
     public moveSoldier(soldierId: number, newLoc: Loc) {
-        this.actions.push(new MoveAction(soldierId, newLoc))
+        // @ts-ignore --- If the player made a mistake and used a none existing id, should transfer it anyway
+        this.actions.push(new MoveAction(soldierId, newLoc, this.owner))
     }
 
     public getDirections(soldierId: number, desiredLocation: Loc) {

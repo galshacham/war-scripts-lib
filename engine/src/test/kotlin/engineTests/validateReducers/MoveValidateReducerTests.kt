@@ -33,7 +33,7 @@ class MoveValidateReducerTests {
 
     @Test
     fun `WHEN move action is legal since its under max speed SHOULD not filter action`() {
-        val validAction = MoveAction(soldierId, Loc(5, 5))
+        val validAction = MoveAction(soldierId, Loc(5, 5), 1)
         val expectedActions = listOf(validAction)
 
         val actions = listOf(validAction)
@@ -45,7 +45,7 @@ class MoveValidateReducerTests {
 
     @Test
     fun `WHEN move action is illegal duo to max speed SHOULD remove action`() {
-        val invalidAction = MoveAction(soldierId, Loc(4, 5))
+        val invalidAction = MoveAction(soldierId, Loc(4, 5), 1)
         val expectedActions = listOf<Action>()
 
         val actions = listOf(invalidAction)
@@ -57,7 +57,7 @@ class MoveValidateReducerTests {
 
     @Test
     fun `WHEN action is invalid SHOULD log ignore message`() {
-        val invalidAction = MoveAction(soldierId, Loc(999, 999))
+        val invalidAction = MoveAction(soldierId, Loc(999, 999), 1)
         val expectedActions = listOf<Action>()
 
         val actions = listOf(invalidAction)
@@ -72,7 +72,7 @@ class MoveValidateReducerTests {
 
     @Test
     fun `WHEN action is valid SHOULD not log ignore message`() {
-        val invalidAction = MoveAction(soldierId, Loc(6, 6))
+        val invalidAction = MoveAction(soldierId, Loc(6, 6), 1)
 
         val actions = listOf(invalidAction)
 
