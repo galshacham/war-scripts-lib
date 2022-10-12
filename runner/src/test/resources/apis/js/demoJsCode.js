@@ -2,8 +2,9 @@ const {Game, MoveAction, Loc} = require("../../../../main/resources/apis/js/src/
 let a = 0
 
 function doTurn(game) {
-    // if (game instanceof Game) {
-    // }
+    if (game instanceof Game) {
+        
+    }
 
     // game.actions.push(new MoveAction(16, new Loc(a, a)))
     // a++

@@ -3,6 +3,7 @@ import java.io.File
 class TestConstants {
     companion object {
         val JS_VALID_BOT_PATH: String = File("src/test/resources/botRunner/demoJsCode.js").absolutePath
+        val TS_VALID_BOT_PATH: String = File("src/test/resources/botRunner/demoTsCode.ts").absolutePath
         val PY_VALID_BOT_PATH: String = File("src/test/resources/botRunner/demoPythonCode.py").absolutePath
 
         val ACTIONS_JSON: String = File("src/test/resources/parser/actions.json").readText()

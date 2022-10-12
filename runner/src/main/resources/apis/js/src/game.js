@@ -51,6 +51,9 @@ class Game {
         this.actions.push(new MoveAction(soldierId, newLoc))
     }
 
+    /*
+        Hello world
+     */
     getDirections(soldierId, desiredLocation) {
         const options = []
         const {loc, speed} = this.objects[soldierId]

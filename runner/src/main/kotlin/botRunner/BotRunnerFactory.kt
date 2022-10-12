@@ -7,6 +7,9 @@ import exceptions.UnsupportedBotRunnerException
 class BotRunnerFactory(private val runtime: Runtime) {
     // TODO: Change it to env variable
     private val JS_EXEC_STRING = "node " + Constants.JS_RUNNER_PATH
+
+    // TODO: check if needs to be changed on differernt OS's
+    private val TS_EXEC_STRING = "ts-node.cmd " + Constants.TS_RUNNER_PATH
     private val PY_EXEC_STRING = "py " + Constants.PY_RUNNER_PATH
 
     fun createBotRunner(codePath: String, side: Int): IBotRunner {
@@ -14,6 +17,7 @@ class BotRunnerFactory(private val runtime: Runtime) {
 
         return when (suffix) {
             "js" -> BotRunner(codePath, side, runtime, JS_EXEC_STRING)
+            "ts" -> BotRunner(codePath, side, runtime, TS_EXEC_STRING)
             else -> throw UnsupportedBotRunnerException("botRunner of type ($suffix) do not exist, it can be added on streamers.properties file")
         }
     }

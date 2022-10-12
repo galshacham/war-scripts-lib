@@ -10,6 +10,8 @@ class BotRunner(botAbsolutePath: String, player: Int, runtime: Runtime, execStri
 
     init {
         val command = "$execString $botAbsolutePath $player"
+
+
         this.process = runtime.exec(command)
     }
 

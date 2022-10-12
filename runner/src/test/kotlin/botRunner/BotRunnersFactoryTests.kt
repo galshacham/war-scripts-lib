@@ -1,6 +1,7 @@
 package botRunner
 
 import Constants.Companion.JS_RUNNER_PATH
+import Constants.Companion.TS_RUNNER_PATH
 import exceptions.UnsupportedBotRunnerException
 import io.mockk.spyk
 import io.mockk.verify
@@ -33,6 +34,21 @@ class BotRunnersFactoryTests {
 
         verify { runtimeSpy.exec(expectedExecString) }
     }
+
+    @Test
+    fun whenBotFactoryCreatingTsBotRunner_shouldReturnExpectedTsBotRunner() {
+        val runtimeSpy = spyk(Runtime.getRuntime())
+        val fact = BotRunnerFactory(runtimeSpy)
+
+        val botPath = TestConstants.TS_VALID_BOT_PATH
+        val execProgram = "node $TS_RUNNER_PATH"
+        val expectedExecString = "$execProgram $botPath $SIDE"
+
+        fact.createBotRunner(botPath, SIDE);
+
+        verify { runtimeSpy.exec(expectedExecString) }
+    }
+
 
     // TODO: Add python caller later
 //    @Test
