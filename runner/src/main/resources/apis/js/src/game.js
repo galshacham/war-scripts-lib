@@ -1,4 +1,4 @@
-const {forEach} = require("lodash");
+const {forEach, isEqual} = require("lodash");
 
 class Game {
     // owner; // int
@@ -34,17 +34,42 @@ class Game {
                 return new Castle(
                     id,
                     // owner,
-                    new Loc(loc.row, loc.col),
+                    new Loc(loc.col, loc.row),
                     object.soldierType,
                 );
             case SOLDIER_TYPE:
                 return new Soldier(
                     id,
                     // owner,
-                    new Loc(row, col),
-                    4,
+                    new Loc(loc.col, loc.row),
+                    object.speed,
                 );
         }
+    }
+
+    moveSoldier(soldierId, newLoc) {
+        this.actions.push(new MoveAction(soldierId, newLoc))
+    }
+
+    getDirections(soldierId, desiredLocation) {
+        const options = []
+        const {loc, speed} = this.objects[soldierId]
+
+        const movingRowDiff = loc.row - desiredLocation.row
+        const movingColDiff = loc.col - desiredLocation.col
+
+        const movingUpMultiplier = movingRowDiff < 0 ? 1 : -1
+        const movingRightMultiplier = movingColDiff < 0 ? 1 : -1
+
+        for (let row = 0; row <= Math.abs(movingRowDiff); row++) {
+            for (let col = 0; col <= Math.abs(movingColDiff); col++) {
+                const optionalLoc = new Loc(loc.col + movingRightMultiplier * col, loc.row + movingUpMultiplier * row)
+                if (loc.inRange(optionalLoc, speed) === 0 && !isEqual(loc, optionalLoc))
+                    options.push(optionalLoc)
+            }
+        }
+
+        return options
     }
 
     // getAllMyCastles() {
@@ -80,12 +105,18 @@ class GameData {
 }
 
 class Loc {
-    row; // int
     col; // int
+    row; // int
 
-    constructor(row, col) {
-        this.row = row;
+    constructor(col, row) {
         this.col = col;
+        this.row = row;
+    }
+
+    inRange(loc, range) {
+        const diff = Math.abs(this.col - loc.col) + Math.abs(this.row - loc.row)
+        if (diff === range) return 0
+        return diff < range ? 1 : -1
     }
 }
 

@@ -40,7 +40,7 @@ class JsonHandlerTests {
     @Test
     fun `WHEN deserializing actions string to actions object list SHOULD deserialize correctly`() {
         val jsonHandler = JsonHandler(Json)
-        val actionsString = """[{"activatorId":5,"type":"MOVE","newLoc":{"row":5,"col":6}}]"""
+        val actionsString = """[{"activatorId":5,"type":"MOVE","newLoc":{"row":6,"col":5}}]"""
 
         val expectedActions = listOf(MoveAction(5, Loc(5,6)))
 
