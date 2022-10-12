@@ -9,6 +9,8 @@ import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
+// TODO: add serialization tests
+
 object GameObjectModuleSerializer : JsonContentPolymorphicSerializer<GameObject>(GameObject::class) {
     override fun selectDeserializer(element: JsonElement): DeserializationStrategy<out GameObject> {
         return when (element.jsonObject[OBJECT_JSON_SERIALIZER_REF]?.jsonPrimitive?.content) {

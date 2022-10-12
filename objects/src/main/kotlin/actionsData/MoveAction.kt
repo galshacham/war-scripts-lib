@@ -1,5 +1,6 @@
 package actionsData
 
+import enums.ActionTypeEnum
 import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
@@ -10,5 +11,5 @@ import objectsData.Loc
 data class MoveAction(
     override val activatorId: Int,
     val newLoc: Loc,
-    @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val type: String = "MOVE"
+    @EncodeDefault(EncodeDefault.Mode.ALWAYS) override val type: ActionTypeEnum = ActionTypeEnum.MOVE
 ) : Action()
