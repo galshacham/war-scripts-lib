@@ -42,7 +42,7 @@ class JsonHandlerTests {
         val jsonHandler = JsonHandler(Json)
         val actionsString = """[{"activatorId":5,"type":"MOVE","newLoc":{"row":6,"col":5}}]"""
 
-        val expectedActions = listOf(MoveAction(5, Loc(5,6)))
+        val expectedActions = listOf(MoveAction(5, Loc(5,6), 1))
 
         val actualActions = jsonHandler.parseJsonToActions(actionsString)
 
