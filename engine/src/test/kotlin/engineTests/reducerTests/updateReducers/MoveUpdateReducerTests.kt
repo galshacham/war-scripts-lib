@@ -1,4 +1,4 @@
-package engineTests.updateReducers
+package engineTests.reducerTests.updateReducers
 
 import actionsData.MoveAction
 import reducers.updateReducers.MoveUpdateReducer

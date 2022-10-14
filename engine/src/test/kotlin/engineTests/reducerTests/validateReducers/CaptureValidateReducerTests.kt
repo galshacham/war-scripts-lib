@@ -1,4 +1,4 @@
-package engineTests.validateReducers
+package engineTests.reducerTests.validateReducers
 
 import GameConstants.Companion.LOYAL_AFFECTION_RANGE
 import actionsData.CaptureAction

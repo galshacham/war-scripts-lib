@@ -1,4 +1,4 @@
-package engineTests.applyingRedcuers
+package engineTests.reducerTests.applyingRedcuers
 
 import enums.ObjectTypeEnum
 import IdGenerator

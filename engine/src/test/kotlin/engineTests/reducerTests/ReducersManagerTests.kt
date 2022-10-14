@@ -1,4 +1,4 @@
-package engineTests
+package engineTests.reducerTests
 
 import actionsData.Action
 import reducers.ReducerManager

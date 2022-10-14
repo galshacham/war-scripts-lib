@@ -1,6 +1,4 @@
-package engineTests.applyingRedcuers
-
-import org.junit.jupiter.api.Test
+package engineTests.reducerTests.applyingRedcuers
 
 //class CaptureReducerTests {
 //    @Test

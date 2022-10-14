@@ -1,4 +1,4 @@
-package engineTests.validateReducers
+package engineTests.reducerTests.validateReducers
 
 import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
 import actionsData.Action
@@ -9,7 +9,6 @@ import objectsData.Loc
 import objectsData.Soldier
 import io.mockk.every
 import io.mockk.mockk
-import objectsData.Castle
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -58,7 +57,6 @@ class MoveValidateReducerTests {
     @Test
     fun `WHEN action is invalid SHOULD log ignore message`() {
         val invalidAction = MoveAction(soldierId, Loc(999, 999), 1)
-        val expectedActions = listOf<Action>()
 
         val actions = listOf(invalidAction)
 
