@@ -31,7 +31,7 @@ class SoldierCreationReducerTests {
         val owner = 1
 
         val castleLocation = Loc(2, 2)
-        val castle = Castle(castleId, castleLocation, ObjectTypeEnum.RANGED, owner)
+        val castle = Castle(castleId, castleLocation, ObjectTypeEnum.RANGED, owner, 10)
         val objects = mutableMapOf<Int, GameObject>(Pair(castleId, castle))
 
         every { game.objects } returns objects
@@ -57,7 +57,7 @@ class SoldierCreationReducerTests {
         val owner = 1
 
         val castleLocation = Loc(2, 2)
-        val castle = Castle(castleId, castleLocation, ObjectTypeEnum.MELEE, owner)
+        val castle = Castle(castleId, castleLocation, ObjectTypeEnum.MELEE, owner, 10)
         val objects = mutableMapOf<Int, GameObject>(Pair(castleId, castle))
 
         every { game.objects } returns objects
