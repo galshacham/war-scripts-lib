@@ -3,48 +3,37 @@ package engineTests.reducerTests.validateReducers
 import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
 import actionsData.Action
 import actionsData.MoveAction
+import drivers.GameDriver
+import drivers.actions.MoveActionDriver.aMoveAction
+import drivers.objects.Soldiers
 import reducers.validatingReducers.MoveValidateReducer
-import objectsData.Game
 import objectsData.Loc
-import objectsData.Soldier
-import io.mockk.every
-import io.mockk.mockk
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class MoveValidateReducerTests {
     private val moveValidationReducer = MoveValidateReducer()
-    private val soldierId = 1
-    private lateinit var game: Game
-    private lateinit var soldier: Soldier
-
-    @BeforeEach
-    fun init() {
-        game = mockk()
-        soldier = mockk()
-
-        every { soldier.id } returns soldierId
-        every { soldier.speed } returns 4
-        every { soldier.loc } returns Loc(7, 7)
-        every { game.objects } returns mutableMapOf(Pair(soldierId, soldier))
-    }
+    private val soldier = Soldiers.aMeleeSoldier()
+    private val game = GameDriver.aGameWithSoldier()
+    private val closeLocationToSoldier = Loc(soldier.loc.col, soldier.loc.row + soldier.speed)
+    private val validAction = aMoveAction(newLoc = closeLocationToSoldier)
+    private val farLocationFromSoldier = Loc(soldier.loc.col, soldier.loc.row + 2 * soldier.speed)
+    private val invalidAction = aMoveAction(newLoc = farLocationFromSoldier)
 
     @Test
     fun `WHEN move action is legal since its under max speed SHOULD not filter action`() {
-        val validAction = MoveAction(soldierId, Loc(5, 5), 1)
         val expectedActions = listOf(validAction)
 
-        val actions = listOf(validAction)
+        val actionsToFilter = listOf(validAction)
 
-        val filteredActions = moveValidationReducer.validate(game, actions)
+        val filteredActions = moveValidationReducer.validate(game, actionsToFilter)
 
         assertEquals(expectedActions, filteredActions)
     }
 
     @Test
     fun `WHEN move action is illegal duo to max speed SHOULD remove action`() {
-        val invalidAction = MoveAction(soldierId, Loc(4, 5), 1)
         val expectedActions = listOf<Action>()
 
         val actions = listOf(invalidAction)
@@ -56,8 +45,6 @@ class MoveValidateReducerTests {
 
     @Test
     fun `WHEN action is invalid SHOULD log ignore message`() {
-        val invalidAction = MoveAction(soldierId, Loc(999, 999), 1)
-
         val actions = listOf(invalidAction)
 
         val output = tapSystemOut { moveValidationReducer.validate(game, actions) }
@@ -70,9 +57,7 @@ class MoveValidateReducerTests {
 
     @Test
     fun `WHEN action is valid SHOULD not log ignore message`() {
-        val invalidAction = MoveAction(soldierId, Loc(6, 6), 1)
-
-        val actions = listOf(invalidAction)
+        val actions = listOf(validAction)
 
         val output = tapSystemOut { moveValidationReducer.validate(game, actions) }
 

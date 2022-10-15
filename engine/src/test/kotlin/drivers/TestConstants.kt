@@ -1,4 +1,4 @@
-package drivers.actions
+package drivers
 
 import objectsData.Loc
 
@@ -19,4 +19,7 @@ object TestConstants {
     val LOC_0_0 = Loc(0, 0)
     val LOC_0_1 = Loc(0, 1)
     val LOC_0_2 = Loc(0, 2)
+
+    val CURRENT_TURN = 20
+    val MAX_TURNS = 50
 }
