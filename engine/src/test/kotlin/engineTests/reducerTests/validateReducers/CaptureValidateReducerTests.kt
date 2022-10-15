@@ -2,37 +2,33 @@ package engineTests.reducerTests.validateReducers
 
 import GameConstants.Companion.LOYAL_AFFECTION_RANGE
 import actionsData.CaptureAction
+import drivers.GameDriver
+import drivers.actions.MoveActionDriver
+import drivers.objects.Soldiers
 import io.mockk.every
 import io.mockk.mockk
 import objectsData.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import reducers.validatingReducers.CaptureValidateReducer
+import reducers.validatingReducers.MoveValidateReducer
 import kotlin.test.assertEquals
 
 class CaptureValidateReducerTests {
-    private val castleId = 7
-    private val soldierId = 8
-    private val soldier = mockk<Soldier>()
-    private val castle = mockk<Castle>()
-    private val castleLocMock = mockk<Loc>()
-    private val soldierLocMock = mockk<Loc>()
-    private val captureActionMock = mockk<CaptureAction>()
-    private val gameMock = mockk<Game>()
-    private val objects = mutableMapOf(
-        Pair(castleId, castle),
-        Pair(soldierId, soldier),
-    )
+    private val moveValidationReducer = MoveValidateReducer()
+    private val soldier = Soldiers.aMeleeSoldier()
+    private val game = GameDriver.aGameWithSoldier()
+
     private val captureValidateReducer = CaptureValidateReducer()
 
     @BeforeEach
     fun initTests() {
-        every { gameMock.objects } returns objects
-        every { castle.loc } returns castleLocMock
-        every { soldier.loc } returns soldierLocMock
-        every { castle.id } returns castleId
-        every { captureActionMock.idToCapture } returns castleId
-        every { captureActionMock.activatorId } returns soldierId
+//        every { gameMock.objects } returns objects
+//        every { castle.loc } returns castleLocMock
+//        every { soldier.loc } returns soldierLocMock
+//        every { castle.id } returns castleId
+//        every { captureActionMock.idToCapture } returns castleId
+//        every { captureActionMock.activatorId } returns soldierId
     }
 
     @Test
@@ -41,7 +37,7 @@ class CaptureValidateReducerTests {
 
         val expectedActions = listOf(captureActionMock)
 
-        val actualActions = captureValidateReducer.validate(gameMock, expectedActions)
+        val actualActions = captureValidateReducer.validate(game, expectedActions)
 
         assertEquals(expectedActions, actualActions)
     }

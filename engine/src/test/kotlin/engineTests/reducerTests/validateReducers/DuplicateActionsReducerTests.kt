@@ -31,7 +31,6 @@ class DuplicateActionsReducerTests {
 
     @Test
     fun `WHEN there are two actions invoked from the same object SHOULD filter the second one`() {
-
         val expectedActions = listOf(action1, action2)
 
         val actions = listOf(action1, action2, action3)
