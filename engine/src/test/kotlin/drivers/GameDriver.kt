@@ -1,14 +1,17 @@
 package drivers
 
-import drivers.TestConstants.CURRENT_TURN
-import drivers.TestConstants.MAX_TURNS
-import drivers.TestConstants.SOLDIER_ID_1
-import drivers.objects.Soldiers.aRangedSoldier
+import drivers.DriversTestConstants.CURRENT_TURN
+import drivers.DriversTestConstants.MAX_TURNS
 import objectsData.Game
 import objectsData.GameData
+import objectsData.GameObject
 
 object GameDriver {
     private fun aBasicGameData() = GameData(CURRENT_TURN, MAX_TURNS)
 
-    fun aGameWithSoldier() = Game(mutableMapOf(Pair(SOLDIER_ID_1, aRangedSoldier())), aBasicGameData())
+    fun aGame(vararg objects: GameObject): Game {
+        val gameObjects = mutableMapOf<Int, GameObject>()
+        objects.forEach { gameObjects[it.id] = it }
+        return Game(gameObjects, aBasicGameData())
+    }
 }

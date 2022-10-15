@@ -2,24 +2,24 @@ package engineTests.reducerTests.validateReducers
 
 import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
 import actionsData.Action
-import actionsData.MoveAction
-import drivers.GameDriver
-import drivers.actions.MoveActionDriver.aMoveAction
-import drivers.objects.Soldiers
+import drivers.ActionsDrivers.aMoveAction
+import drivers.GameDriver.aGame
+import drivers.ObjectsDriver
+import drivers.TestConstants.MELEE_SOLDIER_ID_1
 import reducers.validatingReducers.MoveValidateReducer
 import objectsData.Loc
-import org.junit.jupiter.api.BeforeEach
+import objectsData.Soldier
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class MoveValidateReducerTests {
     private val moveValidationReducer = MoveValidateReducer()
-    private val soldier = Soldiers.aMeleeSoldier()
-    private val game = GameDriver.aGameWithSoldier()
+    private val soldier = ObjectsDriver.aMeleeSoldier(id = MELEE_SOLDIER_ID_1, loc = Loc(3, 3)) as Soldier
     private val closeLocationToSoldier = Loc(soldier.loc.col, soldier.loc.row + soldier.speed)
-    private val validAction = aMoveAction(newLoc = closeLocationToSoldier)
+    private val validAction = aMoveAction(activatorId = MELEE_SOLDIER_ID_1, newLoc = closeLocationToSoldier)
     private val farLocationFromSoldier = Loc(soldier.loc.col, soldier.loc.row + 2 * soldier.speed)
-    private val invalidAction = aMoveAction(newLoc = farLocationFromSoldier)
+    private val invalidAction = aMoveAction(activatorId = MELEE_SOLDIER_ID_1, newLoc = farLocationFromSoldier)
+    private val game = aGame(soldier)
 
     @Test
     fun `WHEN move action is legal since its under max speed SHOULD not filter action`() {

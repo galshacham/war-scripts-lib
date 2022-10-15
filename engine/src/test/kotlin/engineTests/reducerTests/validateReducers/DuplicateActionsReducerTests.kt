@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
+// This class should stay with mocks because there is no need for real actions here, just abstractions
 class DuplicateActionsReducerTests {
     private val duplicateActionsReducer = DuplicateActionsReducer()
     private lateinit var game: Game

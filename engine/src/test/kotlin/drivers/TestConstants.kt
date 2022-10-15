@@ -3,9 +3,13 @@ package drivers
 import objectsData.Loc
 
 object TestConstants {
-    val SOLDIER_ID_1 = 10
-    val SOLDIER_ID_2 = 11
-    val SOLDIER_ID_3 = 12
+    val MELEE_SOLDIER_ID_1 = 10
+    val MELEE_SOLDIER_ID_2 = 11
+    val MELEE_SOLDIER_ID_3 = 12
+
+    val RANGED_SOLDIER_ID_1 = 13
+    val RANGED_SOLDIER_ID_2 = 14
+    val RANGED_SOLDIER_ID_3 = 15
 
     val CASTLE_ID_1 = 20
     val CASTLE_ID_2 = 21
@@ -15,11 +19,7 @@ object TestConstants {
     val OWNER_ID_2 = 1
     val OWNER_ID_3 = 2
 
-
-    val LOC_0_0 = Loc(0, 0)
-    val LOC_0_1 = Loc(0, 1)
-    val LOC_0_2 = Loc(0, 2)
-
-    val CURRENT_TURN = 20
-    val MAX_TURNS = 50
+    val LOC_1_0 = Loc(1, 0)
+    val LOC_2_0 = Loc(2, 0)
+    val LOC_3_0 = Loc(3, 0)
 }

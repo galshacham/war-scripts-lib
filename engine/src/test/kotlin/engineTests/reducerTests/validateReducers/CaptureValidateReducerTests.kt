@@ -1,41 +1,31 @@
 package engineTests.reducerTests.validateReducers
 
-import GameConstants.Companion.LOYAL_AFFECTION_RANGE
-import actionsData.CaptureAction
-import drivers.GameDriver
-import drivers.actions.MoveActionDriver
-import drivers.objects.Soldiers
-import io.mockk.every
-import io.mockk.mockk
-import objectsData.*
-import org.junit.jupiter.api.BeforeEach
+import drivers.ActionsDrivers.aCaptureAction
+import drivers.GameDriver.aGame
+import drivers.ObjectsDriver.aCastle
+import drivers.ObjectsDriver.aMeleeSoldier
+import drivers.TestConstants.CASTLE_ID_1
+import drivers.TestConstants.MELEE_SOLDIER_ID_1
+import drivers.TestConstants.OWNER_ID_1
+import drivers.TestConstants.OWNER_ID_2
+import objectsData.Loc
 import org.junit.jupiter.api.Test
 import reducers.validatingReducers.CaptureValidateReducer
-import reducers.validatingReducers.MoveValidateReducer
 import kotlin.test.assertEquals
 
 class CaptureValidateReducerTests {
-    private val moveValidationReducer = MoveValidateReducer()
-    private val soldier = Soldiers.aMeleeSoldier()
-    private val game = GameDriver.aGameWithSoldier()
-
     private val captureValidateReducer = CaptureValidateReducer()
-
-    @BeforeEach
-    fun initTests() {
-//        every { gameMock.objects } returns objects
-//        every { castle.loc } returns castleLocMock
-//        every { soldier.loc } returns soldierLocMock
-//        every { castle.id } returns castleId
-//        every { captureActionMock.idToCapture } returns castleId
-//        every { captureActionMock.activatorId } returns soldierId
-    }
 
     @Test
     fun `WHEN soldier affecting loyalty on an existing castle in range SHOULD not filter action`() {
-        every { castle.loc.inRange(soldierLocMock, LOYAL_AFFECTION_RANGE) } returns true
+        val validAction = aCaptureAction(activatorId = MELEE_SOLDIER_ID_1, idToCapture = CASTLE_ID_1)
+        val game = aGame(
+            aMeleeSoldier(MELEE_SOLDIER_ID_1, loc = Loc(0, 0), owner = OWNER_ID_1),
+            aCastle(CASTLE_ID_1, loc = Loc(1, 0), owner = OWNER_ID_2)
+        )
 
-        val expectedActions = listOf(captureActionMock)
+
+        val expectedActions = listOf(validAction)
 
         val actualActions = captureValidateReducer.validate(game, expectedActions)
 
@@ -44,11 +34,15 @@ class CaptureValidateReducerTests {
 
     @Test
     fun `WHEN soldier affecting loyalty on an existing castle out of range SHOULD filter action`() {
-        every { castle.loc.inRange(soldierLocMock, LOYAL_AFFECTION_RANGE) } returns false
+        val invalidAction = aCaptureAction(activatorId = MELEE_SOLDIER_ID_1, idToCapture = CASTLE_ID_1)
+        val game = aGame(
+            aMeleeSoldier(MELEE_SOLDIER_ID_1, loc = Loc(0, 0), owner = OWNER_ID_1),
+            aCastle(CASTLE_ID_1, loc = Loc(3, 3), owner = OWNER_ID_2)
+        )
 
-        val actions = listOf(captureActionMock)
+        val actions = listOf(invalidAction)
 
-        val actualActions = captureValidateReducer.validate(gameMock, actions)
+        val actualActions = captureValidateReducer.validate(game, actions)
 
         assertEquals(listOf(), actualActions)
     }
