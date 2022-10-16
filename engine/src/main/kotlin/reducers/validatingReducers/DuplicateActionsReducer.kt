@@ -3,6 +3,7 @@ package reducers.validatingReducers
 import actionsData.Action
 import objectsData.Game
 
+// TODO: maybe this needs to be on preReducer just like SoldierCreation needs to be on postReducer
 class DuplicateActionsReducer : IValidateReducer<Action> {
     override fun validate(game: Game, actions: List<Action>): List<Action> {
         val idSet = HashSet<Int>()

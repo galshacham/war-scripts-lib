@@ -1,22 +1,18 @@
 package engineTests.reducerTests.updateReducers
 
-import actionsData.MoveAction
-import drivers.ActionsDrivers
 import drivers.ActionsDrivers.aMoveAction
 import drivers.GameDriver
 import drivers.ObjectsDriver
 import drivers.TestConstants.MELEE_SOLDIER_ID_1
 import drivers.TestConstants.MELEE_SOLDIER_ID_2
 import drivers.TestConstants.RANGED_SOLDIER_ID_1
-import reducers.updateReducers.MoveUpdateReducer
-import io.mockk.every
-import io.mockk.mockk
 import objectsData.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import reducers.MoveReducer
 import kotlin.test.assertEquals
 
-class MoveUpdateReducerTests {
+class MoveReducerTests {
     // After many thoughts, we must use mocks!
     // The reason to use mocks is that you must not use data classes in unit tests!
     // If we use data classes, then we are forcing them to be the last class
@@ -24,7 +20,7 @@ class MoveUpdateReducerTests {
     // Then we must test the Soldier, but Soldier is abstract
     // --- Note so sure about it now
 
-    private val moveChangeReducer = MoveUpdateReducer()
+    private val moveReducer = MoveReducer()
 
     @Test
     fun `WHEN updating state with MoveActionReducer SHOULD set new to new game state`() {
@@ -45,7 +41,7 @@ class MoveUpdateReducerTests {
             aMoveAction(activatorId = RANGED_SOLDIER_ID_1, newLoc = newSoldiersLocation)
         )
 
-        moveChangeReducer.update(currentGame, actions)
+        moveReducer.update(currentGame, actions)
 
         assertEquals(expectedGame, currentGame)
     }
@@ -63,7 +59,7 @@ class MoveUpdateReducerTests {
         )
 
         assertThrows<java.lang.NullPointerException> {
-            moveChangeReducer.update(currentGame, actions)
+            moveReducer.update(currentGame, actions)
         }
     }
 }

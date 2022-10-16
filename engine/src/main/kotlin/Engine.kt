@@ -4,12 +4,11 @@ import finaleValidator.validators.TurnsOverValidator
 import objectsData.*
 import reducers.ReducerManager
 import reducers.updateReducers.IUpdateReducer
-import reducers.updateReducers.MoveUpdateReducer
 import reducers.applyingReducers.SoldierCreationReducer
 import reducers.applyingReducers.TurnsReducer
 import reducers.validatingReducers.DuplicateActionsReducer
 import reducers.validatingReducers.IValidateReducer
-import reducers.validatingReducers.MoveValidateReducer
+import reducers.MoveReducer
 
 class Engine : IEngine {
     // Note!
@@ -19,15 +18,16 @@ class Engine : IEngine {
         Activations - 1,2,3,4... - each activation applies changes of specific action type for all actions
         Finalizing - 1,2,3,4.... - each finalization applies more changes needed to be done for the next turn
      */
+    private val moveReducer = MoveReducer()
 
     // TODO: add captures and test for this
     private val reducerManager: ReducerManager = ReducerManager(
         listOf(
             DuplicateActionsReducer(),
-            MoveValidateReducer()
+            moveReducer
         ) as List<IValidateReducer<Action>>,
 
-        listOf(MoveUpdateReducer() as (IUpdateReducer<Action>)),
+        listOf(moveReducer as (IUpdateReducer<Action>)),
 
         listOf(
             SoldierCreationReducer(),

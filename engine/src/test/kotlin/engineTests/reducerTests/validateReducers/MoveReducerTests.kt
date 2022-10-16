@@ -6,14 +6,14 @@ import drivers.ActionsDrivers.aMoveAction
 import drivers.GameDriver.aGame
 import drivers.ObjectsDriver
 import drivers.TestConstants.MELEE_SOLDIER_ID_1
-import reducers.validatingReducers.MoveValidateReducer
+import reducers.MoveReducer
 import objectsData.Loc
 import objectsData.Soldier
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class MoveValidateReducerTests {
-    private val moveValidationReducer = MoveValidateReducer()
+class MoveReducerTests {
+    private val moveValidationReducer = MoveReducer()
     private val soldier = ObjectsDriver.aMeleeSoldier(id = MELEE_SOLDIER_ID_1, loc = Loc(3, 3)) as Soldier
     private val closeLocationToSoldier = Loc(soldier.loc.col, soldier.loc.row + soldier.speed)
     private val validAction = aMoveAction(activatorId = MELEE_SOLDIER_ID_1, newLoc = closeLocationToSoldier)

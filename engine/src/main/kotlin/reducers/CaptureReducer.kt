@@ -28,6 +28,7 @@ class CaptureReducer : IValidateReducer<CaptureAction>, IUpdateReducer<CaptureAc
         }
     }
 
+    // This needs a massive refactor
     override fun applyState(game: Game) {
         game.objects.forEach() {
             if (it.value is Castle) {
