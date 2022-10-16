@@ -2,10 +2,17 @@ package engineTests.reducerTests.applyingRedcuers
 
 import enums.ObjectTypeEnum
 import IdGenerator
+import drivers.GameDriver.aGame
+import drivers.ObjectsDriver.aCastle
+import drivers.ObjectsDriver.aMeleeSoldier
+import drivers.ObjectsDriver.aRangedSoldier
+import drivers.TestConstants.CASTLE_ID_1
+import drivers.TestConstants.CASTLE_ID_2
+import drivers.TestConstants.OWNER_ID_1
+import drivers.TestConstants.OWNER_ID_2
 import reducers.applyingReducers.SoldierCreationReducer
 import objectsData.*
 import io.mockk.every
-import io.mockk.mockk
 import io.mockk.mockkObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -13,64 +20,33 @@ import kotlin.test.assertEquals
 
 
 class SoldierCreationReducerTests {
-    private val expectedSoldierId = 60
+    private val expectedRanger = 50
+    private val expectedMelee = 51
+    private val reducer = SoldierCreationReducer()
 
     @BeforeEach
     fun initStaticMocks() {
 
         mockkObject(IdGenerator)
-        every { IdGenerator.getId(any()) } returns expectedSoldierId
+        every { IdGenerator.getId(any()) } returns expectedRanger andThen expectedMelee
     }
 
     @Test
-    fun `GIVEN a correct state to add soldier WHEN reducer is called SHOULD add ranged soldier to castles`() {
-        val reducer = SoldierCreationReducer()
-        val game = mockk<Game>()
+    fun `WHEN reducer is called SHOULD add melee soldier to castles`() {
+        val game = aGame(
+            aCastle(id = CASTLE_ID_1, owner = OWNER_ID_1, soldierType = ObjectTypeEnum.RANGED, loc = Loc(5, 5)),
+            aCastle(id = CASTLE_ID_2, owner = OWNER_ID_2, soldierType = ObjectTypeEnum.MELEE, loc = Loc(6, 6))
+        )
 
-        val castleId = 1
-        val owner = 1
-
-        val castleLocation = Loc(2, 2)
-        val castle = Castle(castleId, castleLocation, ObjectTypeEnum.RANGED, owner, 10)
-        val objects = mutableMapOf<Int, GameObject>(Pair(castleId, castle))
-
-        every { game.objects } returns objects
-
-        val rangedSoldier = RangedSoldier(expectedSoldierId, castleLocation, owner)
-
-        val expectedObjects = mutableMapOf(
-            Pair(castleId, castle),
-            Pair(expectedSoldierId, rangedSoldier)
+        val expectedGame = aGame(
+            aCastle(id = CASTLE_ID_1, owner = OWNER_ID_1, soldierType = ObjectTypeEnum.RANGED, loc = Loc(5, 5)),
+            aCastle(id = CASTLE_ID_2, owner = OWNER_ID_2, soldierType = ObjectTypeEnum.MELEE, loc = Loc(6, 6)),
+            aRangedSoldier(owner = OWNER_ID_1, id = expectedRanger, loc = Loc(5, 5)),
+            aMeleeSoldier(owner = OWNER_ID_2, id = expectedMelee, loc = Loc(6, 6))
         )
 
         reducer.applyState(game)
 
-        assertEquals(expectedObjects, game.objects)
-    }
-
-    @Test
-    fun `GIVEN a correct state to add melee soldier WHEN reducer is called SHOULD add melee soldier to castles`() {
-        val reducer = SoldierCreationReducer()
-        val game = mockk<Game>()
-
-        val castleId = 1
-        val owner = 1
-
-        val castleLocation = Loc(2, 2)
-        val castle = Castle(castleId, castleLocation, ObjectTypeEnum.MELEE, owner, 10)
-        val objects = mutableMapOf<Int, GameObject>(Pair(castleId, castle))
-
-        every { game.objects } returns objects
-
-        val meleeSoldier = MeleeSoldier(expectedSoldierId, castleLocation, owner)
-
-        val expectedObjects = mutableMapOf(
-            Pair(castleId, castle),
-            Pair(expectedSoldierId, meleeSoldier)
-        )
-
-        reducer.applyState(game)
-
-        assertEquals(expectedObjects, game.objects)
+        assertEquals(expectedGame, game)
     }
 }
