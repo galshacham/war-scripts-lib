@@ -1,4 +1,4 @@
-package reducers.validatingReducers
+package reducers.interfaces
 
 import actionsData.Action
 import objectsData.Game

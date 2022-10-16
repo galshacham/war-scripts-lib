@@ -9,9 +9,9 @@ import actionsData.CaptureAction
 import objectsData.Castle
 import objectsData.Game
 import objectsData.Soldier
-import reducers.applyingReducers.IApplyReducer
-import reducers.updateReducers.IUpdateReducer
-import reducers.validatingReducers.IValidateReducer
+import reducers.interfaces.IApplyReducer
+import reducers.interfaces.IUpdateReducer
+import reducers.interfaces.IValidateReducer
 
 class CaptureReducer : IValidateReducer<CaptureAction>, IUpdateReducer<CaptureAction>, IApplyReducer {
     override fun validate(game: Game, actions: List<CaptureAction>): List<Action> {

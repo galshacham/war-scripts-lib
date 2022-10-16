@@ -2,7 +2,7 @@ package engineTests.reducerTests.validateReducers
 
 import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
 import actionsData.Action
-import reducers.validatingReducers.DuplicateActionsReducer
+import reducers.preReducers.DuplicateActionsReducer
 import objectsData.Game
 import io.mockk.every
 import io.mockk.mockk

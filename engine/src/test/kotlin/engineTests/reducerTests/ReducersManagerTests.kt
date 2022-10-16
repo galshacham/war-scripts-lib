@@ -2,9 +2,9 @@ package engineTests.reducerTests
 
 import actionsData.Action
 import reducers.ReducerManager
-import reducers.updateReducers.IUpdateReducer
-import reducers.applyingReducers.IApplyReducer
-import reducers.validatingReducers.IValidateReducer
+import reducers.interfaces.IUpdateReducer
+import reducers.interfaces.IApplyReducer
+import reducers.interfaces.IValidateReducer
 import objectsData.Game
 import io.mockk.every
 import io.mockk.mockk

@@ -4,8 +4,8 @@ import actionsData.Action
 import actionsData.MoveAction
 import objectsData.Game
 import objectsData.Soldier
-import reducers.updateReducers.IUpdateReducer
-import reducers.validatingReducers.IValidateReducer
+import reducers.interfaces.IUpdateReducer
+import reducers.interfaces.IValidateReducer
 
 class MoveReducer : IValidateReducer<MoveAction>, IUpdateReducer<MoveAction> {
     override fun validate(game: Game, actions: List<MoveAction>): List<Action> {

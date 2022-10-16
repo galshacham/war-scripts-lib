@@ -1,6 +1,6 @@
 package engineTests.reducerTests.applyingRedcuers
 
-import reducers.applyingReducers.TurnsReducer
+import reducers.postRedcuers.TurnsReducer
 import objectsData.Game
 import objectsData.GameData
 import org.junit.jupiter.api.Test

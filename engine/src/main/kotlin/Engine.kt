@@ -3,11 +3,11 @@ import finaleValidator.FinaleValidator
 import finaleValidator.validators.TurnsOverValidator
 import objectsData.*
 import reducers.ReducerManager
-import reducers.updateReducers.IUpdateReducer
-import reducers.applyingReducers.SoldierCreationReducer
-import reducers.applyingReducers.TurnsReducer
-import reducers.validatingReducers.DuplicateActionsReducer
-import reducers.validatingReducers.IValidateReducer
+import reducers.interfaces.IUpdateReducer
+import reducers.postRedcuers.SoldierCreationReducer
+import reducers.postRedcuers.TurnsReducer
+import reducers.preReducers.DuplicateActionsReducer
+import reducers.interfaces.IValidateReducer
 import reducers.MoveReducer
 
 class Engine : IEngine {
