@@ -15,9 +15,9 @@ object TestConstants {
     val CASTLE_ID_2 = 21
     val CASTLE_ID_3 = 22
 
-    val OWNER_ID_1 = 0
-    val OWNER_ID_2 = 1
-    val OWNER_ID_3 = 2
+    val OWNER_ID_1 = 1
+    val OWNER_ID_2 = 2
+    val OWNER_ID_3 = 3
 
     val LOC_1_0 = Loc(1, 0)
     val LOC_2_0 = Loc(2, 0)

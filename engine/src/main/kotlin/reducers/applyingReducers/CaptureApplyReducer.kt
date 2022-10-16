@@ -2,6 +2,7 @@ package reducers.applyingReducers
 
 import GameConstants.Companion.LOYAL_AFFECTION_RANGE
 import GameConstants.Companion.LOYAL_COUP_VALUE
+import GameConstants.Companion.MAX_LOYALTY
 import objectsData.Castle
 import objectsData.Game
 import objectsData.Soldier
@@ -30,7 +31,10 @@ class CaptureApplyReducer : IApplyReducer {
                 val mostSoldiersOwner =
                     ownersDivision.filterValues { numOfSoldiers -> numOfSoldiers == maxSoldiers }.keys
 
-                if (mostSoldiersOwner.size == 1) castle.owner = mostSoldiersOwner.first()
+                if (mostSoldiersOwner.size == 1) {
+                    castle.owner = mostSoldiersOwner.first()
+                    castle.loyalty = MAX_LOYALTY
+                }
             }
 
         }

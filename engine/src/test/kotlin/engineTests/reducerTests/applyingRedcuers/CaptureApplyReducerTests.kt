@@ -1,89 +1,84 @@
 package engineTests.reducerTests.applyingRedcuers
 
-import GameConstants.Companion.LOYAL_AFFECTION_RANGE
-import actionsData.CaptureAction
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.slot
-import objectsData.Castle
-import objectsData.Game
+import GameConstants.Companion.MAX_LOYALTY
+import drivers.GameDriver.aGame
+import drivers.ObjectsDriver.aCastle
+import drivers.ObjectsDriver.aMeleeSoldier
+import drivers.TestConstants.CASTLE_ID_1
+import drivers.TestConstants.MELEE_SOLDIER_ID_1
+import drivers.TestConstants.MELEE_SOLDIER_ID_2
+import drivers.TestConstants.MELEE_SOLDIER_ID_3
+import drivers.TestConstants.OWNER_ID_1
+import drivers.TestConstants.OWNER_ID_2
+import drivers.TestConstants.OWNER_ID_3
 import objectsData.Loc
-import objectsData.Soldier
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import reducers.applyingReducers.CaptureApplyReducer
 import kotlin.test.assertEquals
 
 class CaptureReducerTests {
-    private val castleId = 7
-    private val soldierId = 8
-    private val castleOwnerValue = 2
-    private val newOwner = 3
-    private val ownerSlot = slot<Int>()
-    private val soldier = mockk<Soldier>()
-    private val castle = mockk<Castle>()
-    private val castleLocMock = mockk<Loc>()
-    private val soldierLocMock = mockk<Loc>()
-    private val captureActionMock = mockk<CaptureAction>()
-    private val gameMock = mockk<Game>()
-    private val objects = mutableMapOf(
-        Pair(castleId, castle),
-        Pair(soldierId, soldier),
-    )
-
-    @BeforeEach
-    fun initTests() {
-        ownerSlot.captured = castleOwnerValue
-        every { gameMock.objects } returns objects
-        every { castle.loc } returns castleLocMock
-        every { soldier.loc } returns soldierLocMock
-        every { castleLocMock.inRange(any(), LOYAL_AFFECTION_RANGE) } returns true
-        every { soldier.owner } returns newOwner
-        every { castle.id } returns castleId
-        every { castle.loyalty } returns -3
-        every { castle.owner } answers { ownerSlot.captured }
-        every { castle.owner = capture(ownerSlot) } returns Unit
-        every { captureActionMock.idToCapture } returns castleId
-        every { captureActionMock.activatorId } returns soldierId
-    }
-
     private val captureApplyReducer = CaptureApplyReducer()
+    private val castleLoc = Loc(2, 2)
 
     @Test()
     fun `WHEN castle's loyalty went below zero SHOULD change castle's owner to nearby soldier's owner`() {
-        captureApplyReducer.applyState(gameMock)
+        val soldier1Loc = castleLoc.plusCols(1)
+        val game = aGame(
+            aCastle(id = CASTLE_ID_1, loyalty = -1, owner = OWNER_ID_1, loc = castleLoc),
+            aMeleeSoldier(owner = OWNER_ID_2, loc = soldier1Loc)
+        )
+        val expectedGame = aGame(
+            aCastle(id = CASTLE_ID_1, loyalty = MAX_LOYALTY, owner = OWNER_ID_2, loc = castleLoc),
+            aMeleeSoldier(owner = OWNER_ID_2, loc = soldier1Loc)
+        )
 
-        assertEquals(newOwner, castle.owner)
+        captureApplyReducer.applyState(game)
+
+        assertEquals(expectedGame, game)
     }
 
     @Test()
     fun `GIVEN soldiers of different owners WHEN castle's loyalty went below zero SHOULD change castle's owner to nearby soldier's owner most populated army`() {
-        val smallArmyOwner = 60
-        val soldier2 = mockk<Soldier>()
-        val soldier3 = mockk<Soldier>()
-        every { soldier2.owner } returns newOwner
-        every { soldier3.owner } returns smallArmyOwner
-        every { soldier2.loc } returns mockk()
-        every { soldier3.loc } returns mockk()
-        gameMock.objects[2] = soldier2
-        gameMock.objects[3] = soldier3
+        val soldier1Loc = castleLoc.plusCols(1)
+        val soldier2Loc = castleLoc.plusCols(-1)
+        val soldier3Loc = castleLoc.plusCols(1)
+        val game = aGame(
+            aCastle(id = CASTLE_ID_1, loyalty = -1, owner = OWNER_ID_1, loc = castleLoc),
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_1, owner = OWNER_ID_2, loc = soldier1Loc),
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_2, owner = OWNER_ID_2, loc = soldier2Loc),
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_3, owner = OWNER_ID_3, loc = soldier3Loc)
+        )
+        val expectedGame = aGame(
+            aCastle(id = CASTLE_ID_1, loyalty = MAX_LOYALTY, owner = OWNER_ID_2, loc = castleLoc),
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_1, owner = OWNER_ID_2, loc = soldier1Loc),
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_2, owner = OWNER_ID_2, loc = soldier2Loc),
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_3, owner = OWNER_ID_3, loc = soldier3Loc)
+        )
 
-        captureApplyReducer.applyState(gameMock)
+        captureApplyReducer.applyState(game)
 
-        assertEquals(newOwner, castle.owner)
+        assertEquals(expectedGame, game)
     }
 
     @Test()
     fun `GIVEN even amount soldiers of different owners WHEN castle's loyalty went below zero SHOULD not change castle owner`() {
-        val sameSizeArmyOwner = 60
-        val soldier2 = mockk<Soldier>()
-        every { soldier2.owner } returns sameSizeArmyOwner
-        every { soldier2.loc } returns mockk()
-        gameMock.objects[2] = soldier2
-//        every { castle.owner } returns originalCastleOwner
+        val soldier1Loc = castleLoc.plusCols(1)
+        val soldier2Loc = castleLoc.plusCols(-1)
 
-        captureApplyReducer.applyState(gameMock)
 
-        assertEquals(castleOwnerValue, castle.owner)
+        val game = aGame(
+            aCastle(id = CASTLE_ID_1, loyalty = -1, owner = OWNER_ID_1, loc = castleLoc),
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_1, owner = OWNER_ID_2, loc = soldier1Loc),
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_2, owner = OWNER_ID_3, loc = soldier2Loc)
+        )
+        val expectedGame = aGame(
+            aCastle(id = CASTLE_ID_1, loyalty = -1, owner = OWNER_ID_1, loc = castleLoc),
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_1, owner = OWNER_ID_2, loc = soldier1Loc),
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_2, owner = OWNER_ID_3, loc = soldier2Loc)
+        )
+
+        captureApplyReducer.applyState(game)
+
+        assertEquals(expectedGame, game)
     }
 }
