@@ -1,4 +1,4 @@
-package engineTests.reducerTests.validateReducers
+package engineTests.rulesTests.preReducerTests
 
 import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
 import actionsData.Action
