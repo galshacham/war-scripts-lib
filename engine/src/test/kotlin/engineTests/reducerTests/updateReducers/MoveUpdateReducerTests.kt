@@ -1,10 +1,15 @@
 package engineTests.reducerTests.updateReducers
 
 import actionsData.MoveAction
+import drivers.ActionsDrivers
+import drivers.GameDriver
+import drivers.ObjectsDriver
+import drivers.TestConstants
+import drivers.TestConstants.MELEE_SOLDIER_ID_1
+import drivers.TestConstants.RANGED_SOLDIER_ID_1
 import reducers.updateReducers.MoveUpdateReducer
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.slot
 import objectsData.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -16,45 +21,30 @@ class MoveUpdateReducerTests {
     // If we use data classes, then we are forcing them to be the last class
     // For instance, if we want to expand Soldier (just as it will go with range, melee...) but all of them use this
     // Then we must test the Soldier, but Soldier is abstract
+    // --- Note so sure about it now
+    private val meleeSoldier = ObjectsDriver.aMeleeSoldier(id = MELEE_SOLDIER_ID_1, loc = Loc(3, 3)) as Soldier
+    private val rangedSoldier = ObjectsDriver.aMeleeSoldier(id = RANGED_SOLDIER_ID_1, loc = Loc(3, 3)) as Soldier
+    private val closeLocationToSoldier = Loc(meleeSoldier.loc.col, meleeSoldier.loc.row + meleeSoldier.speed)
+    private val game = GameDriver.aGame(meleeSoldier, rangedSoldier)
+
+    private val meleeMoveAction =
+        ActionsDrivers.aMoveAction(activatorId = MELEE_SOLDIER_ID_1, newLoc = closeLocationToSoldier)
+    private val rangedMoveAction =
+        ActionsDrivers.aMoveAction(activatorId = RANGED_SOLDIER_ID_1, newLoc = closeLocationToSoldier)
+
+
+    private val moveChangeReducer = MoveUpdateReducer()
+
     @Test
     fun `WHEN updating state with MoveActionReducer SHOULD set new to new game state`() {
-        val moveChangeReducer = MoveUpdateReducer()
+        val expectedGame = GameDriver.aGame(meleeSoldier, rangedSoldier)
 
-        val newLoc1 = mockk<Loc>()
-        val newLoc2 = mockk<Loc>()
-
-        val activatorId1 = 5
-        val activatorId2 = 6
-
-        val soldier1 = mockk<Soldier>()
-        val soldier2 = mockk<Soldier>()
-
-        val loc1 = slot<Loc>()
-        val loc2 = slot<Loc>()
-
-        every { soldier1.id } returns activatorId1
-        every { soldier2.id } returns activatorId2
-        every { soldier1.loc = capture(loc1) } returns Unit
-        every { soldier2.loc = capture(loc2) } returns Unit
-
-        val gameObjects = mutableMapOf<Int, GameObject>(Pair(soldier1.id, soldier1), Pair(soldier2.id, soldier2))
-
-        val game = mockk<Game>()
-        every { game.objects } returns gameObjects
-
-        val action1 = mockk<MoveAction>()
-        val action2 = mockk<MoveAction>()
-        val actions = listOf(action1, action2)
-
-        every { action1.newLoc } returns newLoc1
-        every { action2.newLoc } returns newLoc2
-        every { action1.activatorId } returns activatorId1
-        every { action2.activatorId } returns activatorId2
+        val actions = listOf(meleeMoveAction, rangedMoveAction)
 
         moveChangeReducer.update(game, actions)
 
-        assertEquals(loc1.captured, newLoc1)
-        assertEquals(loc2.captured, newLoc2)
+        assertEquals(meleeSoldier.loc, closeLocationToSoldier)
+        assertEquals(rangedSoldier.loc, closeLocationToSoldier)
     }
 
     // This case shouldn't happen in any case!
