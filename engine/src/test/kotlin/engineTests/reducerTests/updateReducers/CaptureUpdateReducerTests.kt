@@ -2,60 +2,67 @@ package engineTests.reducerTests.updateReducers
 
 import GameConstants.Companion.LOYAL_AFFECTION_VALUE
 import actionsData.CaptureAction
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.slot
-import objectsData.Castle
-import objectsData.Game
-import objectsData.GameObject
-import org.junit.jupiter.api.BeforeEach
+import drivers.ActionsDrivers.aCaptureAction
+import drivers.GameDriver
+import drivers.ObjectsDriver.aCastle
+import drivers.ObjectsDriver.aMeleeSoldier
+import drivers.TestConstants.CASTLE_ID_1
+import drivers.TestConstants.MELEE_SOLDIER_ID_1
+import drivers.TestConstants.MELEE_SOLDIER_ID_2
+import drivers.TestConstants.MELEE_SOLDIER_ID_3
+import objectsData.*
 import org.junit.jupiter.api.Test
 import reducers.updateReducers.CaptureUpdateReducer
 import kotlin.test.assertEquals
 
 class CaptureReducerTests {
-    private val castleId = 7
-    private val castle = mockk<Castle>()
-    private val captureActionMock = mockk<CaptureAction>()
-    private val gameMock = mockk<Game>()
-    private val objects = mutableMapOf<Int, GameObject>(
-        Pair(castleId, castle),
-    )
-    private val loyaltyValue = 10
-    private val loyaltySlot = slot<Int>()
-
     private val captureValidateReducer = CaptureUpdateReducer()
-
-    @BeforeEach
-    fun initTests() {
-        loyaltySlot.captured = loyaltyValue
-        every { gameMock.objects } returns objects
-        every { captureActionMock.idToCapture } returns castleId
-
-        // Use answer here to calc the loyalty value each time instead of returns constant
-        every { castle.loyalty } answers { loyaltySlot.captured }
-        every { castle.loyalty = capture(loyaltySlot) } returns Unit
-    }
 
     @Test
     fun `WHEN soldier affecting loyalty of castle SHOULD affect castle change castle's loyalty`() {
-        val actions = listOf(captureActionMock)
+        val currentGame = GameDriver.aGame(
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_1) as Soldier,
+            aCastle(id = CASTLE_ID_1, loyalty = 10)
+        )
 
-        val expectedLoyalty = loyaltyValue - LOYAL_AFFECTION_VALUE
+        val expectedGame = GameDriver.aGame(
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_1) as Soldier,
+            aCastle(id = CASTLE_ID_1, loyalty = 10 - LOYAL_AFFECTION_VALUE)
+        )
 
-        captureValidateReducer.update(gameMock, actions)
+        val actions = listOf(
+            aCaptureAction(activatorId = MELEE_SOLDIER_ID_1),
+        )
 
-        assertEquals(expectedLoyalty, loyaltySlot.captured)
+        captureValidateReducer.update(currentGame, actions)
+
+        assertEquals(expectedGame, currentGame)
     }
 
     @Test
     fun `WHEN 3 soldiers affecting loyalty of castle SHOULD affect castle change castle's loyalty by 3`() {
-        val actions = listOf(captureActionMock, captureActionMock, captureActionMock)
+        val currentGame = GameDriver.aGame(
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_1) as Soldier,
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_2) as Soldier,
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_3) as Soldier,
+            aCastle(id = CASTLE_ID_1, loyalty = 10)
+        )
 
-        val expectedLoyalty = loyaltyValue - 3 * LOYAL_AFFECTION_VALUE
+        val expectedGame = GameDriver.aGame(
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_1) as Soldier,
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_2) as Soldier,
+            aMeleeSoldier(id = MELEE_SOLDIER_ID_3) as Soldier,
+            aCastle(id = CASTLE_ID_1, loyalty = 10 - 3 * LOYAL_AFFECTION_VALUE)
+        )
 
-        captureValidateReducer.update(gameMock, actions)
+        val actions = listOf(
+            aCaptureAction(activatorId = MELEE_SOLDIER_ID_1),
+            aCaptureAction(activatorId = MELEE_SOLDIER_ID_2),
+            aCaptureAction(activatorId = MELEE_SOLDIER_ID_3),
+        )
 
-        assertEquals(expectedLoyalty, loyaltySlot.captured)
+        captureValidateReducer.update(currentGame, actions)
+
+        assertEquals(expectedGame, currentGame)
     }
 }
