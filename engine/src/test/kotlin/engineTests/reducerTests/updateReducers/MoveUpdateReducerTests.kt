@@ -2,10 +2,11 @@ package engineTests.reducerTests.updateReducers
 
 import actionsData.MoveAction
 import drivers.ActionsDrivers
+import drivers.ActionsDrivers.aMoveAction
 import drivers.GameDriver
 import drivers.ObjectsDriver
-import drivers.TestConstants
 import drivers.TestConstants.MELEE_SOLDIER_ID_1
+import drivers.TestConstants.MELEE_SOLDIER_ID_2
 import drivers.TestConstants.RANGED_SOLDIER_ID_1
 import reducers.updateReducers.MoveUpdateReducer
 import io.mockk.every
@@ -22,54 +23,47 @@ class MoveUpdateReducerTests {
     // For instance, if we want to expand Soldier (just as it will go with range, melee...) but all of them use this
     // Then we must test the Soldier, but Soldier is abstract
     // --- Note so sure about it now
-    private val meleeSoldier = ObjectsDriver.aMeleeSoldier(id = MELEE_SOLDIER_ID_1, loc = Loc(3, 3)) as Soldier
-    private val rangedSoldier = ObjectsDriver.aMeleeSoldier(id = RANGED_SOLDIER_ID_1, loc = Loc(3, 3)) as Soldier
-    private val closeLocationToSoldier = Loc(meleeSoldier.loc.col, meleeSoldier.loc.row + meleeSoldier.speed)
-    private val game = GameDriver.aGame(meleeSoldier, rangedSoldier)
-
-    private val meleeMoveAction =
-        ActionsDrivers.aMoveAction(activatorId = MELEE_SOLDIER_ID_1, newLoc = closeLocationToSoldier)
-    private val rangedMoveAction =
-        ActionsDrivers.aMoveAction(activatorId = RANGED_SOLDIER_ID_1, newLoc = closeLocationToSoldier)
-
 
     private val moveChangeReducer = MoveUpdateReducer()
 
     @Test
     fun `WHEN updating state with MoveActionReducer SHOULD set new to new game state`() {
-        val expectedGame = GameDriver.aGame(meleeSoldier, rangedSoldier)
+        val currentSoldiersLocation = Loc(3, 3)
+        val newSoldiersLocation = Loc(1, 5)
+        val currentGame = GameDriver.aGame(
+            ObjectsDriver.aMeleeSoldier(id = MELEE_SOLDIER_ID_1, loc = currentSoldiersLocation) as Soldier,
+            ObjectsDriver.aMeleeSoldier(id = RANGED_SOLDIER_ID_1, loc = currentSoldiersLocation) as Soldier
+        )
 
-        val actions = listOf(meleeMoveAction, rangedMoveAction)
+        val expectedGame = GameDriver.aGame(
+            ObjectsDriver.aMeleeSoldier(id = MELEE_SOLDIER_ID_1, loc = newSoldiersLocation) as Soldier,
+            ObjectsDriver.aMeleeSoldier(id = RANGED_SOLDIER_ID_1, loc = newSoldiersLocation) as Soldier
+        )
 
-        moveChangeReducer.update(game, actions)
+        val actions = listOf(
+            aMoveAction(activatorId = MELEE_SOLDIER_ID_1, newLoc = newSoldiersLocation),
+            aMoveAction(activatorId = RANGED_SOLDIER_ID_1, newLoc = newSoldiersLocation)
+        )
 
-        assertEquals(meleeSoldier.loc, closeLocationToSoldier)
-        assertEquals(rangedSoldier.loc, closeLocationToSoldier)
+        moveChangeReducer.update(currentGame, actions)
+
+        assertEquals(expectedGame, currentGame)
     }
 
     // This case shouldn't happen in any case!
     // That is why when it does happen, the game should crash
     @Test
     fun `GIVEN invalid state (activatorId which doesn't exist) WHEN updating state with MoveActionReducer SHOULD throw exception`() {
-        val moveChangeReducer = MoveUpdateReducer()
+        val currentGame = GameDriver.aGame(
+            ObjectsDriver.aMeleeSoldier(id = MELEE_SOLDIER_ID_1) as Soldier,
+        )
 
-        val soldier = mockk<Soldier>()
-
-        every { soldier.id } returns 4
-
-        val gameObjects = mutableMapOf<Int, GameObject>(Pair(soldier.id, soldier))
-
-        val game = mockk<Game>()
-        every { game.objects } returns gameObjects
-
-        val action = mockk<MoveAction>()
-        val actions = listOf(action)
-
-        val noneExistId = 6
-        every { action.activatorId } returns noneExistId
+        val actions = listOf(
+            aMoveAction(activatorId = MELEE_SOLDIER_ID_2),
+        )
 
         assertThrows<java.lang.NullPointerException> {
-            moveChangeReducer.update(game, actions)
+            moveChangeReducer.update(currentGame, actions)
         }
     }
 }
