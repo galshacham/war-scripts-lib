@@ -13,11 +13,11 @@ import drivers.TestConstants.OWNER_ID_2
 import drivers.TestConstants.OWNER_ID_3
 import objectsData.Loc
 import org.junit.jupiter.api.Test
-import reducers.applyingReducers.CaptureApplyReducer
+import reducers.CaptureReducer
 import kotlin.test.assertEquals
 
 class CaptureReducerTests {
-    private val captureApplyReducer = CaptureApplyReducer()
+    private val captureReducer = CaptureReducer()
     private val castleLoc = Loc(2, 2)
 
     @Test()
@@ -32,7 +32,7 @@ class CaptureReducerTests {
             aMeleeSoldier(owner = OWNER_ID_2, loc = soldier1Loc)
         )
 
-        captureApplyReducer.applyState(game)
+        captureReducer.applyState(game)
 
         assertEquals(expectedGame, game)
     }
@@ -55,7 +55,7 @@ class CaptureReducerTests {
             aMeleeSoldier(id = MELEE_SOLDIER_ID_3, owner = OWNER_ID_3, loc = soldier3Loc)
         )
 
-        captureApplyReducer.applyState(game)
+        captureReducer.applyState(game)
 
         assertEquals(expectedGame, game)
     }
@@ -77,7 +77,7 @@ class CaptureReducerTests {
             aMeleeSoldier(id = MELEE_SOLDIER_ID_2, owner = OWNER_ID_3, loc = soldier2Loc)
         )
 
-        captureApplyReducer.applyState(game)
+        captureReducer.applyState(game)
 
         assertEquals(expectedGame, game)
     }

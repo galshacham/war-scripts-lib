@@ -10,11 +10,11 @@ import drivers.TestConstants.OWNER_ID_1
 import drivers.TestConstants.OWNER_ID_2
 import objectsData.Loc
 import org.junit.jupiter.api.Test
-import reducers.validatingReducers.CaptureValidateReducer
+import reducers.CaptureReducer
 import kotlin.test.assertEquals
 
-class CaptureValidateReducerTests {
-    private val captureValidateReducer = CaptureValidateReducer()
+class CaptureReducerTests {
+    private val captureReducer = CaptureReducer()
 
     @Test
     fun `WHEN soldier affecting loyalty on an existing castle in range SHOULD not filter action`() {
@@ -27,7 +27,7 @@ class CaptureValidateReducerTests {
 
         val expectedActions = listOf(validAction)
 
-        val actualActions = captureValidateReducer.validate(game, expectedActions)
+        val actualActions = captureReducer.validate(game, expectedActions)
 
         assertEquals(expectedActions, actualActions)
     }
@@ -42,7 +42,7 @@ class CaptureValidateReducerTests {
 
         val actions = listOf(invalidAction)
 
-        val actualActions = captureValidateReducer.validate(game, actions)
+        val actualActions = captureReducer.validate(game, actions)
 
         assertEquals(listOf(), actualActions)
     }

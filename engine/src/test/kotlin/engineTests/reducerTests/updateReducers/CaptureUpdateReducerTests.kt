@@ -1,7 +1,6 @@
 package engineTests.reducerTests.updateReducers
 
 import GameConstants.Companion.LOYAL_AFFECTION_VALUE
-import actionsData.CaptureAction
 import drivers.ActionsDrivers.aCaptureAction
 import drivers.GameDriver
 import drivers.ObjectsDriver.aCastle
@@ -12,11 +11,11 @@ import drivers.TestConstants.MELEE_SOLDIER_ID_2
 import drivers.TestConstants.MELEE_SOLDIER_ID_3
 import objectsData.*
 import org.junit.jupiter.api.Test
-import reducers.updateReducers.CaptureUpdateReducer
+import reducers.CaptureReducer
 import kotlin.test.assertEquals
 
 class CaptureReducerTests {
-    private val captureValidateReducer = CaptureUpdateReducer()
+    private val captureValidateReducer = CaptureReducer()
 
     @Test
     fun `WHEN soldier affecting loyalty of castle SHOULD affect castle change castle's loyalty`() {

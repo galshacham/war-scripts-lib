@@ -20,6 +20,7 @@ class Engine : IEngine {
         Finalizing - 1,2,3,4.... - each finalization applies more changes needed to be done for the next turn
      */
 
+    // TODO: add captures and test for this
     private val reducerManager: ReducerManager = ReducerManager(
         listOf(
             DuplicateActionsReducer(),

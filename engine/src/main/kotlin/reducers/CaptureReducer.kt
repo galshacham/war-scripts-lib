@@ -1,13 +1,33 @@
-package reducers.applyingReducers
+package reducers
 
 import GameConstants.Companion.LOYAL_AFFECTION_RANGE
+import GameConstants.Companion.LOYAL_AFFECTION_VALUE
 import GameConstants.Companion.LOYAL_COUP_VALUE
 import GameConstants.Companion.MAX_LOYALTY
+import actionsData.Action
+import actionsData.CaptureAction
 import objectsData.Castle
 import objectsData.Game
 import objectsData.Soldier
+import reducers.applyingReducers.IApplyReducer
+import reducers.updateReducers.IUpdateReducer
+import reducers.validatingReducers.IValidateReducer
 
-class CaptureApplyReducer : IApplyReducer {
+class CaptureReducer : IValidateReducer<CaptureAction>, IUpdateReducer<CaptureAction>, IApplyReducer {
+    override fun validate(game: Game, actions: List<CaptureAction>): List<Action> {
+        return actions.filter {
+            game.objects[it.idToCapture]!!.loc.inRange(game.objects[it.activatorId]!!.loc, LOYAL_AFFECTION_RANGE)
+        }
+    }
+
+    override fun update(game: Game, actions: List<CaptureAction>) {
+        actions.forEach {
+            val castle = game.objects[it.idToCapture] as Castle
+
+            castle.loyalty -= LOYAL_AFFECTION_VALUE
+        }
+    }
+
     override fun applyState(game: Game) {
         game.objects.forEach() {
             if (it.value is Castle) {
@@ -39,5 +59,4 @@ class CaptureApplyReducer : IApplyReducer {
 
         }
     }
-
 }
