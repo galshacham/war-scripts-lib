@@ -10,7 +10,7 @@ import drivers.TestConstants.CASTLE_ID_1
 import drivers.TestConstants.CASTLE_ID_2
 import drivers.TestConstants.OWNER_ID_1
 import drivers.TestConstants.OWNER_ID_2
-import reducers.postRedcuers.SoldierCreationReducer
+import rules.postRedcuers.SoldierCreationReducer
 import objectsData.*
 import io.mockk.every
 import io.mockk.mockkObject

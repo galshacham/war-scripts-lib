@@ -1,11 +1,11 @@
-package reducers
+package rules.reducers
 
 import actionsData.Action
 import actionsData.MoveAction
 import objectsData.Game
 import objectsData.Soldier
-import reducers.interfaces.IUpdateReducer
-import reducers.interfaces.IValidateReducer
+import rules.interfaces.IUpdateReducer
+import rules.interfaces.IValidateReducer
 
 class MoveReducer : IValidateReducer<MoveAction>, IUpdateReducer<MoveAction> {
     override fun validate(game: Game, actions: List<MoveAction>): List<Action> {

@@ -13,7 +13,7 @@ import drivers.TestConstants.OWNER_ID_2
 import drivers.TestConstants.OWNER_ID_3
 import objectsData.Loc
 import org.junit.jupiter.api.Test
-import reducers.CaptureReducer
+import rules.reducers.CaptureReducer
 import kotlin.test.assertEquals
 
 class CaptureReducerTests {

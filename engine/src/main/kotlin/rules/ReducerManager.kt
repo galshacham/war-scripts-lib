@@ -1,9 +1,9 @@
-package reducers
+package rules
 
 import actionsData.Action
-import reducers.interfaces.IUpdateReducer
-import reducers.interfaces.IApplyReducer
-import reducers.interfaces.IValidateReducer
+import rules.interfaces.IUpdateReducer
+import rules.interfaces.IApplyReducer
+import rules.interfaces.IValidateReducer
 import objectsData.Game
 
 class ReducerManager(

@@ -1,4 +1,4 @@
-package reducers.interfaces
+package rules.interfaces
 
 import actionsData.Action
 import objectsData.Game

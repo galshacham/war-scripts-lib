@@ -1,8 +1,8 @@
-package reducers.preReducers
+package rules.preReducers
 
 import actionsData.Action
 import objectsData.Game
-import reducers.interfaces.IValidateReducer
+import rules.interfaces.IValidateReducer
 
 // TODO: maybe this needs to be on preReducer just like SoldierCreation needs to be on postReducer
 class DuplicateActionsReducer : IValidateReducer<Action> {

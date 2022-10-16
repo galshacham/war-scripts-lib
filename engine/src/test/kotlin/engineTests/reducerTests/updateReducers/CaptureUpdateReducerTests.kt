@@ -11,7 +11,7 @@ import drivers.TestConstants.MELEE_SOLDIER_ID_2
 import drivers.TestConstants.MELEE_SOLDIER_ID_3
 import objectsData.*
 import org.junit.jupiter.api.Test
-import reducers.CaptureReducer
+import rules.reducers.CaptureReducer
 import kotlin.test.assertEquals
 
 class CaptureReducerTests {

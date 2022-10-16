@@ -9,7 +9,7 @@ import drivers.TestConstants.RANGED_SOLDIER_ID_1
 import objectsData.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import reducers.MoveReducer
+import rules.reducers.MoveReducer
 import kotlin.test.assertEquals
 
 class MoveReducerTests {

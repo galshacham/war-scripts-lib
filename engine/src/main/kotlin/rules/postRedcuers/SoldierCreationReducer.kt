@@ -1,9 +1,9 @@
-package reducers.postRedcuers
+package rules.postRedcuers
 
 import IdGenerator
 import enums.ObjectTypeEnum
 import objectsData.*
-import reducers.interfaces.IApplyReducer
+import rules.interfaces.IApplyReducer
 
 class SoldierCreationReducer : IApplyReducer {
     override fun applyState(game: Game) {

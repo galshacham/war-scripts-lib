@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
+// TODO: this needs to be normal dataclasses
 class TurnsOverValidatorTests {
     @Test
     fun `WHEN turns are not maxed SHOULD return false`() {

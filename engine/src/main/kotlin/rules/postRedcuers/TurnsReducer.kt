@@ -1,7 +1,7 @@
-package reducers.postRedcuers
+package rules.postRedcuers
 
 import objectsData.Game
-import reducers.interfaces.IApplyReducer
+import rules.interfaces.IApplyReducer
 
 class TurnsReducer : IApplyReducer {
     override fun applyState(game: Game) {

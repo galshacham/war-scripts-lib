@@ -6,7 +6,7 @@ import drivers.ActionsDrivers.aMoveAction
 import drivers.GameDriver.aGame
 import drivers.ObjectsDriver
 import drivers.TestConstants.MELEE_SOLDIER_ID_1
-import reducers.MoveReducer
+import rules.reducers.MoveReducer
 import objectsData.Loc
 import objectsData.Soldier
 import org.junit.jupiter.api.Test
