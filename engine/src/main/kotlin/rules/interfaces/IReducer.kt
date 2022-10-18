@@ -3,8 +3,8 @@ package rules.interfaces
 import actionsData.Action
 import rules.states.IState
 
-interface IReducer {
-    fun setState(state: IState, action: Action): IState
-    fun validateAction(state: IState, action: Action): Boolean
+interface IReducer<STATE: IState> {
+    fun setState(state: STATE, action: Action): STATE
+    fun validateAction(state: STATE, action: Action): Boolean
     fun ignoreAction(action: Action)
 }

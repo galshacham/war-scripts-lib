@@ -7,20 +7,20 @@ import rules.states.IState
 import rules.states.StateManager
 
 class ReducerHandler(
-    private val reducers: List<IReducer>,
+    private val reducers: List<IReducer<IState>>,
     private val stateManager: StateManager
 ) {
     fun setState(game: Game, action: Action): Game {
-        val stateList = reducers.map { stateManager.getState(game, it) }.toMutableList()
-
-        if (reducers.all {
-                it.validateAction(stateList[reducers.indexOf(it)], action)
-            }) {
-            reducers.forEachIndexed { index, reducer -> stateList[index] = reducer.setState(stateList[index], action) }
+        val states: List<IState> = if (validateAllReducers(game, action)) {
+            reducers.map { it.setState(stateManager.getState(game, it), action) }
         } else {
             reducers.forEach { it.ignoreAction(action) }
+            mutableListOf()
         }
 
-        return stateManager.mergeState(stateList)
+        return stateManager.mergeState(states)
     }
+
+    private fun validateAllReducers(game: Game, action: Action) =
+        reducers.all { it.validateAction(stateManager.getState(game, it), action) }
 }

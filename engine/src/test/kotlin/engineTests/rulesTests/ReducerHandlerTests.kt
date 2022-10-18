@@ -16,7 +16,7 @@ import rules.states.StateManager
 class ReducerHandlerTests {
     @Test
     fun `GIVEN valid action duo to game WHEN reducer manager sets state SHOULD validate and execute action`() {
-        val reducer = mockk<IReducer>()
+        val reducer = mockk<IReducer<IState>>()
         val stateManager = mockk<StateManager>()
 
         val currentGame = mockk<Game>()

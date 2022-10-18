@@ -4,7 +4,7 @@ import objectsData.Game
 import rules.interfaces.IReducer
 
 class StateManager {
-    fun getState(game: Game, reducer: IReducer): IState {
+    fun getState(game: Game, reducer: IReducer<IState>): IState {
         TODO("Not yet implemented")
     }
 
