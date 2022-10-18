@@ -1,7 +1,10 @@
 package rules.interfaces
 
-import kotlin.reflect.KClass
+import actionsData.Action
+import rules.states.IState
 
 interface IReducer {
-    fun getActionType(): KClass<*>
+    fun setState(state: IState, action: Action): IState
+    fun validateAction(state: IState, action: Action): Boolean
+    fun ignoreAction(action: Action)
 }

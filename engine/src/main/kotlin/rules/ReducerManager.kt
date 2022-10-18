@@ -3,12 +3,11 @@ package rules
 import actionsData.Action
 import rules.interfaces.IUpdateReducer
 import rules.interfaces.IApplyReducer
-import rules.interfaces.IValidateReducer
+import rules.interfaces.IValidateReducerOld
 import objectsData.Game
-import kotlin.reflect.typeOf
 
 class ReducerManager(
-    private val validatingReducers: List<IValidateReducer<Action>>,
+    private val validatingReducers: List<IValidateReducerOld<Action>>,
     private val updatingReducers: List<IUpdateReducer<Action>>,
     private val applyingReducers: List<IApplyReducer>
 ) {

@@ -6,7 +6,7 @@ import actionsData.MoveAction
 import rules.ReducerManager
 import rules.interfaces.IUpdateReducer
 import rules.interfaces.IApplyReducer
-import rules.interfaces.IValidateReducer
+import rules.interfaces.IValidateReducerOld
 import objectsData.Game
 import io.mockk.every
 import io.mockk.mockk
@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test
 class ReducersManagerTests {
     @Test
     fun `WHEN reducer manager validate SHOULD call all validation reducers and use their results on each other`() {
-        val validateReducer1 = mockk<IValidateReducer<Action>>()
-        val validateReducer2 = mockk<IValidateReducer<Action>>()
+        val validateReducer1 = mockk<IValidateReducerOld<Action>>()
+        val validateReducer2 = mockk<IValidateReducerOld<Action>>()
 
         val game = mockk<Game>()
         val actions = listOf(mockk<Action>())
@@ -74,8 +74,8 @@ class ReducersManagerTests {
 
     @Test
     fun `WHEN reducer manager validates different action types SHOULD separate between each Action`() {
-        val validateReducer1 = mockk<IValidateReducer<Action>>()
-        val validateReducer2 = mockk<IValidateReducer<Action>>()
+        val validateReducer1 = mockk<IValidateReducerOld<Action>>()
+        val validateReducer2 = mockk<IValidateReducerOld<Action>>()
 
         val game = mockk<Game>()
         val captureAction = mockk<CaptureAction>()

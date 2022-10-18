@@ -2,7 +2,7 @@ package engineTests.rulesTests.preReducerTests
 
 import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
 import actionsData.Action
-import rules.preReducers.DuplicateActionsReducer
+import rules.preReducers.DuplicateActionsReducerOld
 import objectsData.Game
 import io.mockk.every
 import io.mockk.mockk
@@ -12,7 +12,7 @@ import kotlin.test.assertEquals
 
 // This class should stay with mocks because there is no need for real actions here, just abstractions
 class DuplicateActionsReducerTests {
-    private val duplicateActionsReducer = DuplicateActionsReducer()
+    private val duplicateActionsReducer = DuplicateActionsReducerOld()
     private lateinit var game: Game
     private lateinit var action1: Action
     private lateinit var action2: Action

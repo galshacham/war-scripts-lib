@@ -9,11 +9,11 @@ import drivers.TestConstants
 import objectsData.Loc
 import objectsData.Soldier
 import org.junit.jupiter.api.Test
-import rules.reducers.CaptureReducer
+import rules.reducers.CaptureReducerOld
 import kotlin.test.assertEquals
 
 class CaptureRescuerTests {
-    private val captureReducer = CaptureReducer()
+    private val captureReducer = CaptureReducerOld()
 
     @Test
     fun `WHEN soldier affecting loyalty on an existing castle in range SHOULD not filter action`() {

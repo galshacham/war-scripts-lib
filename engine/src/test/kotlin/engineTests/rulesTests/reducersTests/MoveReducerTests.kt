@@ -10,7 +10,7 @@ import objectsData.Loc
 import objectsData.Soldier
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import rules.reducers.MoveReducer
+import rules.reducers.MoveReducerOld
 import java.lang.NullPointerException
 import kotlin.test.assertEquals
 
@@ -22,7 +22,7 @@ import kotlin.test.assertEquals
 // --- Note so sure about it now
 
 class MoveReducerTests {
-    private val moveReducer = MoveReducer()
+    private val moveReducer = MoveReducerOld()
     private val soldier = ObjectsDriver.aMeleeSoldier(id = TestConstants.MELEE_SOLDIER_ID_1, loc = Loc(3, 3)) as Soldier
     private val closeLocationToSoldier = Loc(soldier.loc.col, soldier.loc.row + soldier.speed)
     private val validAction = ActionsDrivers.aMoveAction(activatorId = TestConstants.MELEE_SOLDIER_ID_1, newLoc = closeLocationToSoldier)

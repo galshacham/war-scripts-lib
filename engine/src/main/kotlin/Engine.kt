@@ -2,14 +2,14 @@ import  actionsData.Action
 import finaleValidator.FinaleValidator
 import finaleValidator.validators.TurnsOverValidator
 import objectsData.*
-import rules.reducers.CaptureReducer
+import rules.reducers.CaptureReducerOld
 import rules.ReducerManager
 import rules.interfaces.IUpdateReducer
 import rules.postRedcuers.SoldierCreationReducer
 import rules.postRedcuers.TurnsReducer
-import rules.preReducers.DuplicateActionsReducer
-import rules.interfaces.IValidateReducer
-import rules.reducers.MoveReducer
+import rules.preReducers.DuplicateActionsReducerOld
+import rules.interfaces.IValidateReducerOld
+import rules.reducers.MoveReducerOld
 
 class Engine : IEngine {
     // Note!
@@ -19,16 +19,16 @@ class Engine : IEngine {
         Activations - 1,2,3,4... - each activation applies changes of specific action type for all actions
         Finalizing - 1,2,3,4.... - each finalization applies more changes needed to be done for the next turn
      */
-    private val moveReducer = MoveReducer()
-    private val captureReducer = CaptureReducer()
+    private val moveReducer = MoveReducerOld()
+    private val captureReducer = CaptureReducerOld()
 
     // TODO: add captures and test for this
     private val reducerManager: ReducerManager = ReducerManager(
         listOf(
-            DuplicateActionsReducer(),
+            DuplicateActionsReducerOld(),
             moveReducer,
             captureReducer
-        ) as List<IValidateReducer<Action>>,
+        ) as List<IValidateReducerOld<Action>>,
 
         listOf(moveReducer as (IUpdateReducer<Action>),
             captureReducer as (IUpdateReducer<Action>)),

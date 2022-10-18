@@ -6,16 +6,15 @@ import GameConstants.Companion.LOYAL_COUP_VALUE
 import GameConstants.Companion.MAX_LOYALTY
 import actionsData.Action
 import actionsData.CaptureAction
-import actionsData.MoveAction
 import objectsData.Castle
 import objectsData.Game
 import objectsData.Soldier
 import rules.interfaces.IApplyReducer
 import rules.interfaces.IUpdateReducer
-import rules.interfaces.IValidateReducer
+import rules.interfaces.IValidateReducerOld
 import kotlin.reflect.KClass
 
-class CaptureReducer : IValidateReducer<CaptureAction>, IUpdateReducer<CaptureAction>, IApplyReducer {
+class CaptureReducerOld : IValidateReducerOld<CaptureAction>, IUpdateReducer<CaptureAction>, IApplyReducer {
     override fun validate(game: Game, actions: List<CaptureAction>): List<Action> {
         return actions.filter {
             game.objects[it.idToCapture]!!.loc.inRange(game.objects[it.activatorId]!!.loc, LOYAL_AFFECTION_RANGE)

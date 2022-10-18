@@ -4,12 +4,12 @@ import actionsData.Action
 import actionsData.MoveAction
 import objectsData.Game
 import objectsData.Soldier
-import rules.interfaces.IReducer
+import rules.interfaces.IReducerOld
 import rules.interfaces.IUpdateReducer
-import rules.interfaces.IValidateReducer
+import rules.interfaces.IValidateReducerOld
 import kotlin.reflect.KClass
 
-class MoveReducer : IValidateReducer<MoveAction>, IUpdateReducer<MoveAction>, IReducer {
+class MoveReducerOld : IValidateReducerOld<MoveAction>, IUpdateReducer<MoveAction>, IReducerOld {
     override fun validate(game: Game, actions: List<MoveAction>): List<Action> {
         return actions.filter {
             val soldier = game.objects[it.activatorId] as Soldier
