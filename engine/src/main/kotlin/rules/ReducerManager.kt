@@ -5,6 +5,7 @@ import rules.interfaces.IUpdateReducer
 import rules.interfaces.IApplyReducer
 import rules.interfaces.IValidateReducer
 import objectsData.Game
+import kotlin.reflect.typeOf
 
 class ReducerManager(
     private val validatingReducers: List<IValidateReducer<Action>>,
@@ -12,10 +13,20 @@ class ReducerManager(
     private val applyingReducers: List<IApplyReducer>
 ) {
     fun validateState(game: Game, actions: List<Action>): List<Action> {
-        var filteredActions = actions
-        validatingReducers.forEach { filteredActions = it.validate(game, filteredActions) }
+        var legalActions = actions
+        validatingReducers.forEach { reducer ->
+            legalActions.forEach { action ->
+                if (action::class == reducer.getActionType()) {
 
-        return filteredActions
+                } else {
+
+                }
+            }
+            val filteredActionsForReducer = legalActions.filter { it::class == reducer.getActionType() }
+            legalActions = reducer.validate(game, filteredActionsForReducer)
+        }
+
+        return legalActions
     }
 
     // TODO: Maybe change actions to action

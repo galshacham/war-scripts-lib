@@ -4,10 +4,12 @@ import actionsData.Action
 import actionsData.MoveAction
 import objectsData.Game
 import objectsData.Soldier
+import rules.interfaces.IReducer
 import rules.interfaces.IUpdateReducer
 import rules.interfaces.IValidateReducer
+import kotlin.reflect.KClass
 
-class MoveReducer : IValidateReducer<MoveAction>, IUpdateReducer<MoveAction> {
+class MoveReducer : IValidateReducer<MoveAction>, IUpdateReducer<MoveAction>, IReducer {
     override fun validate(game: Game, actions: List<MoveAction>): List<Action> {
         return actions.filter {
             val soldier = game.objects[it.activatorId] as Soldier
@@ -26,6 +28,10 @@ class MoveReducer : IValidateReducer<MoveAction>, IUpdateReducer<MoveAction> {
 
             soldier!!.loc = it.newLoc
         }
+    }
+
+    override fun getActionType(): KClass<MoveAction> {
+        return MoveAction::class
     }
 }
 

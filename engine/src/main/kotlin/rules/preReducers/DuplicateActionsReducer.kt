@@ -3,6 +3,7 @@ package rules.preReducers
 import actionsData.Action
 import objectsData.Game
 import rules.interfaces.IValidateReducer
+import kotlin.reflect.KClass
 
 // TODO: maybe this needs to be on preReducer just like SoldierCreation needs to be on postReducer
 class DuplicateActionsReducer : IValidateReducer<Action> {
@@ -18,5 +19,9 @@ class DuplicateActionsReducer : IValidateReducer<Action> {
             }
         }
         return filteredList
+    }
+
+    override fun getActionType(): KClass<*> {
+        return Action::class
     }
 }

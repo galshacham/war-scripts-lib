@@ -1,6 +1,8 @@
 package engineTests.rulesTests
 
 import actionsData.Action
+import actionsData.CaptureAction
+import actionsData.MoveAction
 import rules.ReducerManager
 import rules.interfaces.IUpdateReducer
 import rules.interfaces.IApplyReducer
@@ -68,5 +70,34 @@ class ReducersManagerTests {
         manager.applyState(game)
 
         applyReducers.forEach { verify { it.applyState(game) } }
+    }
+
+    @Test
+    fun `WHEN reducer manager validates different action types SHOULD separate between each Action`() {
+        val validateReducer1 = mockk<IValidateReducer<Action>>()
+        val validateReducer2 = mockk<IValidateReducer<Action>>()
+
+        val game = mockk<Game>()
+        val captureAction = mockk<CaptureAction>()
+        val moveActionMove = mockk<MoveAction>()
+
+        val actions = listOf(captureAction, moveActionMove)
+
+
+        every { validateReducer1.validate(game, listOf(captureAction)) } returns listOf()
+        every { validateReducer2.validate(game, listOf(moveActionMove)) } returns listOf()
+
+        every { validateReducer1.getActionType() } returns CaptureAction::class
+        every { validateReducer2.getActionType() } returns MoveAction::class
+
+        val validateReducers = listOf(
+            validateReducer1, validateReducer2
+        )
+
+        val manager = ReducerManager(validateReducers, listOf(), listOf())
+        manager.validateState(game, actions)
+
+        verify { validateReducer1.validate(game, listOf(captureAction)) }
+        verify { validateReducer2.validate(game, listOf(moveActionMove)) }
     }
 }
