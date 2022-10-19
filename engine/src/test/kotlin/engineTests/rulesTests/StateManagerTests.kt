@@ -9,6 +9,7 @@ import objectsData.Soldier
 import org.junit.jupiter.api.Test
 //import rules.interfaces.ISoldiersReducer
 import rules.reducers.SoldiersReducer
+import rules.states.SoldiersState
 import rules.states.StateManager
 import kotlin.test.assertEquals
 
@@ -31,11 +32,13 @@ class StateManagerTests {
         )
 
 
-        val state = stateManager.getState(game, reducer).getState()
+        val state = stateManager.getState(game, reducer)
 
-        val expectedState = mutableMapOf(
-            Pair(1, soldier1),
-            Pair(3, soldier2)
+        val expectedState = SoldiersState(
+            mutableMapOf(
+                Pair(1, soldier1),
+                Pair(3, soldier2)
+            )
         )
 
         assertEquals(expectedState, state)

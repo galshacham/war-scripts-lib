@@ -2,6 +2,7 @@ package rules.reducers
 
 import actionsData.Action
 import enums.ReducerEnum
+import objectsData.Soldier
 import rules.interfaces.IReducer
 import rules.states.SoldiersState
 
@@ -17,6 +18,7 @@ class SoldiersReducer : IReducer<SoldiersState> {
     override fun ignoreAction(action: Action) {
         TODO("Not yet implemented")
     }
+
 
     override fun getReducerType(): ReducerEnum = ReducerEnum.SOLDIERS
 }
