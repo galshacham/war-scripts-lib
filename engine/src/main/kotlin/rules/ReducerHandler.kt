@@ -11,16 +11,19 @@ class ReducerHandler(
     private val stateManager: StateManager
 ) {
     fun setState(game: Game, action: Action): Game {
-        val states: List<IState> = if (validateAllReducers(game, action)) {
+        val failingReducers = getFailingReducers(game, action)
+
+        val states: List<IState> = if (failingReducers.isEmpty()) {
             reducers.map { it.setState(stateManager.getState(game, it), action) }
         } else {
-            reducers.forEach { it.ignoreAction(action) }
-            mutableListOf()
+            failingReducers.forEach { it.ignoreAction(action) }
+            listOf()
         }
 
         return stateManager.mergeState(states)
     }
 
-    private fun validateAllReducers(game: Game, action: Action) =
-        reducers.all { it.validateAction(stateManager.getState(game, it), action) }
+    private fun getFailingReducers(game: Game, action: Action) = reducers.filter {
+        !it.validateAction(stateManager.getState(game, it), action)
+    }
 }
