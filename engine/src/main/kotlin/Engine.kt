@@ -16,6 +16,8 @@ import rules.interfaces.IValidateReducerOld
 import rules.reducers.MoveReducerOld
 import rules.states.StateManager
 
+// Now that I think about it, the engine should probably implament somehow the shit it is using
+// Maybe as an abstarct class
 class Engine : IEngine {
     // Note! TODO: change it soon
     /*
