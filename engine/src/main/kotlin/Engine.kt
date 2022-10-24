@@ -1,4 +1,5 @@
 import  actionsData.Action
+import filters.ActionsFilterManager
 import finaleValidator.FinaleValidator
 import finaleValidator.validators.TurnsOverValidator
 import kotlinx.serialization.decodeFromString
@@ -26,6 +27,7 @@ class Engine : IEngine {
         Activations - 1,2,3,4... - each activation applies changes of specific action type for all actions
         Finalizing - 1,2,3,4.... - each finalization applies more changes needed to be done for the next turn
      */
+    private val actionFinaleValidator = ActionsFilterManager(listOf())
 
     // TODO, does these needs to be here, or be constructed for tests?
     private val reducerHandler = ReducerHandler(
@@ -42,7 +44,9 @@ class Engine : IEngine {
         // TODO here I need to add the owner for validations since someone can just push actions himself as another owner
         var newGameState = Json.decodeFromString<Game>(Json.encodeToString(gameState))
 
-        actions.forEach {
+        val validActions = actionFinaleValidator.filterActions(newGameState, actions)
+
+        validActions.forEach {
             newGameState = reducerHandler.setState(newGameState, it)
         }
 

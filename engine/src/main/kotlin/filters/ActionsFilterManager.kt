@@ -3,7 +3,7 @@ package filters
 import actionsData.Action
 import objectsData.Game
 
-class ActionsFilterManager(val predicates: List<IValidActionPredicate>) {
+class ActionsFilterManager(private val predicates: List<IValidActionPredicate>) {
     fun filterActions(game: Game, actions: List<Action>): List<Action> =
         actions.filter { validate(game, it) }
 
