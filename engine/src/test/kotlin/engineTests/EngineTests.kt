@@ -1,12 +1,15 @@
 package engineTests
 
-import Action
+import AbstractAction
+import AbstractGame
 import Engine
-import Game
 import IFilterManager
 import IStateManager
 import IStatusManager
-import io.mockk.*
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
+import io.mockk.verifyOrder
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -17,61 +20,61 @@ class EngineTests {
     private val stateMock = mockk<IStateManager>()
     private val statusMock = mockk<IStatusManager>()
     private val engine = Engine(filterMock, stateMock, statusMock)
-    private val initialGameState = mockk<Game>()
-    private val gameStateAfterChange = mockk<Game>()
-    private val gameStateAfterPost = mockk<Game>()
+    private val initialAbstractGameState = mockk<AbstractGame>()
+    private val abstractGameStateAfterChange = mockk<AbstractGame>()
+    private val abstractGameStateAfterPost = mockk<AbstractGame>()
 
 
     @Test
     fun `GIVEN valid actions WHEN engine runs turn SHOULD run all actions and return new game state`() {
-        val actions = listOf<Action>(mockk(), mockk())
+        val abstractActions = listOf<AbstractAction>(mockk(), mockk())
 
-        every { filterMock.filterActions(initialGameState, actions) } returns actions
-        every { stateMock.setState(initialGameState, actions) } returns gameStateAfterChange
-        every { stateMock.postSetState(gameStateAfterChange) } returns gameStateAfterPost
+        every { filterMock.filterActions(initialAbstractGameState, abstractActions) } returns abstractActions
+        every { stateMock.setState(initialAbstractGameState, abstractActions) } returns abstractGameStateAfterChange
+        every { stateMock.postSetState(abstractGameStateAfterChange) } returns abstractGameStateAfterPost
 
-        val actualGame = engine.runTurn(initialGameState, actions)
+        val actualGame = engine.runTurn(initialAbstractGameState, abstractActions)
 
         verifyOrder {
-            filterMock.filterActions(initialGameState, actions)
-            stateMock.setState(initialGameState, actions)
-            stateMock.postSetState(gameStateAfterChange)
+            filterMock.filterActions(initialAbstractGameState, abstractActions)
+            stateMock.setState(initialAbstractGameState, abstractActions)
+            stateMock.postSetState(abstractGameStateAfterChange)
         }
 
-        assertEquals(actualGame, gameStateAfterPost)
+        assertEquals(actualGame, abstractGameStateAfterPost)
     }
 
     @Test
     fun `GIVEN both valid and invalid WHEN engine runs turn SHOULD filter all invalid actions`() {
-        val valid = mockk<Action>()
-        val invalid1 = mockk<Action>()
-        val invalid2 = mockk<Action>()
+        val valid = mockk<AbstractAction>()
+        val invalid1 = mockk<AbstractAction>()
+        val invalid2 = mockk<AbstractAction>()
         val actions = listOf(invalid1, valid, invalid2)
         val validActions = listOf(valid)
-        every { filterMock.filterActions(initialGameState, actions) } returns validActions
-        every { stateMock.setState(initialGameState, validActions) } returns gameStateAfterChange
-        every { stateMock.postSetState(gameStateAfterChange) } returns gameStateAfterPost
+        every { filterMock.filterActions(initialAbstractGameState, actions) } returns validActions
+        every { stateMock.setState(initialAbstractGameState, validActions) } returns abstractGameStateAfterChange
+        every { stateMock.postSetState(abstractGameStateAfterChange) } returns abstractGameStateAfterPost
 
-        engine.runTurn(initialGameState, actions)
+        engine.runTurn(initialAbstractGameState, actions)
 
         verify {
-            filterMock.filterActions(initialGameState, actions)
-            stateMock.setState(initialGameState, validActions)
-            stateMock.postSetState(gameStateAfterChange)
+            filterMock.filterActions(initialAbstractGameState, actions)
+            stateMock.setState(initialAbstractGameState, validActions)
+            stateMock.postSetState(abstractGameStateAfterChange)
         }
     }
 
     @Test
     fun `WHEN checking if game is over SHOULD return true when status manager returns true`() {
-        every { statusMock.validateGameOver(initialGameState) } returns true
+        every { statusMock.validateGameOver(initialAbstractGameState) } returns true
 
-        assertTrue(engine.isOver(initialGameState))
+        assertTrue(engine.isOver(initialAbstractGameState))
     }
 
     @Test
     fun `WHEN checking if game is over SHOULD return false when status manager returns false`() {
-        every { statusMock.validateGameOver(initialGameState) } returns false
+        every { statusMock.validateGameOver(initialAbstractGameState) } returns false
 
-        assertFalse(engine.isOver(initialGameState))
+        assertFalse(engine.isOver(initialAbstractGameState))
     }
 }

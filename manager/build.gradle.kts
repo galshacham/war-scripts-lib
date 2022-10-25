@@ -14,8 +14,8 @@ repositories {
 }
 
 dependencies {
-  implementation("wsl.game:objects:1.0.0")
-  implementation("wsl.game:engine:1.0.0")
+  implementation("wsl.game:baseObjects:1.0.0")
+    implementation("wsl.game:engine:1.0.0")
   implementation("wsl.game:runner:1.0.0")
   testImplementation(kotlin("test"))
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")

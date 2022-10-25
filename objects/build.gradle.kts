@@ -15,11 +15,12 @@ repositories {
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
-  testImplementation(kotlin("test"))
-  testImplementation("io.mockk:mockk:1.12.4")
-  testImplementation("org.assertj:assertj-core:3.22.0")
-  testImplementation("com.github.stefanbirkner:system-lambda:1.2.0")
+    implementation("wsl.game:baseObjects:1.0.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+    testImplementation(kotlin("test"))
+    testImplementation("io.mockk:mockk:1.12.4")
+    testImplementation("org.assertj:assertj-core:3.22.0")
+    testImplementation("com.github.stefanbirkner:system-lambda:1.2.0")
 }
 
 tasks.test {

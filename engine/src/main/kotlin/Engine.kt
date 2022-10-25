@@ -3,15 +3,15 @@ class Engine(
     private val stateManager: IStateManager,
     private val statusManager: IStatusManager,
 ) : IEngine {
-    override fun runTurn(gameState: Game, actions: List<Action>): Game {
-        val validActions = filterManager.filterActions(gameState, actions)
+    override fun runTurn(abstractGameState: AbstractGame, abstractActions: List<AbstractAction>): AbstractGame {
+        val validActions = filterManager.filterActions(abstractGameState, abstractActions)
 
-        val newGameState = stateManager.setState(gameState, validActions)
+        val newGameState = stateManager.setState(abstractGameState, validActions)
 
         return stateManager.postSetState(newGameState)
     }
 
-    override fun isOver(gameState: Game): Boolean {
-        return statusManager.validateGameOver(gameState)
+    override fun isOver(abstractGameState: AbstractGame): Boolean {
+        return statusManager.validateGameOver(abstractGameState)
     }
 }

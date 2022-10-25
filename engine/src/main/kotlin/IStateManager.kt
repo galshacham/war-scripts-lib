@@ -1,5 +1,5 @@
 interface IStateManager {
-//    fun preSetState(newGameState: Game, action: List<Action>)
-    fun setState(newGameState: Game, action: List<Action>): Game
-    fun postSetState(newGameState: Game): Game
+    //    fun preSetState(newGameState: Game, action: List<Action>)
+    fun setState(newAbstractGameState: AbstractGame, abstractAction: List<AbstractAction>): AbstractGame
+    fun postSetState(newAbstractGameState: AbstractGame): AbstractGame
 }

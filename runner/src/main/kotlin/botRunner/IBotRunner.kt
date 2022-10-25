@@ -1,5 +1,5 @@
 package botRunner
 
 interface IBotRunner {
-    fun doTurn(currentGameStateJson: String): String
+    fun doTurn(currentGameStateJson: ByteArray): ByteArray
 }

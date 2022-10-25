@@ -1,5 +1,4 @@
 import actionsData.MoveAction
-import io.mockk.mockk
 import kotlinx.serialization.json.Json
 import objectsData.Game
 import objectsData.GameData
@@ -18,7 +17,7 @@ class JsonHandlerTests {
         )
         val expectedGame = """{"objects":{},"gameData":{"maxTurns":6,"currentTurn":5}}"""
 
-        val actualGameString = jsonHandler.parseGameToJson(game)
+        val actualGameString = String(jsonHandler.gameToBuffer(game))
 
         assertEquals(expectedGame, actualGameString)
     }
@@ -26,13 +25,13 @@ class JsonHandlerTests {
     @Test
     fun `WHEN deserializing game string to game object SHOULD deserialize correctly`() {
         val jsonHandler = JsonHandler(Json)
-        val gameString = """{"objects":{},"gameData":{"maxTurns":6,"currentTurn":5}}"""
+        val gameString = """{"objects":{},"gameData":{"maxTurns":6,"currentTurn":5}}""".toByteArray()
 
         val expectedGame = Game(
             mutableMapOf(), GameData(6, 5)
         )
 
-        val actualGame = jsonHandler.parseJsonToGame(gameString)
+        val actualGame = jsonHandler.bufferToGame(gameString)
 
         assertEquals(expectedGame, actualGame)
     }
@@ -40,11 +39,11 @@ class JsonHandlerTests {
     @Test
     fun `WHEN deserializing actions string to actions object list SHOULD deserialize correctly`() {
         val jsonHandler = JsonHandler(Json)
-        val actionsString = """[{"activatorId":5,"type":"MOVE","newLoc":{"row":6,"col":5}}]"""
+        val actionsString = """[{"activatorId":5,"type":"MOVE","newLoc":{"row":6,"col":5}, "owner": 1}]""".toByteArray()
 
-        val expectedActions = listOf(MoveAction(5, Loc(5,6), 1))
+        val expectedActions = listOf(MoveAction(5, Loc(5, 6), 1))
 
-        val actualActions = jsonHandler.parseJsonToActions(actionsString)
+        val actualActions = jsonHandler.bufferToActionList(actionsString)
 
         assertEquals(expectedActions, actualActions)
     }

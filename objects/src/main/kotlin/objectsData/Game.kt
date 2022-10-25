@@ -1,4 +1,7 @@
 package objectsData
 
-@kotlinx.serialization.Serializable
-data class Game(val objects: MutableMap<Int, GameObject>, val gameData: GameData)
+import AbstractGame
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Game(val objects: MutableMap<Int, GameObject>, val gameData: GameData) : AbstractGame()

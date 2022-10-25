@@ -1,3 +1,3 @@
 interface IFilterManager {
-    fun filterActions(newGameState: Game, actions: List<Action>): List<Action>
+    fun filterActions(newAbstractGameState: AbstractGame, abstractActions: List<AbstractAction>): List<AbstractAction>
 }

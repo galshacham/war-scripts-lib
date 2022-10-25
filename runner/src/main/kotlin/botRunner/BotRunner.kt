@@ -1,9 +1,6 @@
 package botRunner
 
 import exceptions.BotRuntimeException
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.nio.charset.Charset
 
 class BotRunner(botAbsolutePath: String, player: Int, runtime: Runtime, execString: String) : IBotRunner {
     private var process: Process
@@ -15,10 +12,10 @@ class BotRunner(botAbsolutePath: String, player: Int, runtime: Runtime, execStri
         this.process = runtime.exec(command)
     }
 
-    override fun doTurn(currentGameStateJson: String): String {
+    override fun doTurn(currentGameStateJson: ByteArray): ByteArray {
         val inputStream = process.inputStream.bufferedReader()
 
-        process.outputStream.write(currentGameStateJson.toByteArray())
+        process.outputStream.write(currentGameStateJson)
         process.outputStream.flush()
 
         val newGameStateJson = inputStream.readLine()
@@ -30,6 +27,6 @@ class BotRunner(botAbsolutePath: String, player: Int, runtime: Runtime, execStri
             throw BotRuntimeException("Compilation error of bot, stacktrace presented here:\n$errorOutput")
         }
 
-        return newGameStateJson
+        return newGameStateJson.toByteArray()
     }
 }

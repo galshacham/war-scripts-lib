@@ -1,9 +1,10 @@
-import actionsData.Action
 import botRunner.BotRunnerFactory
 import botRunner.IBotRunner
 import exceptions.NoArgumentsException
-import io.mockk.*
-import objectsData.Game
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
+import io.mockk.verifyAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
@@ -45,81 +46,81 @@ class ManagerTests {
     fun `GIVEN initiated manager WHEN running manager SHOULD run bots with states until isOver returns true`() {
         val factoryMock = mockk<BotRunnerFactory>()
         val engineMock = mockk<IEngine>()
-        val jsonHandlerMock = mockk<JsonHandler>()
+        val translatorMock = mockk<ITranslator>()
         val botRunnerMock = mockk<IBotRunner>()
 
         val botPath = "validBot"
 
         every { factoryMock.createBotRunner(botPath, 0) } returns botRunnerMock
 
-        val turn1StringState = "g1"
-        val turn2StringState = "g2"
-        val turn3StringState = "g3"
+        val turn1BufferState = "g1".toByteArray()
+        val turn2BufferState = "g2".toByteArray()
+        val turn3BufferState = "g3".toByteArray()
         // There are 4 stringStates but only 3 objectState since the objectState is generated after checking if the game is over
-        val turn1State = mockk<Game>()
-        val turn2State = mockk<Game>()
-        val turn3State = mockk<Game>()
-        val turn4State = mockk<Game>()
+        val turn1State = mockk<AbstractGame>()
+        val turn2State = mockk<AbstractGame>()
+        val turn3State = mockk<AbstractGame>()
+        val turn4State = mockk<AbstractGame>()
 
-        val turn1Actions = listOf(mockk<Action>())
-        val turn2Actions = listOf(mockk<Action>())
-        val turn3Actions = listOf(mockk<Action>())
+        val turn1AbstractActions = listOf(mockk<AbstractAction>())
+        val turn2AbstractActions = listOf(mockk<AbstractAction>())
+        val turn3AbstractActions = listOf(mockk<AbstractAction>())
 
-        val turn1StringActions = "a1"
-        val turn2StringActions = "a2"
-        val turn3StringActions = "a3"
+        val turn1BufferActions = "a1".toByteArray()
+        val turn2BufferActions = "a2".toByteArray()
+        val turn3BufferActions = "a3".toByteArray()
 
-        every { jsonHandlerMock.parseJsonToGame(turn1StringState) } returns turn1State
+        every { translatorMock.bufferToGame(turn1BufferState) } returns turn1State
 
         every { engineMock.isOver(turn1State) } returns false
         every { engineMock.isOver(turn2State) } returns false
         every { engineMock.isOver(turn3State) } returns false
         every { engineMock.isOver(turn4State) } returns true
 
-        every { jsonHandlerMock.parseGameToJson(turn1State) } returns turn1StringState
-        every { jsonHandlerMock.parseGameToJson(turn2State) } returns turn2StringState
-        every { jsonHandlerMock.parseGameToJson(turn3State) } returns turn3StringState
+        every { translatorMock.gameToBuffer(turn1State) } returns turn1BufferState
+        every { translatorMock.gameToBuffer(turn2State) } returns turn2BufferState
+        every { translatorMock.gameToBuffer(turn3State) } returns turn3BufferState
 
-        every { botRunnerMock.doTurn(turn1StringState) } returns turn1StringActions
-        every { botRunnerMock.doTurn(turn2StringState) } returns turn2StringActions
-        every { botRunnerMock.doTurn(turn3StringState) } returns turn3StringActions
+        every { botRunnerMock.doTurn(turn1BufferState) } returns turn1BufferActions
+        every { botRunnerMock.doTurn(turn2BufferState) } returns turn2BufferActions
+        every { botRunnerMock.doTurn(turn3BufferState) } returns turn3BufferActions
 
-        every { jsonHandlerMock.parseJsonToActions(turn1StringActions) } returns turn1Actions
-        every { jsonHandlerMock.parseJsonToActions(turn2StringActions) } returns turn2Actions
-        every { jsonHandlerMock.parseJsonToActions(turn3StringActions) } returns turn3Actions
+        every { translatorMock.bufferToActionList(turn1BufferActions) } returns turn1AbstractActions
+        every { translatorMock.bufferToActionList(turn2BufferActions) } returns turn2AbstractActions
+        every { translatorMock.bufferToActionList(turn3BufferActions) } returns turn3AbstractActions
 
-        every { engineMock.runTurn(turn1State, turn1Actions) } returns turn2State
-        every { engineMock.runTurn(turn2State, turn2Actions) } returns turn3State
-        every { engineMock.runTurn(turn3State, turn3Actions) } returns turn4State
+        every { engineMock.runTurn(turn1State, turn1AbstractActions) } returns turn2State
+        every { engineMock.runTurn(turn2State, turn2AbstractActions) } returns turn3State
+        every { engineMock.runTurn(turn3State, turn3AbstractActions) } returns turn4State
 
-        val manager = Manager(factoryMock, engineMock, jsonHandlerMock)
+        val manager = Manager(factoryMock, engineMock, translatorMock)
 
         manager.init(botPath)
-        manager.runGame(turn1StringState)
+        manager.runGame(turn1BufferState)
 
         verifyAll {
-            jsonHandlerMock.parseJsonToGame(turn1StringState)
+            translatorMock.bufferToGame(turn1BufferState)
 
             engineMock.isOver(turn1State)
             engineMock.isOver(turn2State)
             engineMock.isOver(turn3State)
             engineMock.isOver(turn4State)
 
-            jsonHandlerMock.parseGameToJson(turn1State)
-            jsonHandlerMock.parseGameToJson(turn2State)
-            jsonHandlerMock.parseGameToJson(turn3State)
+            translatorMock.gameToBuffer(turn1State)
+            translatorMock.gameToBuffer(turn2State)
+            translatorMock.gameToBuffer(turn3State)
 
-            botRunnerMock.doTurn(turn1StringState)
-            botRunnerMock.doTurn(turn2StringState)
-            botRunnerMock.doTurn(turn3StringState)
+            botRunnerMock.doTurn(turn1BufferState)
+            botRunnerMock.doTurn(turn2BufferState)
+            botRunnerMock.doTurn(turn3BufferState)
 
-            jsonHandlerMock.parseJsonToActions(turn1StringActions)
-            jsonHandlerMock.parseJsonToActions(turn2StringActions)
-            jsonHandlerMock.parseJsonToActions(turn3StringActions)
+            translatorMock.bufferToActionList(turn1BufferActions)
+            translatorMock.bufferToActionList(turn2BufferActions)
+            translatorMock.bufferToActionList(turn3BufferActions)
 
-            engineMock.runTurn(turn1State, turn1Actions)
-            engineMock.runTurn(turn2State, turn2Actions)
-            engineMock.runTurn(turn3State, turn3Actions)
+            engineMock.runTurn(turn1State, turn1AbstractActions)
+            engineMock.runTurn(turn2State, turn2AbstractActions)
+            engineMock.runTurn(turn3State, turn3AbstractActions)
         }
     }
 

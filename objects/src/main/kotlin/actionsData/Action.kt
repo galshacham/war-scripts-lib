@@ -1,5 +1,6 @@
 package actionsData
 
+import AbstractAction
 import Globals.Companion.ACTION_JSON_SERIALIZER_REF
 import enums.ActionTypeEnum
 import kotlinx.serialization.DeserializationStrategy
@@ -8,10 +9,6 @@ import kotlinx.serialization.json.JsonContentPolymorphicSerializer
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import objectsData.Castle
-import objectsData.GameObject
-import objectsData.MeleeSoldier
-import objectsData.RangedSoldier
 
 // TODO: add serialization tests
 
@@ -26,7 +23,7 @@ object ActionModuleSerializer : JsonContentPolymorphicSerializer<Action>(Action:
 
 
 @Serializable(with = ActionModuleSerializer::class)
-abstract class Action {
+abstract class Action : AbstractAction() {
     abstract val type: ActionTypeEnum
     abstract val owner: Int
     abstract val activatorId: Int

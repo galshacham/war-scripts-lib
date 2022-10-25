@@ -1,4 +1,4 @@
 interface IEngine {
-    fun runTurn(gameState: Game, actions: List<Action>): Game
-    fun isOver(gameState: Game): Boolean
+    fun runTurn(abstractGameState: AbstractGame, abstractActions: List<AbstractAction>): AbstractGame
+    fun isOver(abstractGameState: AbstractGame): Boolean
 }

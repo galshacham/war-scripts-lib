@@ -1,3 +1,3 @@
 interface IStatusManager {
-    fun validateGameOver(gameState: Game): Boolean
+    fun validateGameOver(abstractGameState: AbstractGame): Boolean
 }

@@ -1,16 +1,18 @@
 package botRunner
 
 import Constants.Companion.JS_RUNNER_PATH
-import org.junit.jupiter.api.Test
 import TestConstants.Companion.JS_VALID_BOT_PATH
 import exceptions.BotRuntimeException
 import io.mockk.every
 import io.mockk.mockk
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.io.ByteArrayInputStream
 import java.io.OutputStream
 import kotlin.test.assertEquals
 
+
+// TODO: This all fails right now, but i need to fix it anyway
 class BotRunnerTests {
 
     @Test
@@ -23,14 +25,14 @@ class BotRunnerTests {
         val execProgram = "node $JS_RUNNER_PATH"
         val botPath = JS_VALID_BOT_PATH
 
-        val someGameState = "Hello Omer!"
-        val expectedGameState = "This is the new gameState!"
-        val inputStream = ByteArrayInputStream(expectedGameState.toByteArray())
+        val someGameState = "Hello Omer!".toByteArray()
+        val expectedGameState = "This is the new gameState!".toByteArray()
+        val inputStream = ByteArrayInputStream(expectedGameState)
 
         every { runtimeMock.exec("$execProgram $botPath $side") } returns processMock
         every { processMock.inputStream } returns inputStream
         every { processMock.outputStream } returns outputStreamMock
-        every { outputStreamMock.write(someGameState.toByteArray()) } returns Unit
+        every { outputStreamMock.write(someGameState) } returns Unit
         every { outputStreamMock.flush() } returns Unit
 
         val bot = BotRunner(botPath, side, runtimeMock, execProgram)
@@ -50,16 +52,16 @@ class BotRunnerTests {
         val execProgram = "node $JS_RUNNER_PATH"
         val botPath = JS_VALID_BOT_PATH
 
-        val someGameState = "Hello Omer!"
-        val expectedErrorMessage = "This is the new gameState!"
+        val someGameState = "Hello Omer!".toByteArray()
+        val expectedErrorMessage = "This is the new gameState!".toByteArray()
         val inputStream = ByteArrayInputStream("".toByteArray())
-        val errorStream = ByteArrayInputStream(expectedErrorMessage.toByteArray())
+        val errorStream = ByteArrayInputStream(expectedErrorMessage)
 
         every { runtimeMock.exec("$execProgram $botPath $side") } returns processMock
         every { processMock.inputStream } returns inputStream
         every { processMock.errorStream } returns errorStream
         every { processMock.outputStream } returns outputStreamMock
-        every { outputStreamMock.write(someGameState.toByteArray()) } returns Unit
+        every { outputStreamMock.write(someGameState) } returns Unit
         every { outputStreamMock.flush() } returns Unit
 
         val bot = BotRunner(botPath, side, runtimeMock, execProgram)

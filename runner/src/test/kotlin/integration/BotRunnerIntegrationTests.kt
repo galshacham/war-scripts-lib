@@ -1,11 +1,11 @@
 package integration
 
-import botRunner.BotRunnerFactory
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
 import TestConstants
 import TestConstants.Companion.SIMPLE_ACTIONS_AFTER_TURN_JSON
 import TestConstants.Companion.SIMPLE_GAME_STATE_JSON
+import botRunner.BotRunnerFactory
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import kotlin.test.Ignore
 
 
@@ -23,7 +23,7 @@ class BotRunnerIntegrationTests {
 
         val botRunner = fact.createBotRunner(botPath, side)
 
-        val actualActions = botRunner.doTurn(SIMPLE_GAME_STATE_JSON)
+        val actualActions = botRunner.doTurn(SIMPLE_GAME_STATE_JSON.toByteArray())
 
         val expectedActions = SIMPLE_ACTIONS_AFTER_TURN_JSON
 
