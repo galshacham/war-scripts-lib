@@ -14,7 +14,6 @@ repositories {
 }
 
 dependencies {
-    implementation("wsl.game:baseObjects:1.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
     testImplementation(kotlin("test"))
     testImplementation("io.mockk:mockk:1.12.4")
